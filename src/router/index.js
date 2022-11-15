@@ -31,11 +31,13 @@ const routes = [
     path: "/home",
     name: "HomeView",
     component: HomeView,
+    redirect: "/home/videosearch/search",
     children: [
       {
         path: "videosearch",
         name: "VideoSearchView",
         component: VideoSearchView,
+        redirect: "/home/videosearch/search",
         children: [
           {
             path: "search",

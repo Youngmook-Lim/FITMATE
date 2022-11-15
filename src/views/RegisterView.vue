@@ -6,6 +6,11 @@
         <tr>
           <th>아이디</th>
           <td><input type="text" v-model="user.u_id" /></td>
+          <td>
+            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
+              중복확인
+            </button>
+          </td>
         </tr>
         <tr>
           <th>비밀번호</th>
@@ -63,6 +68,7 @@ import axios from "axios";
 import { mapState } from "vuex";
 
 export default {
+  name: "RegisterView",
   data() {
     return {
       user: {
@@ -74,6 +80,7 @@ export default {
         phone_no: "",
         nickname: "",
       },
+      isOk: true,
     };
   },
   methods: {
@@ -85,6 +92,17 @@ export default {
     toLogin() {
       this.$router.push({ name: "LoginView" });
     },
+    checkDuplicate() {
+      axios.get(this.API_URL, this.user.u_id).then((res) => {
+        if (res.data === true) {
+          alert("이미 사용중인 아이디입니다.");
+          this.isOk = false;
+        } else {
+          alert("사용 가능한 아이디입니다.");
+          this.isOk = true;
+        }
+      });
+    },
   },
   computed: {
     ...mapState(["API_URL"]),
@@ -92,4 +110,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.ok {
+  background-color: green;
+}
+</style>

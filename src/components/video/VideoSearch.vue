@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>얘는 비디오 검색하는 곳</h4>
+    <h4>비디오 검색</h4>
     <search-video-input></search-video-input>
     <search-video-result></search-video-result>
   </div>
