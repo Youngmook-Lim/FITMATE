@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2>로그인</h2>
+    <h2>로그인 페이지</h2>
     <form @submit.prevent="login">
       <label for="id">아이디 : </label>
-      <input type="text" v-model="id" id="id" required /><br />
+      <input type="text" v-model="u_id" id="id" required /><br />
       <label for="pw">비밀번호 : </label
       ><input type="password" v-model="pw" id="pw" required /><br />
       <input type="submit" value="로그인" />
@@ -19,30 +19,27 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      id: "",
+      u_id: "",
       pw: "",
     };
   },
   methods: {
     login() {
-      const user = {
-        id: this.id,
-        pw: this.pw,
-      };
       axios
-        .get(this.API_URL, user)
+        .get(`${this.API_URL}/userApi/login`, this.u_id, this.pw)
         .then((res) => {
-          if (res.data === "no_id") {
+          if (res.data === "FAIL") {
             alert("등록된 아이디가 없습니다.");
-            throw new Error();
-          } else if (res.data === "fail") {
+            throw new Error("등록된 아이디가 없습니다.");
+          } else if (res.data === "WRONG") {
             alert("비밀번호가 맞지 않습니다.");
-            throw new Error();
+            throw new Error("비밀번호가 맞지 않습니다.");
           }
-          return axios.get(this.API_URL, user.id);
+          return axios.get(`${this.API_URL}/userApi/detail`, this.u_id);
         })
         .then((res) => {
-          this.myUser = res.data;
+          this.$store.commit("SET_MY_USER", res.data);
+          // this.myUser = res.data;
           this.$router.push({ name: "HomeView" });
         })
         .catch((err) => {
@@ -54,7 +51,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["API_URL", "myUser"]),
+    ...mapState(["API_URL"]),
   },
   created() {
     // 만약 세션에 로그인이 등록되어 있으면

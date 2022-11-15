@@ -5,7 +5,7 @@
       <table>
         <tr>
           <th>아이디</th>
-          <td><input type="text" v-model="user.u_id" /></td>
+          <td><input type="text" v-model="user.u_id" required /></td>
           <td>
             <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
               중복확인
@@ -14,43 +14,50 @@
         </tr>
         <tr>
           <th>비밀번호</th>
-          <td><input type="password" v-model="user.pw" /></td>
+          <td><input type="password" v-model="user.pw" required /></td>
         </tr>
         <tr>
-          <th>이름</th>
-          <td><input type="text" v-model="user.name" /></td>
+          <th>성명</th>
+          <td><input type="text" v-model="user.name" required /></td>
         </tr>
         <tr>
           <th>이메일</th>
-          <td><input type="email" v-model="user.email" /></td>
+          <td><input type="email" v-model="user.email" required /></td>
         </tr>
         <tr>
           <th>성별</th>
           <td>
             <div>
-              <label for="men" value="남">남</label>
+              <label for="man" value="남">남</label>
               <input
                 type="radio"
                 v-model="user.gender"
                 name="gender"
-                value="men"
-                id="men"
+                value="man"
+                id="man"
               />
 
-              <label for="women">여</label>
+              <label for="woman">여</label>
               <input
                 type="radio"
                 v-model="user.gender"
                 name="gender"
-                value="women"
-                id="women"
+                value="woman"
+                id="woman"
               />
             </div>
           </td>
         </tr>
         <tr>
           <th>전화번호</th>
-          <td><input type="number" v-model="user.phone_no" /></td>
+          <td>
+            <input
+              type="tel"
+              pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
+              v-model="user.phone_no"
+              placeholder="예 : 010-123(4)-5678"
+            />
+          </td>
         </tr>
         <tr>
           <th>닉네임</th>
@@ -76,7 +83,7 @@ export default {
         pw: "",
         name: "",
         email: "",
-        gender: "",
+        gender: "man",
         phone_no: "",
         nickname: "",
       },
@@ -85,16 +92,15 @@ export default {
   },
   methods: {
     registUser() {
+      this.user.phone_no = parseInt(this.user.phone_no.split("-").join(""));
+
       axios
-        .post(this.API_URL, this.user)
+        .post(`${this.API_URL}/userApi/regist`, this.user)
         .then(() => this.$router.push({ name: "login" }));
     },
-    toLogin() {
-      this.$router.push({ name: "LoginView" });
-    },
     checkDuplicate() {
-      axios.get(this.API_URL, this.user.u_id).then((res) => {
-        if (res.data === true) {
+      axios.get(`${this.API_URL}/userApi/check`, this.user.u_id).then((res) => {
+        if (res.data === "FAIL") {
           alert("이미 사용중인 아이디입니다.");
           this.isOk = false;
         } else {
@@ -102,6 +108,9 @@ export default {
           this.isOk = true;
         }
       });
+    },
+    toLogin() {
+      this.$router.push({ name: "LoginView" });
     },
   },
   computed: {
@@ -113,5 +122,9 @@ export default {
 <style>
 .ok {
   background-color: green;
+}
+
+table {
+  margin: 0 auto;
 }
 </style>
