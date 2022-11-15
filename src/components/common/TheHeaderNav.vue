@@ -1,0 +1,44 @@
+<template>
+  <div class="header">
+    <router-link :to="{ name: 'HomeView' }">SSAFYGRAM</router-link>
+    <div>
+      <router-link
+        :to="{
+          name: 'UserViewMain',
+          params: {
+            id: myUser.u_id,
+          },
+        }"
+        >내 정보</router-link
+      >
+      <button @click="logout">로그아웃</button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+
+export default {
+  name: "TheHeaderNav",
+  methods: {
+    logout() {
+      this.myUser = {};
+      // 토큰 지우기?
+      this.$router.push({ name: "LoginView" });
+    },
+  },
+  computed: {
+    ...mapState(["myUser"]),
+  },
+};
+</script>
+
+<style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: grey;
+}
+</style>
