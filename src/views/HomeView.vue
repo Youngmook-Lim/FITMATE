@@ -30,8 +30,6 @@ export default {
     },
   },
   created() {
-    // 등록되어 있으면 axios로 지금 로그인 한 계정 갖고와서 myUser 업데이트 시켜주기
-
     // sessionStorage.setItem(
     //   "access-token",
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJteU1lc3NhZ2UiOiJXVEZGRkZGIEJST09PT08ifQ.Tf3M9Y8v6vzhDENFgucVt4c9KN1GQn0avqBEpMR_FRQ"
@@ -43,9 +41,10 @@ export default {
       axios
         .get(`userApi/detail`, payload.u_id)
         .then((res) => this.$store.commit("SET_MY_USER", res.data));
-    } else {
-      this.$router.push({ name: "LoginView" });
     }
+    // else {
+    // this.$router.push({ name: "LoginView" });
+    // }
   },
 };
 </script>
