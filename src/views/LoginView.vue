@@ -28,13 +28,14 @@ export default {
       axios
         .get(`${this.API_URL}/userApi/login`, this.u_id, this.pw)
         .then((res) => {
-          if (res.data === "FAIL") {
+          if (res.data.message === "fail") {
             alert("등록된 아이디가 없습니다.");
             throw new Error("등록된 아이디가 없습니다.");
-          } else if (res.data === "WRONG") {
+          } else if (res.data.message === "wrong") {
             alert("비밀번호가 맞지 않습니다.");
             throw new Error("비밀번호가 맞지 않습니다.");
           }
+          sessionStorage.setItem("access-token", res.data["access-token"]);
           return axios.get(`${this.API_URL}/userApi/detail`, this.u_id);
         })
         .then((res) => {

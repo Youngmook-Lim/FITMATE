@@ -20,7 +20,7 @@ export default {
     let id = this.$route.params.id;
     axios
       .get(`${this.API_URL}/videoApi/video/${id}`)
-      .then((res) => (this.video = res.data));
+      .then((res) => this.$store.commit("SET_VIDEO", res.data));
 
     axios
       .get(`${this.API_URL}/commentApi`, { v_id: this.video.v_id })
@@ -30,7 +30,7 @@ export default {
       .get(`${this.API_URL}/favoriteApi/favoritePeople`, {
         v_id: this.video.v_id,
       })
-      .then((res) => (this.videoFavoriteUsers = res.data));
+      .then((res) => this.$store.commit("SET_VIDEO_FAVORITE_USERS", res.data));
   },
   computed: {
     ...mapState(["API_URL", "video", "comments", "videoFavoriteUsers"]),

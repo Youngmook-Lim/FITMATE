@@ -30,9 +30,7 @@ export default new Vuex.Store({
       state.myUserFollowers.push(state.curUser);
     },
     DELETE_FOLLOWER(state) {
-      state.myUserFollowers = state.myUserFollowers.filter(
-        (f) => f.u_id !== state.curUser.u_id
-      );
+      state.myUserFollowers = state.myUserFollowers.filter((f) => f.u_id !== state.curUser.u_id);
     },
     CLEAR_ALL(state) {
       state.curUser = {};
@@ -71,6 +69,12 @@ export default new Vuex.Store({
     },
     DELETE_COMMENT(state, payload) {
       state.comments = state.comments.filter((c) => c.c_id !== payload);
+    },
+    SET_VIDEOS(state, payload) {
+      state.videos = payload;
+    },
+    SET_VIDEO_FAVORITE_USERS(state, payload) {
+      state.videoFavoriteUsers = payload;
     },
   },
   actions: {},

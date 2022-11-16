@@ -15,8 +15,13 @@ export default {
     TheHeaderNav,
   },
   created() {
-    // 만약 세션에 로그인이 등록되어 있지 않으면
-    // this.$router.push({ name: "LoginView" });
+    if (!sessionStorage.getItem("access-token")) {
+      this.$router.push({ name: "LoginView" });
+    } else {
+      axios.get(`${this.API_URL}/userApi/detail`, this.u_id).then((res) => {
+        this.$store.commit("SET_MY_USER", res.data);
+      });
+    }
     // 등록되어 있으면 axios로 지금 로그인 한 계정 갖고와서 myUser 업데이트 시켜주기
   },
 };

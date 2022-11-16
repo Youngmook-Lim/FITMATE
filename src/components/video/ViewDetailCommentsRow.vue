@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>{{ comment.nickname }}</div>
-    <textarea cols="30" rows="3" v-model="tmpContent"></textarea>
+    <textarea cols="30" rows="3" v-model="tmpContent" :readonly="{ isReadonly }"></textarea>
     <div>{{ comment.reg_date }}</div>
     <br />
     <div v-if="myUser.u_id === comment.u_id">
@@ -23,10 +23,16 @@ export default {
   data() {
     return {
       tmpContent: "",
+      isReadonly: true,
     };
   },
   methods: {
     updateComment() {
+      if (this.isReadonly) {
+        this.isReadonly = false;
+        return;
+      }
+      this.isReadonly = true;
       axios
         .put(`${this.API_URL}/commentApi`, {
           c_id: this.comment.c_id,

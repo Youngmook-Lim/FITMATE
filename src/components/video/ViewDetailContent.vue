@@ -1,10 +1,7 @@
 <template>
   <div>
     <h5>비디오 상세 정보</h5>
-    <iframe
-      :src="`https://www.youtube.com/embed/${video.v_id}`"
-      frameborder="0"
-    ></iframe>
+    <iframe :src="`https://www.youtube.com/embed/${video.v_id}`" frameborder="0"></iframe>
     <p>{{ video.title }}</p>
     <p>{{ video.v_writer }}</p>
     <p>{{ video.reg_date }}</p>
@@ -14,7 +11,6 @@
 
     <button v-if="checkIfFavorite()" @click="unfavorite">💔</button>
     <button v-else @click="favorite">❤</button>
-    <!-- 좋아요는 추후 작성-->
   </div>
 </template>
 
@@ -52,9 +48,6 @@ export default {
         })
         .then(() => this.$store.commit("UNFAVORITE"));
     },
-  },
-  created() {
-    // axios.
   },
 };
 </script>

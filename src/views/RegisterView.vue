@@ -7,9 +7,7 @@
           <th>아이디</th>
           <td><input type="text" v-model="user.u_id" required /></td>
           <td>
-            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
-              중복확인
-            </button>
+            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">중복확인</button>
           </td>
         </tr>
         <tr>
@@ -29,22 +27,10 @@
           <td>
             <div>
               <label for="man" value="남">남</label>
-              <input
-                type="radio"
-                v-model="user.gender"
-                name="gender"
-                value="man"
-                id="man"
-              />
+              <input type="radio" v-model="user.gender" name="gender" value="man" id="man" />
 
               <label for="woman">여</label>
-              <input
-                type="radio"
-                v-model="user.gender"
-                name="gender"
-                value="woman"
-                id="woman"
-              />
+              <input type="radio" v-model="user.gender" name="gender" value="woman" id="woman" />
             </div>
           </td>
         </tr>
@@ -87,7 +73,7 @@ export default {
         phone_no: "",
         nickname: "",
       },
-      isOk: false,
+      isOk: true,
     };
   },
   methods: {

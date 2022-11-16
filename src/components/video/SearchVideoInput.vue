@@ -54,7 +54,7 @@ export default {
           category: this.category,
           range: this.range,
         })
-        .then((res) => (this.videos = res.data));
+        .then((res) => this.$store.commit("SET_VIDEOS", res.data));
     },
   },
   computed: {
