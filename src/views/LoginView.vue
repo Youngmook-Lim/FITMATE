@@ -13,8 +13,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
+import axios from "@/util/http-common.js";
 
 export default {
   data() {
@@ -26,7 +25,7 @@ export default {
   methods: {
     login() {
       axios
-        .get(`${this.API_URL}/userApi/login`, this.u_id, this.pw)
+        .get(`userApi/login`, this.u_id, this.pw)
         .then((res) => {
           if (res.data.message === "fail") {
             alert("등록된 아이디가 없습니다.");
@@ -36,6 +35,7 @@ export default {
             throw new Error("비밀번호가 맞지 않습니다.");
           }
           sessionStorage.setItem("access-token", res.data["access-token"]);
+
           return axios.get(`${this.API_URL}/userApi/detail`, this.u_id);
         })
         .then((res) => {
@@ -50,9 +50,6 @@ export default {
     register() {
       this.$router.push({ name: "RegisterView" });
     },
-  },
-  computed: {
-    ...mapState(["API_URL"]),
   },
   created() {
     // 만약 세션에 로그인이 등록되어 있으면

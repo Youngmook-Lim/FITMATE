@@ -1,7 +1,10 @@
 <template>
   <div>
     <h5>비디오 상세 정보</h5>
-    <iframe :src="`https://www.youtube.com/embed/${video.v_id}`" frameborder="0"></iframe>
+    <iframe
+      :src="`https://www.youtube.com/embed/${video.v_id}`"
+      frameborder="0"
+    ></iframe>
     <p>{{ video.title }}</p>
     <p>{{ video.v_writer }}</p>
     <p>{{ video.reg_date }}</p>
@@ -16,7 +19,7 @@
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+import axios from "@/util/http-common.js";
 
 export default {
   data() {
@@ -34,7 +37,7 @@ export default {
     },
     favorite() {
       axios
-        .post(`${this.API_URL}/favoriteApi/favoriteUp`, {
+        .post(`favoriteApi/favoriteUp`, {
           u_id: this.myUser.u_id,
           v_id: this.video.v_id,
         })
@@ -42,7 +45,7 @@ export default {
     },
     unfavorite() {
       axios
-        .post(`${this.API_URL}/favoriteApi/favoriteDown`, {
+        .post(`favoriteApi/favoriteDown`, {
           u_id: this.myUser.u_id,
           v_id: this.video.v_id,
         })

@@ -10,7 +10,7 @@
 import ViewDetailContent from "./ViewDetailContent.vue";
 import ViewDetailComments from "./ViewDetailComments.vue";
 import { mapState } from "vuex";
-import axios from "axios";
+import axios from "@/util/http-common.js";
 export default {
   components: {
     ViewDetailContent,
@@ -19,21 +19,21 @@ export default {
   created() {
     let id = this.$route.params.id;
     axios
-      .get(`${this.API_URL}/videoApi/video/${id}`)
+      .get(`videoApi/video/${id}`)
       .then((res) => this.$store.commit("SET_VIDEO", res.data));
 
     axios
-      .get(`${this.API_URL}/commentApi`, { v_id: this.video.v_id })
+      .get(`commentApi`, { v_id: this.video.v_id })
       .then((res) => this.$store.commit("SET_COMMENTS", res.data));
 
     axios
-      .get(`${this.API_URL}/favoriteApi/favoritePeople`, {
+      .get(`favoriteApi/favoritePeople`, {
         v_id: this.video.v_id,
       })
       .then((res) => this.$store.commit("SET_VIDEO_FAVORITE_USERS", res.data));
   },
   computed: {
-    ...mapState(["API_URL", "video", "comments", "videoFavoriteUsers"]),
+    ...mapState(["video", "comments", "videoFavoriteUsers"]),
   },
 };
 </script>

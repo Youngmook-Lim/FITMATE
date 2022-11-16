@@ -72,7 +72,7 @@
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+import axios from "@/util/http-common.js";
 
 export default {
   data() {
@@ -81,7 +81,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["myUser", "API_URL"]),
+    ...mapState(["myUser"]),
   },
   created() {
     this.tmpUser = this.myUser;
@@ -89,7 +89,7 @@ export default {
   methods: {
     updateUser() {
       axios
-        .put(`${this.API_URL}/userApi/update`, this.tmpUser)
+        .put(`userApi/update`, this.tmpUser)
         .then(() => {
           this.$store.commit("SET_MY_USER", this.tmpUser);
           this.$store.commit("SET_CUR_USER", this.tmpUser);

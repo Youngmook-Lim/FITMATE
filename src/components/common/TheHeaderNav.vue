@@ -23,8 +23,11 @@ export default {
   name: "TheHeaderNav",
   methods: {
     logout() {
-      this.myUser = {};
-      // 토큰 지우기?
+      this.$store.commit("CLEAR_ALL");
+
+      // JWT 토큰 지우기
+      sessionStorage.removeItem("access-token");
+
       this.$router.push({ name: "LoginView" });
     },
   },

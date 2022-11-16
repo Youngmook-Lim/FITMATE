@@ -43,16 +43,16 @@
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+import axios from "@/util/http-common.js";
 
 export default {
   computed: {
-    ...mapState(["curUser", "myUser", "myUserFollowers", "API_URL"]),
+    ...mapState(["curUser", "myUser", "myUserFollowers"]),
   },
   methods: {
     follow() {
       axios
-        .post(`${this.API_URL}/followApi`, {
+        .post(`followApi`, {
           from_user: this.myUser.u_id,
           to_user: this.curUser.u_id,
         })
@@ -60,7 +60,7 @@ export default {
     },
     unfollow() {
       axios
-        .delete(`${this.API_URL}/followApi`, {
+        .delete(`followApi`, {
           from_user: this.myUser.u_id,
           to_user: this.curUser.u_id,
         })
@@ -74,7 +74,7 @@ export default {
     },
     deleteUser() {
       axios
-        .post(`${this.API_URL}/userApi/delete`, this.myUser.u_id)
+        .post(`userApi/delete`, this.myUser.u_id)
         .then(() => {
           this.$store.commit("CLEAR_ALL");
           // 세션정보 지우기 : 로그아웃

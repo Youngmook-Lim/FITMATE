@@ -7,7 +7,9 @@
           <th>아이디</th>
           <td><input type="text" v-model="user.u_id" required /></td>
           <td>
-            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">중복확인</button>
+            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
+              중복확인
+            </button>
           </td>
         </tr>
         <tr>
@@ -27,10 +29,22 @@
           <td>
             <div>
               <label for="man" value="남">남</label>
-              <input type="radio" v-model="user.gender" name="gender" value="man" id="man" />
+              <input
+                type="radio"
+                v-model="user.gender"
+                name="gender"
+                value="man"
+                id="man"
+              />
 
               <label for="woman">여</label>
-              <input type="radio" v-model="user.gender" name="gender" value="woman" id="woman" />
+              <input
+                type="radio"
+                v-model="user.gender"
+                name="gender"
+                value="woman"
+                id="woman"
+              />
             </div>
           </td>
         </tr>
@@ -57,8 +71,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
+import axios from "@/util/http-common.js";
 
 export default {
   name: "RegisterView",
@@ -85,11 +98,11 @@ export default {
       this.user.phone_no = this.user.phone_no.split("-").join("");
 
       axios
-        .post(`${this.API_URL}/userApi/regist`, this.user)
+        .post(`userApi/regist`, this.user)
         .then(() => this.$router.push({ name: "login" }));
     },
     checkDuplicate() {
-      axios.get(`${this.API_URL}/userApi/check`, this.user.u_id).then((res) => {
+      axios.get(`userApi/check`, this.user.u_id).then((res) => {
         if (res.data === "FAIL") {
           alert("이미 사용중인 아이디입니다.");
           this.isOk = false;
@@ -102,9 +115,6 @@ export default {
     toLogin() {
       this.$router.push({ name: "LoginView" });
     },
-  },
-  computed: {
-    ...mapState(["API_URL"]),
   },
 };
 </script>

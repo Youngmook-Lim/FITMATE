@@ -14,7 +14,7 @@
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+import axios from "@/util/http-common.js";
 
 export default {
   name: "ViewDetailCommentsRegist",
@@ -26,14 +26,14 @@ export default {
   methods: {
     registComment() {
       axios
-        .post(`${this.API_URL}/commentApi`, {
+        .post(`commentApi`, {
           u_id: this.myUser.u_id,
           v_id: this.video.v_id,
           content: this.curComment,
         })
         .then(() => {
           axios
-            .get(`${this.API_URL}/commentApi`, { v_id: this.video.v_id })
+            .get(`commentApi`, { v_id: this.video.v_id })
             .then((res) => this.$store.commit("SET_COMMENTS", res.data));
         })
         .then(() => (this.curComment = ""));

@@ -36,7 +36,7 @@
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
+import axios from "@/util/http-common.js";
 
 export default {
   data() {
@@ -49,7 +49,7 @@ export default {
   methods: {
     searchVideo() {
       axios
-        .get(`${this.API_URL}/videoApi/video`, {
+        .get(`videoApi/video`, {
           keyword: this.keyword,
           category: this.category,
           range: this.range,
@@ -58,7 +58,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["API_URL", "videos"]),
+    ...mapState(["videos"]),
   },
 };
 </script>

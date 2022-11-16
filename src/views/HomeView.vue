@@ -8,6 +8,7 @@
 
 <script>
 import TheHeaderNav from "../components/common/TheHeaderNav.vue";
+import axios from "@/util/http-common.js";
 
 export default {
   name: "HomeView",
@@ -18,7 +19,7 @@ export default {
     if (!sessionStorage.getItem("access-token")) {
       this.$router.push({ name: "LoginView" });
     } else {
-      axios.get(`${this.API_URL}/userApi/detail`, this.u_id).then((res) => {
+      axios.get(`userApi/detail`, this.u_id).then((res) => {
         this.$store.commit("SET_MY_USER", res.data);
       });
     }
