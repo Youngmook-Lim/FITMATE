@@ -11,7 +11,9 @@ export default new Vuex.Store({
     myUserFollowers: [],
     videos: [],
     video: {},
-    reviews: [],
+    videoFavoriteUsers: [],
+    comments: [],
+    comment: {},
   },
   getters: {},
   mutations: {
@@ -38,7 +40,37 @@ export default new Vuex.Store({
       state.myUserFollowers = [];
       state.videos = [];
       state.video = {};
-      state.reviews = [];
+      state.comments = [];
+    },
+    SORT_VIDEOS(state, payload) {
+      switch (payload) {
+        case "제목":
+          state.videos.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case "조회수":
+          state.videos.sort((a, b) => a.view_cnt - b.view_cnt);
+          break;
+        case "등록일":
+          state.videos.sort((a, b) => a.reg_date.localeCompare(b.reg_date));
+          break;
+        case "좋아요수":
+          state.videos.sort((a, b) => a.favorite_cnt - b.favorite_cnt);
+          break;
+      }
+    },
+    FAVORITE(state) {
+      state.videoFavoriteUsers.push(state.myUser);
+    },
+    UNFAVORITE(state) {
+      state.videoFavoriteUsers = state.videoFavoriteUsers.filter(
+        (user) => user.u_id !== state.myUser.u_id
+      );
+    },
+    SET_COMMENTS(state, payload) {
+      state.comments = payload;
+    },
+    DELETE_COMMENT(state, payload) {
+      state.comments = state.comments.filter((c) => c.c_id !== payload);
     },
   },
   actions: {},

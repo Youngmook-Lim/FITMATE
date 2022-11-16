@@ -1,0 +1,48 @@
+<template>
+  <div>
+    <h3>{{ myUser.nickname }}</h3>
+    <textarea
+      cols="30"
+      rows="3"
+      v-model="curComment"
+      placeholder="내용을 입력하세요"
+    >
+    </textarea>
+    <button @click="registComment">등록</button>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+import axios from "axios";
+
+export default {
+  name: "ViewDetailCommentsRegist",
+  data() {
+    return {
+      curComment: "",
+    };
+  },
+  methods: {
+    registComment() {
+      axios
+        .post(`${this.API_URL}/commentApi`, {
+          u_id: this.myUser.u_id,
+          v_id: this.video.v_id,
+          content: this.curComment,
+        })
+        .then(() => {
+          axios
+            .get(`${this.API_URL}/commentApi`, { v_id: this.video.v_id })
+            .then((res) => this.$store.commit("SET_COMMENTS", res.data));
+        })
+        .then(() => (this.curComment = ""));
+    },
+  },
+  computed: {
+    ...mapState(["API_URL", "myUser", "video", "comments"]),
+  },
+};
+</script>
+
+<style></style>

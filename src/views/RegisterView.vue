@@ -87,12 +87,16 @@ export default {
         phone_no: "",
         nickname: "",
       },
-      isOk: true,
+      isOk: false,
     };
   },
   methods: {
     registUser() {
-      this.user.phone_no = parseInt(this.user.phone_no.split("-").join(""));
+      if (!this.isOk) {
+        alert("아이디 중복확인을 완료해 주세요.");
+        return;
+      }
+      this.user.phone_no = this.user.phone_no.split("-").join("");
 
       axios
         .post(`${this.API_URL}/userApi/regist`, this.user)
