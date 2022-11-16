@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import axios from "@/util/http-common.js";
+
 export default {
   name: "App",
   methods: {
@@ -21,7 +23,7 @@ export default {
       return JSON.parse(jsonPayload);
     },
   },
-  created() {
+  mounted() {
     // sessionStorage.setItem(
     //   "access-token",
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJteU1lc3NhZ2UiOiJXVEZGRkZGIEJST09PT08ifQ.Tf3M9Y8v6vzhDENFgucVt4c9KN1GQn0avqBEpMR_FRQ"
@@ -30,6 +32,9 @@ export default {
     if (token) {
       const payload = this.parseJWT(token);
       console.log(payload);
+      axios
+        .get(`userApi/detail`, payload.id)
+        .then((res) => this.$store.commit("SET_MY_USER", res.data));
     }
   },
 };

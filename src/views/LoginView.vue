@@ -37,7 +37,7 @@ export default {
           }
           sessionStorage.setItem("access-token", res.data["access-token"]);
 
-          return axios.get(`${this.API_URL}/userApi/detail`, this.u_id);
+          return axios.get(`userApi/detail`, this.u_id);
         })
         .then((res) => {
           this.$store.commit("SET_MY_USER", res.data);
