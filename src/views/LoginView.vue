@@ -16,6 +16,7 @@
 import axios from "@/util/http-common.js";
 
 export default {
+  name: "LoginView",
   data() {
     return {
       u_id: "",
@@ -52,8 +53,9 @@ export default {
     },
   },
   created() {
-    // 만약 세션에 로그인이 등록되어 있으면
-    // this.$router.push({ name: "HomeView" });
+    if (sessionStorage.getItem("access-token")) {
+      this.$router.push({ name: "HomeView" });
+    }
   },
 };
 </script>

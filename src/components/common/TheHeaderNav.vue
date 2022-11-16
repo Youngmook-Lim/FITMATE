@@ -27,7 +27,6 @@ export default {
 
       // JWT 토큰 지우기
       sessionStorage.removeItem("access-token");
-
       this.$router.push({ name: "LoginView" });
     },
   },

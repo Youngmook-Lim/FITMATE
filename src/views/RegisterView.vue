@@ -116,6 +116,11 @@ export default {
       this.$router.push({ name: "LoginView" });
     },
   },
+  created() {
+    if (sessionStorage.getItem("access-token")) {
+      this.$router.push({ name: "HomeView" });
+    }
+  },
 };
 </script>
 
