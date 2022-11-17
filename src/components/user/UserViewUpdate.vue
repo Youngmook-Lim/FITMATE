@@ -6,11 +6,11 @@
         <tr>
           <th>아이디</th>
           <td><input type="text" v-model="tmpUser.u_id" readonly /></td>
-          <td>
+          <!-- <td>
             <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
               중복확인
             </button>
-          </td>
+          </td> -->
         </tr>
         <tr>
           <th>비밀번호</th>
@@ -32,22 +32,22 @@
           <th>성별</th>
           <td>
             <div>
-              <label for="man" value="남">남</label>
+              <label for="M" value="남">남</label>
               <input
                 type="radio"
                 v-model="tmpUser.gender"
                 name="gender"
-                value="man"
-                id="man"
+                value="M"
+                id="M"
               />
 
-              <label for="woman">여</label>
+              <label for="F">여</label>
               <input
                 type="radio"
                 v-model="tmpUser.gender"
                 name="gender"
-                value="woman"
-                id="woman"
+                value="F"
+                id="F"
               />
             </div>
           </td>
@@ -64,8 +64,7 @@
           </td>
         </tr>
       </table>
-      <button>회원가입</button>
-      <input type="button" @click="toLogin" value="로그인" />
+      <button>회원정보수정</button>
     </form>
   </div>
 </template>
@@ -84,17 +83,50 @@ export default {
     ...mapState(["myUser"]),
   },
   created() {
-    this.tmpUser = this.myUser;
+    this.tmpUser = { ...this.myUser };
+    this.tmpUser.phone_no = this.parsePhoneNo(this.tmpUser.phone_no);
+  },
+  watch: {
+    myUser(newVal) {
+      // console.log(newVal);
+      this.tmpUser = { ...newVal };
+      this.tmpUser.phone_no = this.parsePhoneNo(this.tmpUser.phone_no);
+    },
   },
   methods: {
     updateUser() {
+      console.log(this.tmpUser);
+      this.tmpUser.phone_no = this.tmpUser.phone_no.split("-").join("");
       axios
-        .put(`userApi/update`, this.tmpUser)
+        .put(`userApi/update`, null, { params: this.tmpUser })
         .then(() => {
           this.$store.commit("SET_MY_USER", this.tmpUser);
           this.$store.commit("SET_CUR_USER", this.tmpUser);
         })
         .then(() => this.$router.push({ name: "UserViewMain" }));
+    },
+    parsePhoneNo(phone_no) {
+      // console.log(this.myUser.phone_no);
+      if (!phone_no) {
+        return;
+      }
+      if (phone_no.length == 10) {
+        return (
+          phone_no.slice(0, 3) +
+          "-" +
+          phone_no.slice(3, 6) +
+          "-" +
+          phone_no.slice(6)
+        );
+      } else if (phone_no.length == 11) {
+        return (
+          phone_no.slice(0, 3) +
+          "-" +
+          phone_no.slice(3, 7) +
+          "-" +
+          phone_no.slice(7)
+        );
+      }
     },
   },
 };

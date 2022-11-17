@@ -20,17 +20,28 @@ export default {
     let id = this.$route.params.id;
     axios
       .get(`videoApi/video/${id}`)
-      .then((res) => this.$store.commit("SET_VIDEO", res.data));
-
-    axios
-      .get(`commentApi`, { v_id: this.video.v_id })
-      .then((res) => this.$store.commit("SET_COMMENTS", res.data));
-
-    axios
-      .get(`favoriteApi/favoritePeople`, {
-        v_id: this.video.v_id,
+      .then((res) => this.$store.commit("SET_VIDEO", res.data))
+      .then(() => {
+        axios
+          .get(`commentApi/`, { params: { v_id: this.video.v_id } })
+          .then((res) => this.$store.commit("SET_COMMENTS", res.data));
       })
-      .then((res) => this.$store.commit("SET_VIDEO_FAVORITE_USERS", res.data));
+      .then(() => {
+        axios
+          .get(`favoriteApi/favoritePeople`, {
+            params: {
+              v_id: this.video.v_id,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (!res.data) {
+              this.$store.commit("SET_VIDEO_FAVORITE_USERS", []);
+            } else {
+              this.$store.commit("SET_VIDEO_FAVORITE_USERS", res.data);
+            }
+          });
+      });
   },
   computed: {
     ...mapState(["video", "comments", "videoFavoriteUsers"]),

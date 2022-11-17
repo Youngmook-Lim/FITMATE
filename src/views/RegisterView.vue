@@ -8,13 +8,13 @@
           <td><input type="text" v-model="user.u_id" required /></td>
           <td>
             <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
-              중복확인
+              {{ duplicateMsg }}
             </button>
           </td>
         </tr>
         <tr>
           <th>비밀번호</th>
-          <td><input type="password" v-model="user.pw" required /></td>
+          <td><input type="text" v-model="user.pw" required /></td>
         </tr>
         <tr>
           <th>성명</th>
@@ -28,22 +28,22 @@
           <th>성별</th>
           <td>
             <div>
-              <label for="man" value="남">남</label>
+              <label for="M" value="남">남</label>
               <input
                 type="radio"
                 v-model="user.gender"
                 name="gender"
-                value="man"
-                id="man"
+                value="M"
+                id="M"
               />
 
-              <label for="woman">여</label>
+              <label for="F">여</label>
               <input
                 type="radio"
                 v-model="user.gender"
                 name="gender"
-                value="woman"
-                id="woman"
+                value="F"
+                id="F"
               />
             </div>
           </td>
@@ -82,11 +82,11 @@ export default {
         pw: "",
         name: "",
         email: "",
-        gender: "man",
+        gender: "M",
         phone_no: "",
         nickname: "",
       },
-      isOk: true,
+      isOk: false,
     };
   },
   methods: {
@@ -97,13 +97,25 @@ export default {
       }
       this.user.phone_no = this.user.phone_no.split("-").join("");
 
-      axios
-        .post(`userApi/regist`, this.user)
-        .then(() => this.$router.push({ name: "login" }));
+      axios({
+        url: "userApi/regist",
+        method: "POST",
+        params: this.user,
+      })
+        // .post(`userApi/regist`, null, { params: this.user })
+        .then(() => this.$router.push({ name: "LoginView" }))
+        .catch((err) => {
+          console.log(err.response.data);
+        });
     },
     checkDuplicate() {
-      axios.get(`userApi/check`, this.user.u_id).then((res) => {
-        if (res.data === "FAIL") {
+      axios({
+        url: "userApi/check",
+        method: "GET",
+        params: { id: this.user.u_id },
+      }).then((res) => {
+        console.log(res);
+        if (res.data === "fail") {
           alert("이미 사용중인 아이디입니다.");
           this.isOk = false;
         } else {
@@ -120,6 +132,11 @@ export default {
     if (sessionStorage.getItem("access-token")) {
       this.$router.push({ name: "HomeView" });
     }
+  },
+  computed: {
+    duplicateMsg() {
+      return this.isOk ? "중복확인 완료" : "중복확인";
+    },
   },
 };
 </script>

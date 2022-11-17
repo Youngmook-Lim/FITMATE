@@ -39,7 +39,7 @@ export default {
       const payload = this.parseJWT(token);
       console.log(payload);
       axios
-        .get(`userApi/detail`, payload.u_id)
+        .get(`userApi/detail`, { params: { id: payload.id } })
         .then((res) => this.$store.commit("SET_MY_USER", res.data));
     }
     // else {

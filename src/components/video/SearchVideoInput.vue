@@ -49,11 +49,17 @@ export default {
   methods: {
     searchVideo() {
       axios
-        .get(`videoApi/video`, {
-          keyword: this.keyword,
-          category: this.category,
-          range: this.range,
-        })
+        .get(
+          `videoApi/video?${this.category
+            .map((n) => `category=${n}`)
+            .join("&")}`,
+          {
+            params: {
+              keyword: this.keyword,
+              range: this.range,
+            },
+          }
+        )
         .then((res) => this.$store.commit("SET_VIDEOS", res.data));
     },
   },
@@ -63,4 +69,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

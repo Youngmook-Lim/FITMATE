@@ -5,7 +5,7 @@
       cols="30"
       rows="3"
       v-model="tmpContent"
-      :readonly="{ isReadonly }"
+      :readonly="isReadonly"
     ></textarea>
     <div>{{ comment.reg_date }}</div>
     <br />
@@ -39,13 +39,16 @@ export default {
       }
       this.isReadonly = true;
       axios
-        .put(`commentApi`, {
-          c_id: this.comment.c_id,
-          content: this.tmpContent,
+        .put(`commentApi/`, null, {
+          params: {
+            c_id: this.comment.c_id,
+            content: this.tmpContent,
+          },
         })
         .then(() => {
+          console.log(this.video);
           axios
-            .get(`commentApi`, { v_id: this.video.v_id })
+            .get(`commentApi/`, { params: { v_id: this.video.v_id } })
             .then((res) => this.$store.commit("SET_COMMENTS", res.data));
         });
     },
@@ -56,7 +59,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["myUser"]),
+    ...mapState(["myUser", "video"]),
   },
   created() {
     this.tmpContent = this.comment.content;
@@ -64,4 +67,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+textarea {
+  border: 2px solid red;
+}
+textarea[readonly] {
+  border: 1px solid black;
+}
+</style>

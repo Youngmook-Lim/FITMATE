@@ -25,7 +25,7 @@
       </tr>
       <tr>
         <th>연락처</th>
-        <td>{{ curUser.phone_no }}</td>
+        <td>{{ curUser.phone_no | parsePhoneNo }}</td>
       </tr>
     </table>
 
@@ -37,7 +37,9 @@
     <button v-else-if="checkIfFollow()" @click="unfollow">팔로우 취소</button>
     <button v-else @click="follow">팔로우</button>
     <hr />
-    <button @click="deleteUser">회원탈퇴</button>
+    <button v-if="curUser.u_id === myUser.u_id" @click="deleteUser">
+      회원탈퇴
+    </button>
   </div>
 </template>
 
@@ -49,20 +51,47 @@ export default {
   computed: {
     ...mapState(["curUser", "myUser", "myUserFollowers"]),
   },
+  filters: {
+    parsePhoneNo(phone_no) {
+      if (!phone_no) {
+        return;
+      } else if (phone_no.length == 10) {
+        return (
+          phone_no.substring(0, 3) +
+          "-" +
+          phone_no.substring(3, 6) +
+          "-" +
+          phone_no.substring(6)
+        );
+      } else if (phone_no.length == 11) {
+        return (
+          phone_no.substring(0, 3) +
+          "-" +
+          phone_no.substring(3, 7) +
+          "-" +
+          phone_no.substring(7)
+        );
+      }
+    },
+  },
   methods: {
     follow() {
       axios
-        .post(`followApi`, {
-          from_user: this.myUser.u_id,
-          to_user: this.curUser.u_id,
+        .post(`followApi/`, null, {
+          params: {
+            from_user: this.myUser.u_id,
+            to_user: this.curUser.u_id,
+          },
         })
         .then(() => this.$store.commit("ADD_FOLLOWER"));
     },
     unfollow() {
       axios
-        .delete(`followApi`, {
-          from_user: this.myUser.u_id,
-          to_user: this.curUser.u_id,
+        .delete(`followApi/`, {
+          params: {
+            from_user: this.myUser.u_id,
+            to_user: this.curUser.u_id,
+          },
         })
         .then(() => this.$store.commit("DELETE_FOLLOWER"));
     },
@@ -74,10 +103,11 @@ export default {
     },
     deleteUser() {
       axios
-        .post(`userApi/delete`, this.myUser.u_id)
+        .delete(`userApi/delete`, { params: { id: this.myUser.u_id } })
         .then(() => {
           this.$store.commit("CLEAR_ALL");
           // 세션정보 지우기 : 로그아웃
+          sessionStorage.removeItem("access-token");
         })
         .then(() => this.$router.push("/"));
     },

@@ -26,7 +26,7 @@ export default {
   methods: {
     login() {
       axios
-        .get(`userApi/login`, this.u_id, this.pw)
+        .get(`userApi/login`, { params: { id: this.u_id, pw: this.pw } })
         .then((res) => {
           if (res.data.message === "fail") {
             alert("등록된 아이디가 없습니다.");
@@ -35,9 +35,17 @@ export default {
             alert("비밀번호가 맞지 않습니다.");
             throw new Error("비밀번호가 맞지 않습니다.");
           }
+          if (!res.data["access-token"]) {
+            console.log(res);
+            return;
+          }
           sessionStorage.setItem("access-token", res.data["access-token"]);
 
-          return axios.get(`userApi/detail`, this.u_id);
+          return axios.get(`userApi/detail`, {
+            params: {
+              id: this.u_id,
+            },
+          });
         })
         .then((res) => {
           this.$store.commit("SET_MY_USER", res.data);

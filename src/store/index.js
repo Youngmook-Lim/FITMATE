@@ -21,6 +21,7 @@ export default new Vuex.Store({
       state.curUser = payload;
     },
     SET_MY_USER(state, payload) {
+      console.log(payload);
       state.myUser = payload;
     },
     SET_MY_USER_FOLLOWERS(state, payload) {
@@ -30,7 +31,9 @@ export default new Vuex.Store({
       state.myUserFollowers.push(state.curUser);
     },
     DELETE_FOLLOWER(state) {
-      state.myUserFollowers = state.myUserFollowers.filter((f) => f.u_id !== state.curUser.u_id);
+      state.myUserFollowers = state.myUserFollowers.filter(
+        (f) => f.u_id !== state.curUser.u_id
+      );
     },
     CLEAR_ALL(state) {
       state.curUser = {};
@@ -43,16 +46,17 @@ export default new Vuex.Store({
     SORT_VIDEOS(state, payload) {
       switch (payload) {
         case "제목":
+          console.log(payload);
           state.videos.sort((a, b) => a.title.localeCompare(b.title));
           break;
         case "조회수":
-          state.videos.sort((a, b) => a.view_cnt - b.view_cnt);
+          state.videos.sort((b, a) => a.view_cnt - b.view_cnt);
           break;
         case "등록일":
-          state.videos.sort((a, b) => a.reg_date.localeCompare(b.reg_date));
+          state.videos.sort((b, a) => a.reg_date.localeCompare(b.reg_date));
           break;
         case "좋아요수":
-          state.videos.sort((a, b) => a.favorite_cnt - b.favorite_cnt);
+          state.videos.sort((b, a) => a.favorite_cnt - b.favorite_cnt);
           break;
       }
     },
@@ -72,6 +76,9 @@ export default new Vuex.Store({
     },
     SET_VIDEOS(state, payload) {
       state.videos = payload;
+    },
+    SET_VIDEO(state, payload) {
+      state.video = payload;
     },
     SET_VIDEO_FAVORITE_USERS(state, payload) {
       state.videoFavoriteUsers = payload;

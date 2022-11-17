@@ -2,6 +2,7 @@
   <div class="header">
     <router-link :to="{ name: 'HomeView' }">SSAFYGRAM</router-link>
     <div>
+      <span>{{ myUser.name }}님 안녕하세요!</span>
       <router-link
         :to="{
           name: 'UserViewMain',
