@@ -136,6 +136,17 @@ export default {
         .then(() => this.$router.push({ name: "LoginView" }))
         .catch((err) => {
           console.log(err.response.data);
+          switch (err.response.data) {
+            case "dup_email":
+              alert("이미 등록된 이메일 입니다.");
+              break;
+            case "dup_nickname":
+              alert("이미 등록된 닉네임 입니다.");
+              break;
+            case "dup_phone":
+              alert("이미 등록된 전화번호 입니다.");
+              break;
+          }
         });
     },
     checkDuplicate() {
