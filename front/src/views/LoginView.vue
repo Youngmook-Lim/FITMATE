@@ -36,7 +36,7 @@ export default {
             throw new Error("비밀번호가 맞지 않습니다.");
           }
           if (!res.data["access-token"]) {
-            console.log(res);
+            // console.log(res);
             return;
           }
           sessionStorage.setItem("access-token", res.data["access-token"]);

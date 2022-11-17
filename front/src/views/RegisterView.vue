@@ -21,8 +21,8 @@
           <td><input type="text" v-model="user.name" required /></td>
         </tr>
         <tr>
-          <th>이메일</th>
-          <td><input type="email" v-model="user.email" required /></td>
+          <th>닉네임</th>
+          <td><input type="text" v-model="user.nickname" /></td>
         </tr>
         <tr>
           <th>성별</th>
@@ -49,6 +49,10 @@
           </td>
         </tr>
         <tr>
+          <th>이메일</th>
+          <td><input type="email" v-model="user.email" required /></td>
+        </tr>
+        <tr>
           <th>전화번호</th>
           <td>
             <input
@@ -60,8 +64,29 @@
           </td>
         </tr>
         <tr>
-          <th>닉네임</th>
-          <td><input type="text" v-model="user.nickname" /></td>
+          <th>우편번호</th>
+          <td>
+            <input type="text" v-model="zipcode" readonly />
+          </td>
+          <td>
+            <input type="button" value="우편번호 찾기" @click="kakaopost" />
+          </td>
+        </tr>
+        <tr>
+          <th>주소</th>
+          <td>
+            <input type="text" v-model="user.address" readonly />
+          </td>
+        </tr>
+        <tr>
+          <th>상세주소</th>
+          <td>
+            <input
+              type="text"
+              v-model="detailAddress"
+              placeholder="상세주소를 입력하세요."
+            />
+          </td>
         </tr>
       </table>
       <button>회원가입</button>
@@ -85,8 +110,11 @@ export default {
         gender: "M",
         phone_no: "",
         nickname: "",
+        address: "",
       },
       isOk: false,
+      zipcode: "",
+      detailAddress: "",
     };
   },
   methods: {
@@ -95,7 +123,9 @@ export default {
         alert("아이디 중복확인을 완료해 주세요.");
         return;
       }
+
       this.user.phone_no = this.user.phone_no.split("-").join("");
+      this.user.address += ` ${this.detailAddress}`;
 
       axios({
         url: "userApi/regist",
@@ -126,6 +156,14 @@ export default {
     },
     toLogin() {
       this.$router.push({ name: "LoginView" });
+    },
+    kakaopost() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          this.zipcode = data.zonecode;
+          this.user.address = data.address;
+        },
+      }).open();
     },
   },
   created() {
