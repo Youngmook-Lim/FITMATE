@@ -520,7 +520,7 @@ UPDATE video SET category = "전신" WHERE category = "전신운동";
 SELECT * FROM video;
 
 -- ---------------------------------------------------------------------------------------
-
+DELETE FROM user;
 INSERT INTO user (u_id, pw, name, email, gender, phone_no, nickname) VALUES 
     ('id01', '1234', '강지수', 'aaa@naver.com', 'F', '01011111234', 'nickname 01'),
     ('id02', '1234', '임영묵', 'bbb@naver.com', 'M', '01022221234', 'nickname 02'),
@@ -534,7 +534,7 @@ INSERT INTO user (u_id, pw, name, email, gender, phone_no, nickname) VALUES
     ('id10', '1234', '손종효', 'hhh@naver.com', 'M', '01011112345', 'nickname 10'),
     ('id11', '1234', '이인호', 'iii@naver.com', 'M', '01011113456', 'nickname 11'),
     ('id12', '1234', '장재욱', 'jjj@naver.com', 'M', '01011114567', 'nickname 12'),
-    ('id13', '1234', '김지훈', 'nnn@naver.com', 'M', '01011115678', 'nickname 13'),
+    ('id13', '1234', '권지훈', 'nnn@naver.com', 'M', '01011115678', 'nickname 13'),
     ('id14', '1234', '이상민', 'lll@naver.com', 'M', '01011116789', 'nickname 14'),
     ('id15', '1234', '허윤회', 'mmm@naver.com', 'M', '01011117891', 'nickname 15');
 
