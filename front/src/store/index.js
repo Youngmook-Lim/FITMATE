@@ -21,7 +21,6 @@ export default new Vuex.Store({
       state.curUser = payload;
     },
     SET_MY_USER(state, payload) {
-      console.log(payload);
       state.myUser = payload;
     },
     SET_MY_USER_FOLLOWERS(state, payload) {

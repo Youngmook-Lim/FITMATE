@@ -66,7 +66,7 @@
         <tr>
           <th>우편번호</th>
           <td>
-            <input type="text" v-model="zipcode" readonly />
+            <input type="text" v-model="zipcode" disabled />
           </td>
           <td>
             <input type="button" value="우편번호 찾기" @click="kakaopost" />
@@ -75,7 +75,7 @@
         <tr>
           <th>주소</th>
           <td>
-            <input type="text" v-model="user.address" readonly />
+            <input type="text" v-model="user.address" disabled />
           </td>
         </tr>
         <tr>
@@ -97,6 +97,7 @@
 
 <script>
 import axios from "@/util/http-common.js";
+import axiosRaw from "axios";
 
 export default {
   name: "RegisterView",
@@ -111,6 +112,8 @@ export default {
         phone_no: "",
         nickname: "",
         address: "",
+        x: "",
+        y: "",
       },
       isOk: false,
       zipcode: "",
@@ -127,29 +130,49 @@ export default {
       this.user.phone_no = this.user.phone_no.split("-").join("");
       this.user.address += ` ${this.detailAddress}`;
 
-      axios({
-        url: "userApi/regist",
-        method: "POST",
-        params: this.user,
+      const KAKAO_KEY = process.env.VUE_APP_KAKAO_REST_API_KEY;
+
+      axiosRaw({
+        url: "https://dapi.kakao.com/v2/local/search/address",
+        method: "GET",
+        params: {
+          query: this.user.address,
+        },
+        headers: {
+          Authorization: `KakaoAK ${KAKAO_KEY}`,
+        },
       })
-        // .post(`userApi/regist`, null, { params: this.user })
-        .then(() => this.$router.push({ name: "LoginView" }))
-        .catch((err) => {
-          console.log(err.response.data);
-          switch (err.response.data) {
-            case "dup_email":
-              alert("이미 등록된 이메일 입니다.");
-              break;
-            case "dup_nickname":
-              alert("이미 등록된 닉네임 입니다.");
-              break;
-            case "dup_phone":
-              alert("이미 등록된 전화번호 입니다.");
-              break;
-          }
+        .then((res) => {
+          const coords = res.data.documents[0];
+          this.user.x = coords.x;
+          this.user.y = coords.y;
+        })
+        .then(() => {
+          axios({
+            url: "userApi/regist",
+            method: "POST",
+            params: this.user,
+          })
+            // .post(`userApi/regist`, null, { params: this.user })
+            .then(() => this.$router.push({ name: "LoginView" }))
+            .catch((err) => {
+              console.log(err.response.data);
+              switch (err.response.data) {
+                case "dup_email":
+                  alert("이미 등록된 이메일 입니다.");
+                  break;
+                case "dup_nickname":
+                  alert("이미 등록된 닉네임 입니다.");
+                  break;
+                case "dup_phone":
+                  alert("이미 등록된 전화번호 입니다.");
+                  break;
+              }
+            });
         });
     },
     checkDuplicate() {
+      if (!this.user.u_id) return;
       axios({
         url: "userApi/check",
         method: "GET",

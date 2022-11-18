@@ -1,27 +1,27 @@
 <template>
-  <div class="header">
-    <router-link :to="{ name: 'HomeView' }">SSAFYGRAM</router-link>
+  <header>
+    <router-link :to="{ name: 'HomeView' }">FITMATE</router-link>
     <div>
       <span>{{ myUser.name }}님 안녕하세요!</span>
       <router-link
         :to="{
           name: 'UserViewMain',
           params: {
-            id: myUser.u_id,
+            id: myUser.u_id ? myUser.u_id : 0,
           },
         }"
         >내 정보</router-link
       >
       <button @click="logout">로그아웃</button>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
 export default {
-  name: "TheHeaderNav",
+  name: "TheHeader",
   methods: {
     logout() {
       this.$store.commit("CLEAR_ALL");
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style scoped>
-.header {
+header {
   display: flex;
   justify-content: space-between;
   padding: 20px;

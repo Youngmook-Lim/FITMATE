@@ -1,19 +1,21 @@
 <template>
   <div class="home">
-    <the-header-nav></the-header-nav>
-    <h2>SSAFYGRAM</h2>
+    <the-header></the-header>
+    <the-nav></the-nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import TheHeaderNav from "../components/common/TheHeaderNav.vue";
+import TheHeader from "../components/common/TheHeader.vue";
+import TheNav from "../components/common/TheNav.vue";
 import axios from "@/util/http-common.js";
 
 export default {
   name: "HomeView",
   components: {
-    TheHeaderNav,
+    TheHeader,
+    TheNav,
   },
   methods: {
     parseJWT(token) {
@@ -37,7 +39,7 @@ export default {
     const token = sessionStorage.getItem("access-token");
     if (token) {
       const payload = this.parseJWT(token);
-      console.log(payload);
+      // console.log(payload);
       axios
         .get(`userApi/detail`, { params: { id: payload.id } })
         .then((res) => this.$store.commit("SET_MY_USER", res.data));

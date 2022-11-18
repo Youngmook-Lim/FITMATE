@@ -9,6 +9,7 @@ import VideoSearch from "../components/video/VideoSearch.vue";
 import VideoDetail from "../components/video/VideoDetail.vue";
 import UserViewMain from "../components/user/UserViewMain.vue";
 import UserViewUpdate from "../components/user/UserViewUpdate.vue";
+import MateView from "../views/MateView.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     component: HomeView,
     redirect: "/home/videosearch/search",
     children: [
+      {
+        path: "mate",
+        name: "MateView",
+        component: MateView,
+      },
       {
         path: "videosearch",
         name: "VideoSearchView",
