@@ -1,8 +1,9 @@
 <template>
   <header>
     <router-link :to="{ name: 'HomeView' }">FITMATE</router-link>
-    <div>
+    <div class="menu-right">
       <span>{{ myUser.name }}님 안녕하세요!</span>
+      <router-link :to="{ name: 'MessageReceived' }">💌</router-link>
       <router-link
         :to="{
           name: 'UserViewMain',
@@ -43,5 +44,10 @@ header {
   justify-content: space-between;
   padding: 20px;
   background-color: grey;
+}
+
+.menu-right {
+  display: flex;
+  gap: 16px;
 }
 </style>

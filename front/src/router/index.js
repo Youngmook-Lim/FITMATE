@@ -10,6 +10,10 @@ import VideoDetail from "../components/video/VideoDetail.vue";
 import UserViewMain from "../components/user/UserViewMain.vue";
 import UserViewUpdate from "../components/user/UserViewUpdate.vue";
 import MateView from "../views/MateView.vue";
+import MessageView from "../views/MessageView.vue";
+import MessageReceived from "../components/message/MessageReceived.vue";
+import MessageSent from "../components/message/MessageSent.vue";
+import MessageSend from "../components/message/MessageSend.vue";
 
 Vue.use(VueRouter);
 
@@ -29,6 +33,28 @@ const routes = [
     component: RegisterView,
   },
   {
+    path: "/message",
+    name: "MessageView",
+    component: MessageView,
+    children: [
+      {
+        path: "received",
+        name: "MessageReceived",
+        component: MessageReceived,
+      },
+      {
+        path: "sent",
+        name: "MessageSent",
+        component: MessageSent,
+      },
+      {
+        path: "send/:id",
+        name: "MessageSend",
+        component: MessageSend,
+      },
+    ],
+  },
+  {
     path: "/home",
     name: "HomeView",
     component: HomeView,
@@ -39,6 +65,7 @@ const routes = [
         name: "MateView",
         component: MateView,
       },
+
       {
         path: "videosearch",
         name: "VideoSearchView",
