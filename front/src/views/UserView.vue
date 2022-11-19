@@ -30,6 +30,20 @@ export default {
       axios
         .get(`followApi/`, { params: { from_user: this.myUser.u_id } })
         .then((res) => this.$store.commit("SET_MY_USER_FOLLOWERS", res.data));
+
+      axios
+        .get(`followApi/`, { params: { from_user: this.$route.params.id } })
+        .then((res) => this.$store.commit("SET_CUR_USER_FOLLOWERS", res.data));
+
+      axios
+        .get(`followApi/`, { params: { to_user: this.$route.params.id } })
+        .then((res) => this.$store.commit("SET_CUR_USER_FOLLOWING", res.data));
+
+      axios
+        .get(`videoApi/favoriteVideos`, {
+          params: { id: this.$route.params.id },
+        })
+        .then((res) => this.$store.commit("SET_CUR_FAVORITE_VIDEOS", res.data));
     },
   },
 

@@ -9,39 +9,65 @@ export default new Vuex.Store({
     curUser: {},
     myUser: {},
     myUserFollowers: [],
-    videos: [],
+    curUserFollowers: [],
+    curUserFollowing: [],
     video: {},
+    videos: [],
+    curFavoriteVideos: [],
     videoFavoriteUsers: [],
-    comments: [],
     comment: {},
+    comments: [],
+    receivedMsgs: [],
+    sentMsgs: [],
   },
   getters: {},
   mutations: {
     SET_CUR_USER(state, payload) {
       state.curUser = payload;
     },
+
     SET_MY_USER(state, payload) {
       state.myUser = payload;
     },
+
     SET_MY_USER_FOLLOWERS(state, payload) {
       state.myUserFollowers = payload;
     },
+
+    SET_CUR_USER_FOLLOWERS(state, payload) {
+      state.curUserFollowers = payload;
+    },
+
+    SET_CUR_USER_FOLLOWING(state, payload) {
+      state.curUserFollowing = payload;
+    },
+
     ADD_FOLLOWER(state) {
       state.myUserFollowers.push(state.curUser);
     },
+
     DELETE_FOLLOWER(state) {
       state.myUserFollowers = state.myUserFollowers.filter(
         (f) => f.u_id !== state.curUser.u_id
       );
     },
-    CLEAR_ALL(state) {
-      state.curUser = {};
-      state.myUser = {};
-      state.myUserFollowers = [];
-      state.videos = [];
-      state.video = {};
-      state.comments = [];
+
+    SET_VIDEO(state, payload) {
+      state.video = payload;
     },
+
+    SET_VIDEOS(state, payload) {
+      state.videos = payload;
+    },
+
+    SET_CUR_FAVORITE_VIDEOS(state, payload) {
+      state.curFavoriteVideos = payload;
+    },
+
+    SET_VIDEO_FAVORITE_USERS(state, payload) {
+      state.videoFavoriteUsers = payload;
+    },
+
     SORT_VIDEOS(state, payload) {
       switch (payload) {
         case "제목":
@@ -59,28 +85,40 @@ export default new Vuex.Store({
           break;
       }
     },
+
     FAVORITE(state) {
       state.videoFavoriteUsers.push(state.myUser);
     },
+
     UNFAVORITE(state) {
       state.videoFavoriteUsers = state.videoFavoriteUsers.filter(
         (user) => user.u_id !== state.myUser.u_id
       );
     },
+
     SET_COMMENTS(state, payload) {
       state.comments = payload;
     },
+
     DELETE_COMMENT(state, payload) {
       state.comments = state.comments.filter((c) => c.c_id !== payload);
     },
-    SET_VIDEOS(state, payload) {
-      state.videos = payload;
+
+    SET_RECEIVED_MSGS(state, payload) {
+      state.receivedMsgs = payload;
     },
-    SET_VIDEO(state, payload) {
-      state.video = payload;
+
+    SET_SENT_MSGS(state, payload) {
+      state.sentMsgs = payload;
     },
-    SET_VIDEO_FAVORITE_USERS(state, payload) {
-      state.videoFavoriteUsers = payload;
+
+    CLEAR_ALL(state) {
+      state.curUser = {};
+      state.myUser = {};
+      state.myUserFollowers = [];
+      state.videos = [];
+      state.video = {};
+      state.comments = [];
     },
   },
   actions: {},

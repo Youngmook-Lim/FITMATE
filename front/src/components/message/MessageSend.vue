@@ -136,12 +136,12 @@ export default {
 </script>
 
 <style>
-input {
+.autosuggest-container input {
   width: 260px;
   padding: 0.5rem;
 }
 
-ul {
+.autosuggest-container ul {
   width: 100%;
   color: rgba(30, 39, 46, 1);
   list-style: none;
@@ -150,14 +150,16 @@ ul {
   border: 1px solid black;
   border-radius: 0 0 9px 9px;
 }
-li {
+
+.autosuggest-container li {
   margin: 0 0 0 0;
   border-radius: 5px;
   padding: 0.75rem 0 0.75rem 0.75rem;
   display: flex;
   align-items: center;
 }
-li:hover {
+
+.autosuggest-container li:hover {
   cursor: pointer;
 }
 
@@ -174,6 +176,7 @@ li:hover {
   width: 100%;
   display: block;
 }
+
 .autosuggest__results-item--highlighted {
   background-color: rgba(51, 217, 178, 0.2);
 }

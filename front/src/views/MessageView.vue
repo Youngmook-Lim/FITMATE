@@ -2,7 +2,7 @@
   <div>
     <the-header></the-header>
     <the-message-nav></the-message-nav>
-    <router-view></router-view>
+    <router-view :isMyUserLoaded="isMyUserLoaded"></router-view>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   components: {
     TheHeader,
     TheMessageNav,
+  },
+  data() {
+    return {
+      isMyUserLoaded: false,
+    };
   },
   methods: {
     parseJWT(token) {
@@ -37,7 +42,8 @@ export default {
       // console.log(payload);
       axios
         .get(`userApi/detail`, { params: { id: payload.id } })
-        .then((res) => this.$store.commit("SET_MY_USER", res.data));
+        .then((res) => this.$store.commit("SET_MY_USER", res.data))
+        .then(() => (this.isMyUserLoaded = true));
     }
     // else {
     // this.$router.push({ name: "LoginView" });

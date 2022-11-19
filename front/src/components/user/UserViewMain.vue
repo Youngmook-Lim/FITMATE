@@ -48,8 +48,18 @@ import { mapState } from "vuex";
 import axios from "@/util/http-common.js";
 
 export default {
+  name: "UserViewMain",
   computed: {
-    ...mapState(["curUser", "myUser", "myUserFollowers"]),
+    ...mapState([
+      "curUser",
+      "myUser",
+      "myUserFollowers",
+
+      // 아래것들 나중에 써야함
+      "curUserFollowers",
+      "curUserFollowing",
+      "curFavoriteVideos",
+    ]),
   },
   filters: {
     parsePhoneNo(phone_no) {
