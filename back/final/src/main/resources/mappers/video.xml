@@ -39,6 +39,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</trim>
 		GROUP BY v.v_id
 	</select>
+	
+	<select id="favoriteVideos" parameterType="String" resultType="Video">
+		SELECT * 
+		FROM video
+		WHERE v_id IN (
+					SELECT v_id
+					FROM favorite
+					WHERE u_id = #{u_id}
+		);
+		
+		
+	</select>
 
 
 

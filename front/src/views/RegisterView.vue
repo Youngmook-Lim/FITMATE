@@ -2,10 +2,10 @@
   <div>
     <h2>회원가입</h2>
     <div class="profile-pic">
-      <img v-if="!user.img" />
+      <img v-if="!imgNum" />
       <img
         v-else
-        :src="require('../assets/profileImgs/img_' + user.img + '.png')"
+        :src="require('../assets/profileImgs/img_' + imgNum + '.png')"
         alt=""
       />
     </div>
@@ -114,7 +114,7 @@
           width="50px"
           height="50px"
           @click="
-            user.img = n;
+            imgNum = n;
             showModal = false;
           "
         />
@@ -153,6 +153,7 @@ export default {
       zipcode: "",
       detailAddress: "",
       showModal: false,
+      imgNum: "",
     };
   },
   methods: {
@@ -182,6 +183,7 @@ export default {
           const coords = res.data.documents[0];
           this.user.x = coords.x;
           this.user.y = coords.y;
+          this.user.img = "img_" + this.imgNum;
         })
         .then(() => {
           axios({

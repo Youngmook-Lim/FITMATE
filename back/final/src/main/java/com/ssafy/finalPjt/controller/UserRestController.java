@@ -2,6 +2,7 @@ package com.ssafy.finalPjt.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,12 @@ public class UserRestController {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+
+	// 모든 유저 반환
+	@GetMapping("/findAll")
+	public ResponseEntity<HashMap<User, Double>> findAllUser(String id, int dist) {
+		return new ResponseEntity<HashMap<User, Double>>(userService.findAllUser(id, dist), HttpStatus.OK);
 	}
 
 }

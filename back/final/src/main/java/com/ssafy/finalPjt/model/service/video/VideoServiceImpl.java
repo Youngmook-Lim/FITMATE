@@ -32,4 +32,9 @@ public class VideoServiceImpl implements VideoService {
 		videoDao.updateCnt(id);
 	}
 
+	@Override
+	public List<Video> getFavoriteVideos(String id) {
+		return videoDao.favoriteVideos(id);
+	}
+
 }

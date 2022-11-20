@@ -82,4 +82,8 @@ public class VideoRestController {
 
 	}
 
+	@GetMapping("/favoriteVideos")
+	public ResponseEntity<List<Video>> getFavoriteVideos(String id) {
+		return new ResponseEntity<List<Video>>(videoService.getFavoriteVideos(id), HttpStatus.OK);
+	}
 }

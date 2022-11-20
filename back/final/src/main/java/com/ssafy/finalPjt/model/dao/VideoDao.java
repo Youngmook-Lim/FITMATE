@@ -15,4 +15,6 @@ public interface VideoDao {
 
 	// 조회수 증가
 	void updateCnt(String id);
+	
+	List<Video> favoriteVideos(String id);
 }

@@ -1,5 +1,8 @@
 package com.ssafy.finalPjt.model.service.user;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.ssafy.finalPjt.model.dto.User;
 
 public interface UserService {
@@ -23,4 +26,6 @@ public interface UserService {
 	boolean checkId(String id);
 
 	String checkJoin(User user);
+	
+	HashMap<User, Double> findAllUser(String id, int dist);
 }

@@ -15,4 +15,6 @@ public interface VideoService {
 	
 	//조회수 증가 
 	void viewCntup(String id);
+	
+	List<Video> getFavoriteVideos(String id);
 }

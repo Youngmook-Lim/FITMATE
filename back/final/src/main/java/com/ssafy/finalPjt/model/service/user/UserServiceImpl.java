@@ -1,5 +1,9 @@
 package com.ssafy.finalPjt.model.service.user;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +92,46 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return "성공";
+	}
+
+	@Override
+	public HashMap<User, Double> findAllUser(String id, int dist) {
+		HashMap<User, Double> map = new HashMap<>();
+		User myUser = userDao.findUser(id);
+		// 위도 : y, 경도 : x
+		double myX = Double.parseDouble(myUser.getX());
+		double myY = Double.parseDouble(myUser.getY());
+
+		List<User> userList = (ArrayList<User>) userDao.findAllUser();
+		
+		for (int i = 0; i < userList.size(); i++) {
+			// 거리계산 후 맵에 집어넣어버리기
+			User user = userList.get(i);
+
+			double userX = Double.parseDouble(user.getX());
+			double userY = Double.parseDouble(user.getY());
+
+			double theta = myX - userX;
+
+			// k : 너와 나의 거리
+			double k = Math.sin(myY * Math.PI / 180.0) * Math.sin(userY * Math.PI / 180.0)
+					+ Math.cos(myY * Math.PI / 180.0) * Math.cos(userY * Math.PI / 180.0)
+							* Math.cos(theta * Math.PI / 180.0);
+//			System.out.println(k);
+
+			k = Math.acos(k);
+//			System.out.println(k);
+			k = k * 180 / Math.PI;
+//			System.out.println(k);
+			k = k * 60 * 1.1515 * 1.609344;
+//			System.out.println(k);
+
+			if (k <= dist) {
+				map.put(user, k);
+			}
+
+		}
+		return map;
 	}
 
 }

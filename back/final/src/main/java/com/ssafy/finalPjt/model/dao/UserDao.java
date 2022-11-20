@@ -1,5 +1,8 @@
 package com.ssafy.finalPjt.model.dao;
 
+
+import java.util.List;
+
 import com.ssafy.finalPjt.model.dto.User;
 
 public interface UserDao {
@@ -24,4 +27,7 @@ public interface UserDao {
 	int chkPhoneNo(String id);
 
 	int chkNickname(String id);
+	
+	// 모든 유저 찾기
+	List<User> findAllUser();
 }
