@@ -1,6 +1,16 @@
 <template>
   <div>
     <h2>회원가입</h2>
+    <div class="profile-pic">
+      <img v-if="!user.img" />
+      <img
+        v-else
+        :src="require('../assets/profileImgs/img_' + user.img + '.png')"
+        alt=""
+      />
+    </div>
+    <button @click="showModal = true">사진 등록</button>
+    <hr />
     <form @submit.prevent="registUser">
       <table>
         <tr>
@@ -92,15 +102,38 @@
       <button>회원가입</button>
       <input type="button" @click="toLogin" value="로그인" />
     </form>
+
+    <register-view-modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">마음에 드는 프로필 사진을 등록하세요</h3>
+      <div slot="body">
+        <img
+          v-for="n in 10"
+          :key="n"
+          :src="require('../assets/profileImgs/img_' + n + '.png')"
+          alt="Profile pic options"
+          width="50px"
+          height="50px"
+          @click="
+            user.img = n;
+            showModal = false;
+          "
+        />
+      </div>
+      <button slot="footer" @click.stop="setImage">등록</button>
+    </register-view-modal>
   </div>
 </template>
 
 <script>
 import axios from "@/util/http-common.js";
 import axiosRaw from "axios";
+import RegisterViewModal from "./RegisterViewModal.vue";
 
 export default {
   name: "RegisterView",
+  components: {
+    RegisterViewModal,
+  },
   data() {
     return {
       user: {
@@ -114,13 +147,16 @@ export default {
         address: "",
         x: "",
         y: "",
+        img: "",
       },
       isOk: false,
       zipcode: "",
       detailAddress: "",
+      showModal: false,
     };
   },
   methods: {
+    setImage() {},
     registUser() {
       if (!this.isOk) {
         alert("아이디 중복확인을 완료해 주세요.");
@@ -172,7 +208,10 @@ export default {
         });
     },
     checkDuplicate() {
-      if (!this.user.u_id) return;
+      if (!this.user.u_id) {
+        this.isOk = false;
+        return;
+      }
       axios({
         url: "userApi/check",
         method: "GET",
@@ -220,5 +259,19 @@ export default {
 
 table {
   margin: 0 auto;
+}
+
+.profile-pic {
+  border: 1px solid black;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-pic img {
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

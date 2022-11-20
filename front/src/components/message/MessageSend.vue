@@ -31,7 +31,7 @@
       <!-- <label for="msg-content">Content</label> -->
       <p>Content</p>
       <textarea
-        v-model="message"
+        v-model="message.content"
         id="msg-content"
         cols="50"
         rows="20"
@@ -53,7 +53,11 @@ export default {
 
   data() {
     return {
-      message: "",
+      message: {
+        from_user: "",
+        to_user: "",
+        content: "",
+      },
       query: "",
       selected: "",
       suggestions: [
@@ -101,7 +105,8 @@ export default {
     },
     onSelected(item) {
       this.selected = item.item;
-      console.log(this.selected);
+      this.message.to_user = item.item;
+      console.log(this.message.to_user);
     },
     onInputChange(text) {
       console.log(text);
@@ -110,14 +115,13 @@ export default {
       return suggestion.item;
     },
     sendMessage() {
+      this.message.from_user = this.$store.state.myUser.nickname;
       axios({
         url: "messageApi/",
         method: "POST",
         params: {
-          // to_user, from_user 왜없지???
-          from_user: this.$store.state.myUser.nickname,
-          to_user: this.selected,
           message: this.message,
+          // to_user, from_user 왜없지???
         },
       }).then((res) => {
         console.log(res.data);
