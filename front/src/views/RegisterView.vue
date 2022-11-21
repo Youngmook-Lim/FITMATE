@@ -34,7 +34,7 @@
           <th>성별</th>
           <td>
             <div>
-              <label for="M" value="남">남</label>
+              <label for="M">남</label>
               <input
                 type="radio"
                 v-model="user.gender"
@@ -42,7 +42,8 @@
                 value="M"
                 id="M"
               />
-
+            </div>
+            <div>
               <label for="F">여</label>
               <input
                 type="radio"

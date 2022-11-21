@@ -1,6 +1,13 @@
 <template>
   <div>
     <h2>받은편지함</h2>
+    <input
+      @keyup.enter="getSearchedUser"
+      type="text"
+      placeholder="유저검색"
+      v-model="searchQuery"
+    />
+    <button @click="getSearchedUser">검색</button>
     <message-content
       v-for="msg in receivedMsgs"
       :key="msg.m_id"
@@ -20,11 +27,30 @@ export default {
   components: {
     MessageContent,
   },
+  data() {
+    return {
+      searchQuery: "",
+    };
+  },
   props: {
     isMyUserLoaded: Boolean,
   },
   computed: {
-    ...mapState(["myUser", "receivedMsgs"]),
+    ...mapState(["myUser", "receivedMsgs", "nicknames"]),
+  },
+  methods: {
+    getSearchedUser() {
+      if (!this.searchQuery) return;
+      axios({
+        url: `messageApi/received/${this.nicknames[this.searchQuery]}`,
+        method: "GET",
+        params: {
+          myId: this.myUser.u_id,
+        },
+      }).then((res) => {
+        this.$store.commit("SET_RECEIVED_MSGS", res.data);
+      });
+    },
   },
   watch: {
     isMyUserLoaded() {
@@ -48,17 +74,29 @@ export default {
         this.$store.commit("SET_SENT_MSGS", res.data);
       });
     },
+    searchQuery(newVal) {
+      if (newVal) return;
+      axios({
+        url: "messageApi/received",
+        method: "GET",
+        params: {
+          id: this.myUser.u_id,
+        },
+      }).then((res) => {
+        this.$store.commit("SET_RECEIVED_MSGS", res.data);
+      });
+    },
   },
   created() {
-    // @@@@@@ TMP VARIABLE @@@@@@
-    // this.$store.state.receivedMsgs = [
-    //   {
-    //     m_id: 1,
-    //     from_user: "id06",
-    //     to_user: "id04",
-    //     content: "What's up man how's it going? I'm fine and you?",
-    //   },
-    // ];
+    axios({
+      url: "messageApi/received",
+      method: "GET",
+      params: {
+        id: this.myUser.u_id,
+      },
+    }).then((res) => {
+      this.$store.commit("SET_RECEIVED_MSGS", res.data);
+    });
   },
 };
 </script>

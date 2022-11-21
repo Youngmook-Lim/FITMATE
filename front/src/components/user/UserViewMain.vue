@@ -44,6 +44,15 @@
     <button v-if="curUser.u_id === myUser.u_id" @click="deleteUser">
       회원탈퇴
     </button>
+    <router-link
+      v-if="curUser.u_id !== myUser.u_id"
+      :to="{
+        name: 'MessageSend',
+        params: { id: curUser.u_id ? curUser.u_id : 0 },
+      }"
+    >
+      메시지 보내기
+    </router-link>
   </div>
 </template>
 

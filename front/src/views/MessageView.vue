@@ -44,6 +44,11 @@ export default {
         .get(`userApi/detail`, { params: { id: payload.id } })
         .then((res) => this.$store.commit("SET_MY_USER", res.data))
         .then(() => (this.isMyUserLoaded = true));
+
+      axios.get("userApi/getNicknames").then((res) => {
+        // this.nicknames = res.data;
+        this.$store.commit("SET_NICKNAMES", res.data);
+      });
     }
     // else {
     // this.$router.push({ name: "LoginView" });

@@ -62,26 +62,9 @@ export default {
       selected: "",
       suggestions: [
         {
-          data: [
-            // "Frodo",
-            // "Samwise",
-            // "Gandalf",
-            // "Galadriel",
-            // "Faramir",
-            // "Éowyn",
-            // "Peregrine Took",
-            // "Boromir",
-            // "Legolas",
-            // "Gimli",
-            // "Gollum",
-            // "Beren",
-            // "Saruman",
-            // "Sauron",
-            // "Théoden",
-          ],
+          data: [],
         },
       ],
-      nicknames: [],
     };
   },
   computed: {
@@ -99,6 +82,9 @@ export default {
         },
       ];
     },
+    nicknames() {
+      return this.$store.state.nicknames;
+    },
   },
   methods: {
     clickHandler(item) {
@@ -113,6 +99,7 @@ export default {
         this.selected = item.item;
       }
       this.message.to_user = this.nicknames[this.selected];
+      console.log(this.nicknames);
       console.log(this.message.to_user);
     },
     onInputChange(text) {
@@ -136,23 +123,22 @@ export default {
         params: this.message,
       }).then((res) => {
         console.log(res.data);
-        this.$store.commit("SET_SENT_MSGS", res.data);
+        // this.$store.commit("SET_SENT_MSGS", res.data);
+        this.$router.push({ name: "MessageSent" });
       });
     },
   },
   created() {
     const id = this.$route.params.id;
     console.log(id);
-
-    axios.get("userApi/getNicknames").then((res) => {
-      this.nicknames = res.data;
-      this.suggestions[0].data = Object.keys(res.data);
-    });
+    this.suggestions[0].data = Object.keys(this.nicknames);
 
     if (id == 0) return;
-    axios
-      .get(`userApi/detail`, { params: { id: id } })
-      .then((res) => (this.query = res.data.nickname));
+    axios.get(`userApi/detail`, { params: { id: id } }).then((res) => {
+      this.query = res.data.nickname;
+      this.selected = res.data.nickname;
+      this.message.to_user = this.nicknames[this.selected];
+    });
   },
 };
 </script>

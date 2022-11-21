@@ -19,6 +19,7 @@ export default new Vuex.Store({
     comments: [],
     receivedMsgs: [],
     sentMsgs: [],
+    nicknames: [],
   },
   getters: {},
   mutations: {
@@ -119,6 +120,10 @@ export default new Vuex.Store({
       state.videos = [];
       state.video = {};
       state.comments = [];
+    },
+
+    SET_NICKNAMES(state, payload) {
+      state.nicknames = payload;
     },
   },
   actions: {},

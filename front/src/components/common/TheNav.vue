@@ -31,6 +31,6 @@ nav {
   display: flex;
   justify-content: space-around;
   padding: 20px;
-  background-color: aquamarine;
+  background-color: darkgray;
 }
 </style>
