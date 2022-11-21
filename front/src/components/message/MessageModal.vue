@@ -65,6 +65,7 @@ export default {
 
 .modal-body {
   margin: 20px 0;
+  color: black;
 }
 
 .modal-default-button {

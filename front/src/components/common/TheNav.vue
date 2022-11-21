@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav id="nav">
     <router-link :to="{ name: 'VideoSearchView' }">VIDEO</router-link>
     <router-link :to="{ name: 'MateView' }">MATE</router-link>
     <router-link
@@ -31,6 +31,6 @@ nav {
   display: flex;
   justify-content: space-around;
   padding: 20px;
-  background-color: darkgray;
+  background-color: aquamarine;
 }
 </style>

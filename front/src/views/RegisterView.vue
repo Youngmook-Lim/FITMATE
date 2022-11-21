@@ -1,136 +1,145 @@
 <template>
   <div>
-    <h2>회원가입</h2>
-    <div class="profile-pic">
-      <img v-if="!imgNum" />
-      <img
-        v-else
-        :src="require('../assets/profileImgs/img_' + imgNum + '.png')"
-        alt=""
-      />
-    </div>
-    <button @click="showModal = true">사진 등록</button>
-    <hr />
-    <form @submit.prevent="registUser">
-      <table>
-        <tr>
-          <th>아이디</th>
-          <td><input type="text" v-model="user.u_id" required /></td>
-          <td>
-            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
-              {{ duplicateMsg }}
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <th>비밀번호</th>
-          <td><input type="text" v-model="user.pw" required /></td>
-        </tr>
-        <tr>
-          <th>성명</th>
-          <td><input type="text" v-model="user.name" required /></td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <div>
-              <label for="M">남</label>
-              <input
-                type="radio"
-                v-model="user.gender"
-                name="gender"
-                value="M"
-                id="M"
-              />
-            </div>
-            <div>
-              <label for="F">여</label>
-              <input
-                type="radio"
-                v-model="user.gender"
-                name="gender"
-                value="F"
-                id="F"
-              />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>이메일</th>
-          <td><input type="email" v-model="user.email" required /></td>
-        </tr>
-        <tr>
-          <th>전화번호</th>
-          <td>
-            <input
-              type="tel"
-              pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
-              v-model="user.phone_no"
-              placeholder="예 : 010-123(4)-5678"
-            />
-          </td>
-        </tr>
-        <tr>
-          <th>우편번호</th>
-          <td>
-            <input type="text" v-model="zipcode" disabled />
-          </td>
-          <td>
-            <input type="button" value="우편번호 찾기" @click="kakaopost" />
-          </td>
-        </tr>
-        <tr>
-          <th>주소</th>
-          <td>
-            <input type="text" v-model="user.address" disabled />
-          </td>
-        </tr>
-        <tr>
-          <th>상세주소</th>
-          <td>
-            <input
-              type="text"
-              v-model="detailAddress"
-              placeholder="상세주소를 입력하세요."
-            />
-          </td>
-        </tr>
-        <tr>
-          <th>닉네임</th>
-          <td><input type="text" v-model="user.nickname" /></td>
-        </tr>
-        <tr>
-          <th>상태메시지</th>
-          <td>
-            <textarea
-              v-model="user.state_message"
-              placeholder="관심있는 운동과 함께 인사말을 작성해 보세요."
-            />
-          </td>
-        </tr>
-      </table>
-      <button>회원가입</button>
-      <input type="button" @click="toLogin" value="로그인" />
-    </form>
-
-    <register-view-modal v-if="showModal" @close="showModal = false">
-      <h3 slot="header">마음에 드는 프로필 사진을 등록하세요</h3>
-      <div slot="body">
+    <the-header-vue></the-header-vue>
+    <div class="registerform">
+      <h2>회원가입</h2>
+      <div class="profile-pic">
+        <img v-if="!imgNum" />
         <img
-          v-for="n in 10"
-          :key="n"
-          :src="require('../assets/profileImgs/img_' + n + '.png')"
-          alt="Profile pic options"
-          width="50px"
-          height="50px"
-          @click="
-            imgNum = n;
-            showModal = false;
-          "
+          v-else
+          :src="require('../assets/profileImgs/img_' + imgNum + '.png')"
+          alt=""
         />
       </div>
-      <button slot="footer" @click.stop="setImage">등록</button>
-    </register-view-modal>
+      <button class="photobtn" @click="showModal = true">사진 등록</button>
+      <hr />
+      <form @submit.prevent="registUser" class="registinput">
+        <table>
+          <tr>
+            <th>아이디</th>
+            <td><input type="text" v-model="user.u_id" required /></td>
+            <td>
+              <button
+                type="button"
+                @click="checkDuplicate"
+                :class="{ ok: isOk }"
+              >
+                {{ duplicateMsg }}
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th>비밀번호</th>
+            <td><input type="text" v-model="user.pw" required /></td>
+          </tr>
+          <tr>
+            <th>성명</th>
+            <td><input type="text" v-model="user.name" required /></td>
+          </tr>
+          <tr>
+            <th>성별</th>
+            <td>
+              <div>
+                <input
+                  type="radio"
+                  v-model="user.gender"
+                  name="gender"
+                  value="M"
+                  id="M"
+                />
+                <label for="M">남</label>
+
+                <input
+                  type="radio"
+                  v-model="user.gender"
+                  name="gender"
+                  value="F"
+                  id="F"
+                />
+                <label for="F">여</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>이메일</th>
+            <td><input type="email" v-model="user.email" required /></td>
+          </tr>
+          <tr>
+            <th>전화번호</th>
+            <td>
+              <input
+                class="telinput"
+                type="tel"
+                pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
+                v-model="user.phone_no"
+                placeholder="예 : 010-123(4)-5678"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>우편번호</th>
+            <td>
+              <input type="text" v-model="zipcode" disabled />
+            </td>
+            <td>
+              <input type="button" value="우편번호 찾기" @click="kakaopost" />
+            </td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>
+              <input type="text" v-model="user.address" disabled />
+            </td>
+          </tr>
+          <tr>
+            <th>상세주소</th>
+            <td>
+              <input
+                type="text"
+                v-model="detailAddress"
+                placeholder="상세주소를 입력하세요."
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>닉네임</th>
+            <td><input type="text" v-model="user.nickname" /></td>
+          </tr>
+          <tr>
+            <th>상태메시지</th>
+            <td>
+              <textarea
+                v-model="user.state_message"
+                placeholder="관심있는 운동과 함께 인사말을 작성해 보세요."
+              />
+            </td>
+          </tr>
+        </table>
+        <div class="btns">
+          <button class="registBtn">회원가입</button>
+          <input type="button" @click="toLogin" value="로그인" />
+        </div>
+      </form>
+
+      <register-view-modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">마음에 드는 프로필 사진을 등록하세요</h3>
+        <div slot="body">
+          <img
+            v-for="n in 10"
+            :key="n"
+            :src="require('../assets/profileImgs/img_' + n + '.png')"
+            alt="Profile pic options"
+            width="50px"
+            height="50px"
+            @click="
+              imgNum = n;
+              showModal = false;
+            "
+          />
+        </div>
+        <button slot="footer" @click.stop="setImage">등록</button>
+      </register-view-modal>
+    </div>
   </div>
 </template>
 
@@ -138,11 +147,13 @@
 import axios from "@/util/http-common.js";
 import axiosRaw from "axios";
 import RegisterViewModal from "./RegisterViewModal.vue";
+import TheHeaderVue from "@/components/common/TheHeader.vue";
 
 export default {
   name: "RegisterView",
   components: {
     RegisterViewModal,
+    TheHeaderVue,
   },
   data() {
     return {
@@ -192,6 +203,7 @@ export default {
       })
         .then((res) => {
           const coords = res.data.documents[0];
+          console.log(coords);
           this.user.x = coords.x;
           this.user.y = coords.y;
           this.user.img = "img_" + this.imgNum;
@@ -265,9 +277,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ok {
-  background-color: green;
+  background-color: rgb(231, 201, 119);
 }
 
 table {
@@ -275,7 +287,7 @@ table {
 }
 
 .profile-pic {
-  border: 1px solid black;
+  border: 1px solid rgb(255, 255, 255);
   width: 150px;
   height: 150px;
   margin: 0 auto;
@@ -286,5 +298,66 @@ table {
 .profile-pic img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.telinput {
+  background-color: rgba(255, 255, 255, 0.075);
+  border-color: rgba(255, 255, 255, 0.35);
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 300;
+  line-height: 1.65;
+  appearance: none;
+  border-radius: 8px;
+  border: solid 1px;
+  color: inherit;
+  display: block;
+  outline: 0;
+  padding: 0 1em;
+  text-decoration: none;
+  width: 100%;
+  height: 2.75em;
+}
+
+.registerform {
+  text-align: center;
+}
+
+.photobtn {
+  margin: 3%;
+}
+
+.registinput {
+  padding: 0 20% 0 20%;
+}
+
+.registBtn {
+  min-width: 0;
+  appearance: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 300;
+  height: 2.75em;
+  line-height: 2.75em;
+  min-width: 9.25em;
+  padding: 0 1.5em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12pt;
+  margin: 2%;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

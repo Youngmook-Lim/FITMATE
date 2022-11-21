@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <the-header></the-header>
-    <the-nav></the-nav>
-    <router-view></router-view>
+    <div class="navi">
+      <the-nav></the-nav>
+    </div>
+    <router-view class="innercontainer"></router-view>
   </div>
 </template>
 
@@ -51,3 +53,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.innercontainer {
+  margin: 11%;
+}
+
+.navi {
+  display: flex;
+  justify-content: center;
+}
+</style>
