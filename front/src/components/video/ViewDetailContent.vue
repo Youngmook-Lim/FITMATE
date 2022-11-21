@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h5>비디오 상세 정보</h5>
+  <div class="container">
+    <h2 class="detailtitle">VIDEO DETAIL</h2>
     <iframe
       :src="`https://www.youtube.com/embed/${video.v_id}`"
       frameborder="0"
-      width="500px"
-      height="300px"
+      width="800px"
+      height="500px"
     ></iframe>
     <p>제목 : {{ video.title }}</p>
     <p>채널명 : {{ video.v_writer }}</p>
@@ -64,4 +64,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.detailtitle{
+  margin-top: 2%;
+}
+</style>

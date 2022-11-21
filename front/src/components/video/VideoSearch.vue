@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>비디오 검색</h4>
+    <h2 class="video">VIDEO SEARCH</h2>
     <search-video-input></search-video-input>
     <search-video-result></search-video-result>
   </div>
@@ -17,4 +17,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.video{
+  margin-top: 20px;
+}
+</style>

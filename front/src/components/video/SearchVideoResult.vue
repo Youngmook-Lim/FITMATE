@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="videosExist()">
-      <label for="sort">정렬기준 : </label>
+      <label for="sort">Sort</label>
 
       <select id="sort" v-model="sortCriteria">
         <option disabled>----</option>
@@ -20,13 +20,16 @@
       <!-- pagination -->
 
       <!-- <input type="number" v-model="curPage" /> -->
+      <div class="videoview">
       <button @click="decreasePage">◀</button>
       <span> {{ curPage }} </span>
       <!-- <input v-model="curPage" /> -->
       <button @click="increasePage">▶</button>
-
-      <div v-for="video in curVideos" :key="video.id">
-        <search-video-result-row :video="video"></search-video-result-row>
+      </div>
+        <div class="videoflexbox">
+          <div v-for="video in curVideos" :key="video.id" class="videodiv">
+            <search-video-result-row :video="video"></search-video-result-row>
+          </div>
       </div>
     </div>
   </div>
@@ -97,4 +100,22 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#sort{
+  margin-bottom: 2%;
+}
+.videoview{
+  margin-bottom: 2%;
+}
+.videodiv{
+  width: 450px;
+  margin-bottom: 8px;
+}
+
+.videoflexbox{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+</style>>
+

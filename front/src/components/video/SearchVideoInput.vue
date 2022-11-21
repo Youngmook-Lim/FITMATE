@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h5>비디오 검색 창</h5>
     <form @submit.prevent="searchVideo">
       <input type="checkbox" id="전신" value="전신" v-model="category" />
       <label for="전신">전신</label>
@@ -23,13 +22,13 @@
       <input type="checkbox" id="팔뚝" value="팔뚝" v-model="category" />
       <label for="팔뚝">팔뚝</label>
       <br />
-      <select v-model="range">
+      <select v-model="range"  class="searchinput">
         <option>전체</option>
         <option>제목</option>
         <option>채널명</option>
       </select>
       <input type="text" v-model="keyword" />
-      <button>검색</button>
+      <button class="searchbtn">검색</button>
       <input type="button" @click="clearVideos" value="CLEAR" />
     </form>
   </div>
@@ -73,4 +72,29 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.searchbtn{
+  min-width: 0;
+  appearance: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 300;
+  height: 2.75em;
+  line-height: 2.75em;
+  min-width: 9.25em;
+  padding: 0 1.5em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12pt;
+  margin: 2%;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+</style>

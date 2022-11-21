@@ -22,7 +22,7 @@
               <button
                 type="button"
                 @click="checkDuplicate"
-                :class="{ ok: isOk }"
+                :class="{ ok: isOk }" id = "Duplicate"
               >
                 {{ duplicateMsg }}
               </button>
@@ -330,7 +330,7 @@ table {
   padding: 0 20% 0 20%;
 }
 
-.registBtn {
+.registBtn, #Duplicate {
   min-width: 0;
   appearance: none;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -360,4 +360,5 @@ table {
   justify-content: center;
   align-items: center;
 }
+
 </style>

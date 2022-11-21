@@ -169,7 +169,7 @@ export default {
   width: 24px;
   left: 50%;
   top: 50%;
-  margin: 13px 0px 0px -26px;
+  margin: 13px 0px 0px -26.5px;
   -webkit-transform: rotateX(55deg);
   -moz-transform: rotateX(55deg);
   -o-transform: rotateX(55deg);

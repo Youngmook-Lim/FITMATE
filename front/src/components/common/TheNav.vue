@@ -27,10 +27,7 @@ export default {
 
 <style scoped>
 nav {
-  margin-top: 10px;
   display: flex;
   justify-content: space-around;
-  padding: 20px;
-  background-color: aquamarine;
 }
 </style>

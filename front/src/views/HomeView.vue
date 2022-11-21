@@ -5,6 +5,7 @@
       <the-nav></the-nav>
     </div>
     <router-view class="innercontainer"></router-view>
+    <the-footer-vue></the-footer-vue>
   </div>
 </template>
 
@@ -12,12 +13,14 @@
 import TheHeader from "../components/common/TheHeader.vue";
 import TheNav from "../components/common/TheNav.vue";
 import axios from "@/util/http-common.js";
+import TheFooterVue from "@/components/common/TheFooter.vue";
 
 export default {
   name: "HomeView",
   components: {
     TheHeader,
     TheNav,
+    TheFooterVue,
   },
   methods: {
     parseJWT(token) {
@@ -56,7 +59,19 @@ export default {
 
 <style scoped>
 .innercontainer {
-  margin: 11%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, border-top-left-radius 0.2s ease, border-top-right-radius 0.2s ease, padding 0.2s ease;
+    width: 64em;
+    padding: 4em 1em 1em 1em;
+    text-align: center;
+    display: block;
+    border: 1px solid white;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
 }
 
 .navi {
