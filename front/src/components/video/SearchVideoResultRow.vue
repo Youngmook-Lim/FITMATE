@@ -10,8 +10,8 @@
       <p>{{ video.v_writer }}</p>
       <p>{{ video.reg_date }}</p>
       <p>{{ video.category }}</p>
-      <p>{{ video.view_cnt }}</p>
-      <p>{{ video.favorite_cnt }}</p>
+      <p>조회수 : {{ video.view_cnt }}</p>
+      <p>좋아요수 : {{ video.favorite_cnt }}</p>
     </div>
   </div>
 </template>

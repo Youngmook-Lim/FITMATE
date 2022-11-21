@@ -42,7 +42,8 @@ export default {
       // console.log(payload);
       axios
         .get(`userApi/detail`, { params: { id: payload.id } })
-        .then((res) => this.$store.commit("SET_MY_USER", res.data));
+        .then((res) => this.$store.commit("SET_MY_USER", res.data))
+        .then(() => (this.$store.state.loadedVideoSearch = true));
     }
     // else {
     // this.$router.push({ name: "LoginView" });

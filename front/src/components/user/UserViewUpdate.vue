@@ -6,11 +6,6 @@
         <tr>
           <th>아이디</th>
           <td><input type="text" v-model="tmpUser.u_id" readonly /></td>
-          <!-- <td>
-            <button type="button" @click="checkDuplicate" :class="{ ok: isOk }">
-              중복확인
-            </button>
-          </td> -->
         </tr>
         <tr>
           <th>비밀번호</th>
@@ -53,7 +48,7 @@
           </td>
         </tr>
         <tr>
-          <th>전화번호</th>
+          <th>연락처</th>
           <td>
             <input
               type="tel"
@@ -62,6 +57,10 @@
               placeholder="예 : 010-123(4)-5678"
             />
           </td>
+        </tr>
+        <tr>
+          <th>상태메시지</th>
+          <td><input type="text" v-model="tmpUser.state_message" /></td>
         </tr>
       </table>
       <button>회원정보수정</button>

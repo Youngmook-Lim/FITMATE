@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="selectCommentList" parameterType="Comment" resultType="Comment">
-		SELECT *, (SELECT nickname FROM user u WHERE u.u_id = c.u_id) as nickname
+		SELECT *, (SELECT nickname FROM user u WHERE u.u_id = c.u_id) AS nickname, (SELECT img FROM user u WHERE u.u_id = c.u_id) AS img
 		FROM comment c
 		<if test="v_id != null">
 			WHERE v_id = #{v_id} 

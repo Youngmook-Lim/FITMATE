@@ -1,17 +1,27 @@
 <template>
-  <div>
-    <div>{{ comment.nickname }}</div>
-    <textarea
-      cols="30"
-      rows="3"
-      v-model="tmpContent"
-      :readonly="isReadonly"
-    ></textarea>
-    <div>{{ comment.reg_date }}</div>
-    <br />
-    <div v-if="myUser.u_id === comment.u_id">
-      <button @click="updateComment">수정</button>
-      <button @click="deleteComment">삭제</button>
+  <div class="comment">
+    <div class="profile-pic">
+      <img
+        v-if="loadedVideoSearch"
+        :src="require('../../assets/profileImgs/' + comment.img + '.png')"
+        alt=""
+      />
+    </div>
+    <div>
+      {{ comment.nickname }}
+      <textarea
+        cols="30"
+        rows="3"
+        v-model="tmpContent"
+        :readonly="isReadonly"
+      ></textarea>
+      <div>{{ comment.reg_date }}</div>
+    </div>
+    <div>
+      <div v-if="myUser.u_id === comment.u_id">
+        <button @click="updateComment">수정</button>
+        <button @click="deleteComment">삭제</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +39,8 @@ export default {
     return {
       tmpContent: "",
       isReadonly: true,
+      isLoaded: false,
+      img: "",
     };
   },
   methods: {
@@ -59,7 +71,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["myUser", "video"]),
+    ...mapState(["myUser", "video", "loadedVideoSearch"]),
   },
   created() {
     this.tmpContent = this.comment.content;
@@ -73,5 +85,26 @@ textarea {
 }
 textarea[readonly] {
   border: 1px solid black;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  /* margin: 0 auto; */
+  margin: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.profile-pic img {
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

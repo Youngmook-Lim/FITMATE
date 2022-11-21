@@ -8,7 +8,7 @@ export default new Vuex.Store({
     API_URL: "http://localhost:9999/api",
     curUser: {},
     myUser: {},
-    myUserFollowers: [],
+    myUserFollowing: [],
     curUserFollowers: [],
     curUserFollowing: [],
     video: {},
@@ -20,6 +20,7 @@ export default new Vuex.Store({
     receivedMsgs: [],
     sentMsgs: [],
     nicknames: [],
+    loadedVideoSearch: false,
   },
   getters: {},
   mutations: {
@@ -31,8 +32,8 @@ export default new Vuex.Store({
       state.myUser = payload;
     },
 
-    SET_MY_USER_FOLLOWERS(state, payload) {
-      state.myUserFollowers = payload;
+    SET_MY_USER_FOLLOWING(state, payload) {
+      state.myUserFollowing = payload;
     },
 
     SET_CUR_USER_FOLLOWERS(state, payload) {
@@ -44,11 +45,11 @@ export default new Vuex.Store({
     },
 
     ADD_FOLLOWER(state) {
-      state.myUserFollowers.push(state.curUser);
+      state.myUserFollowing.push(state.curUser);
     },
 
     DELETE_FOLLOWER(state) {
-      state.myUserFollowers = state.myUserFollowers.filter(
+      state.myUserFollowing = state.myUserFollowing.filter(
         (f) => f.u_id !== state.curUser.u_id
       );
     },
@@ -87,6 +88,10 @@ export default new Vuex.Store({
       }
     },
 
+    CLEAR_VIDEOS(state) {
+      state.videos = [];
+    },
+
     FAVORITE(state) {
       state.videoFavoriteUsers.push(state.myUser);
     },
@@ -116,7 +121,7 @@ export default new Vuex.Store({
     CLEAR_ALL(state) {
       state.curUser = {};
       state.myUser = {};
-      state.myUserFollowers = [];
+      state.myUserFollowing = [];
       state.videos = [];
       state.video = {};
       state.comments = [];

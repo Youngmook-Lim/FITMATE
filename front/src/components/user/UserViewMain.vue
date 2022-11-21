@@ -2,6 +2,14 @@
   <div>
     <h3 v-if="curUser.u_id === myUser.u_id">마이 페이지</h3>
     <h3 v-else>유저 메인페이지</h3>
+    <div class="profile-pic">
+      <img v-if="!curUser.img" />
+      <img
+        v-else
+        :src="require('../../assets/profileImgs/' + curUser.img + '.png')"
+        alt=""
+      />
+    </div>
     <table>
       <tr>
         <th>아이디</th>
@@ -28,8 +36,20 @@
         <td>{{ curUser.phone_no | parsePhoneNo }}</td>
       </tr>
       <tr>
+        <th>위치</th>
+        <td>{{ curUser.address | sliceAddress }}</td>
+      </tr>
+      <tr>
         <th>상태메시지</th>
         <td>{{ curUser.state_message }}</td>
+      </tr>
+      <tr>
+        <th>Followers</th>
+        <td>{{ curUserFollowers.length }}명</td>
+      </tr>
+      <tr>
+        <th>Following</th>
+        <td>{{ curUserFollowing.length }}명</td>
       </tr>
     </table>
 
@@ -40,7 +60,6 @@
     >
     <button v-else-if="checkIfFollow()" @click="unfollow">팔로우 취소</button>
     <button v-else @click="follow">팔로우</button>
-    <hr />
     <button v-if="curUser.u_id === myUser.u_id" @click="deleteUser">
       회원탈퇴
     </button>
@@ -66,15 +85,19 @@ export default {
     ...mapState([
       "curUser",
       "myUser",
-      "myUserFollowers",
-
-      // 아래것들 나중에 써야함
+      "myUserFollowing",
       "curUserFollowers",
       "curUserFollowing",
+
+      // 아래것들 나중에 써야함
       "curFavoriteVideos",
     ]),
   },
   filters: {
+    sliceAddress(address) {
+      const splitAddress = address.split(" ");
+      return splitAddress.slice(0, 3).join(" ");
+    },
     parsePhoneNo(phone_no) {
       if (!phone_no) {
         return;
@@ -119,7 +142,7 @@ export default {
         .then(() => this.$store.commit("DELETE_FOLLOWER"));
     },
     checkIfFollow() {
-      for (let f of this.myUserFollowers) {
+      for (let f of this.myUserFollowing) {
         if (f.u_id === this.curUser.u_id) return true;
       }
       return false;
@@ -138,4 +161,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.profile-pic {
+  border: 1px solid black;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-pic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+</style>

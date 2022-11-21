@@ -7,6 +7,7 @@ public class Comment {
 	private String v_id;		// FK
 	private String content;		// 리뷰내용
 	private String reg_date;	// 등록일자 
+	private String img;
 	
 	public int getC_id() {
 		return c_id;
@@ -44,11 +45,17 @@ public class Comment {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	@Override
 	public String toString() {
 		return "Comment [c_id=" + c_id + ", u_id=" + u_id + ", nickname=" + nickname + ", v_id=" + v_id + ", content="
-				+ content + ", reg_date=" + reg_date + "]";
+				+ content + ", reg_date=" + reg_date + ", img=" + img + "]";
 	}
+
 	
 }

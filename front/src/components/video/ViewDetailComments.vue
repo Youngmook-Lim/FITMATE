@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h5>비디오 댓글들</h5>
     <view-detail-comments-regist></view-detail-comments-regist>
     <view-detail-comments-row
       v-for="comment in comments"

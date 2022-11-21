@@ -36,17 +36,20 @@ export default {
     isMyUserLoaded: Boolean,
   },
   computed: {
-    ...mapState(["myUser", "sentMsgs"]),
+    ...mapState(["myUser", "sentMsgs", "nicknames"]),
   },
   methods: {
     getSearchedUser() {
+      if (!this.searchQuery) return;
+
       axios({
-        url: `messageApi/sent/${this.searchQuery}`,
+        url: `messageApi/sent/${this.nicknames[this.searchQuery]}`,
         method: "GET",
         params: {
           myId: this.myUser.u_id,
         },
       }).then((res) => {
+        console.log(res.data);
         this.$store.commit("SET_SENT_MSGS", res.data);
       });
     },

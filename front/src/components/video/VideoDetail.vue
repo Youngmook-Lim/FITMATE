@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4>얘는 비디오 상세보기 페이지</h4>
     <view-detail-content></view-detail-content>
     <view-detail-comments></view-detail-comments>
   </div>

@@ -30,6 +30,7 @@
       </select>
       <input type="text" v-model="keyword" />
       <button>검색</button>
+      <input type="button" @click="clearVideos" value="CLEAR" />
     </form>
   </div>
 </template>
@@ -47,6 +48,9 @@ export default {
     };
   },
   methods: {
+    clearVideos() {
+      this.$store.commit("CLEAR_VIDEOS");
+    },
     searchVideo() {
       axios
         .get(
