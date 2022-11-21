@@ -31,6 +31,13 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	// 자동완성용 유저들 닉네임과 아이디 갖고오기
+	@GetMapping("/getNicknames")
+	public ResponseEntity<HashMap<String, String>> getNicknames() {
+		HashMap res = userService.getNicknames();
+		return new ResponseEntity<HashMap<String, String>>(res, HttpStatus.OK);
+	}
 
 	// 회원 등록
 	@PostMapping("/regist")

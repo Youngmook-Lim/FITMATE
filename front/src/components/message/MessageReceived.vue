@@ -51,14 +51,14 @@ export default {
   },
   created() {
     // @@@@@@ TMP VARIABLE @@@@@@
-    this.$store.state.receivedMsgs = [
-      {
-        m_id: 1,
-        from_user: "id06",
-        to_user: "id04",
-        content: "What's up man how's it going? I'm fine and you?",
-      },
-    ];
+    // this.$store.state.receivedMsgs = [
+    //   {
+    //     m_id: 1,
+    //     from_user: "id06",
+    //     to_user: "id04",
+    //     content: "What's up man how's it going? I'm fine and you?",
+    //   },
+    // ];
   },
 };
 </script>

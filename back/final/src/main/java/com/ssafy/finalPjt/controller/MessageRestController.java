@@ -27,6 +27,7 @@ public class MessageRestController {
 	@PostMapping("/")
 	public ResponseEntity<String> registMessage(Message message) {
 		int res = messageService.registMessage(message);
+		System.out.println(res);
 
 		if (res == 1) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);

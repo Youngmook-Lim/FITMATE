@@ -3,6 +3,7 @@ package com.ssafy.finalPjt.model.service.user;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,6 +133,17 @@ public class UserServiceImpl implements UserService {
 
 		}
 		return map;
+	}
+
+	@Override
+	public HashMap<String, String> getNicknames() {
+		HashMap<String, String> res = new HashMap<String, String>();
+		List<User> sqlResult = (List<User>) userDao.getNicknames();
+		for (User user : sqlResult) {
+			res.put(user.getNickname(), user.getU_id());
+		}
+		System.out.println(res);
+		return res;
 	}
 
 }

@@ -28,4 +28,6 @@ public interface UserService {
 	String checkJoin(User user);
 	
 	HashMap<User, Double> findAllUser(String id, int dist);
+	
+	HashMap<String, String> getNicknames();
 }

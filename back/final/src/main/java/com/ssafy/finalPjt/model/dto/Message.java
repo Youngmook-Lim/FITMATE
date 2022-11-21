@@ -32,5 +32,11 @@ public class Message {
 		this.content = content;
 	}
 	
+	@Override
+	public String toString() {
+		return "Message [m_id=" + m_id + ", from_user=" + from_user + ", to_user=" + to_user + ", content=" + content
+				+ "]";
+	}
+	
 	
 }

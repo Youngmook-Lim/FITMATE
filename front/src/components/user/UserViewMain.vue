@@ -27,6 +27,10 @@
         <th>연락처</th>
         <td>{{ curUser.phone_no | parsePhoneNo }}</td>
       </tr>
+      <tr>
+        <th>상태메시지</th>
+        <td>{{ curUser.state_message }}</td>
+      </tr>
     </table>
 
     <router-link

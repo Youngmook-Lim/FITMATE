@@ -63,24 +63,25 @@ export default {
       suggestions: [
         {
           data: [
-            "Frodo",
-            "Samwise",
-            "Gandalf",
-            "Galadriel",
-            "Faramir",
-            "Éowyn",
-            "Peregrine Took",
-            "Boromir",
-            "Legolas",
-            "Gimli",
-            "Gollum",
-            "Beren",
-            "Saruman",
-            "Sauron",
-            "Théoden",
+            // "Frodo",
+            // "Samwise",
+            // "Gandalf",
+            // "Galadriel",
+            // "Faramir",
+            // "Éowyn",
+            // "Peregrine Took",
+            // "Boromir",
+            // "Legolas",
+            // "Gimli",
+            // "Gollum",
+            // "Beren",
+            // "Saruman",
+            // "Sauron",
+            // "Théoden",
           ],
         },
       ],
+      nicknames: [],
     };
   },
   computed: {
@@ -103,9 +104,15 @@ export default {
     clickHandler(item) {
       console.log(item);
     },
-    onSelected(item) {
-      this.selected = item.item;
-      this.message.to_user = item.item;
+    onSelected(item = null) {
+      console.log(item);
+
+      if (!item) {
+        this.selected = this.query;
+      } else {
+        this.selected = item.item;
+      }
+      this.message.to_user = this.nicknames[this.selected];
       console.log(this.message.to_user);
     },
     onInputChange(text) {
@@ -115,22 +122,33 @@ export default {
       return suggestion.item;
     },
     sendMessage() {
-      this.message.from_user = this.$store.state.myUser.nickname;
+      if (!this.message.to_user) {
+        alert("등록된 유저가 아닙니다.");
+        return;
+      }
+
+      this.message.from_user = this.$store.state.myUser.u_id;
+      console.log(this.message);
       axios({
         url: "messageApi/",
         method: "POST",
-        params: {
-          message: this.message,
-          // to_user, from_user 왜없지???
-        },
+        data: null,
+        params: this.message,
       }).then((res) => {
         console.log(res.data);
+        this.$store.commit("SET_SENT_MSGS", res.data);
       });
     },
   },
   created() {
     const id = this.$route.params.id;
     console.log(id);
+
+    axios.get("userApi/getNicknames").then((res) => {
+      this.nicknames = res.data;
+      this.suggestions[0].data = Object.keys(res.data);
+    });
+
     if (id == 0) return;
     axios
       .get(`userApi/detail`, { params: { id: id } })

@@ -31,10 +31,6 @@
           <td><input type="text" v-model="user.name" required /></td>
         </tr>
         <tr>
-          <th>닉네임</th>
-          <td><input type="text" v-model="user.nickname" /></td>
-        </tr>
-        <tr>
           <th>성별</th>
           <td>
             <div>
@@ -98,6 +94,19 @@
             />
           </td>
         </tr>
+        <tr>
+          <th>닉네임</th>
+          <td><input type="text" v-model="user.nickname" /></td>
+        </tr>
+        <tr>
+          <th>상태메시지</th>
+          <td>
+            <textarea
+              v-model="user.state_message"
+              placeholder="관심있는 운동과 함께 인사말을 작성해 보세요."
+            />
+          </td>
+        </tr>
       </table>
       <button>회원가입</button>
       <input type="button" @click="toLogin" value="로그인" />
@@ -148,6 +157,7 @@ export default {
         x: "",
         y: "",
         img: "",
+        state_message: "",
       },
       isOk: false,
       zipcode: "",

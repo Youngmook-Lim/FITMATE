@@ -30,4 +30,6 @@ public interface UserDao {
 	
 	// 모든 유저 찾기
 	List<User> findAllUser();
+	
+	List<User> getNicknames();
 }

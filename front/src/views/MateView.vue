@@ -112,6 +112,24 @@ export default {
         };
         content.appendChild(closeBtn);
 
+        const link = document.createElement("button");
+        link.textContent = "프로필 보러 가기";
+        link.onclick = () => {
+          this.$router.push({
+            name: "UserViewMain",
+            params: {
+              id: user.u_id ? user.u_id : 0,
+            },
+          });
+        };
+
+        content.appendChild(link);
+        // ":to",
+        //   `{name: 'UserViewMain',
+        //   params: {
+        //     id: ${user.u_id} ? ${user.u_id} : 0,
+        //   },}`
+
         // const content = `
         // <div class ="label">
         //   <span><strong>${user.nickname}</strong></span>
@@ -171,8 +189,8 @@ export default {
                   script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_JS_API_KEY}`;
                   /* global kakao */
                   script.addEventListener("load", () => {
-                    kakao.maps.load(this.initMap);
                     console.log("만들어짐");
+                    kakao.maps.load(this.initMap);
                   });
                   document.head.appendChild(script);
                 } else {

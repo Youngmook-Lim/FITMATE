@@ -68,5 +68,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM user
 	</select>
+	
+	<select id="getNicknames" resultType="User">
+		SELECT nickname, u_id
+		FROM user
+	</select>
 
 </mapper>

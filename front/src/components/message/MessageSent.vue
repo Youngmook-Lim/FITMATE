@@ -47,6 +47,8 @@ export default {
       }).then((res) => {
         this.$store.commit("SET_SENT_MSGS", res.data);
       });
+
+      // this.$forceUpdate();
     },
   },
   // created() {
