@@ -12,6 +12,13 @@
           <td><input type="password" v-model="tmpUser.pw" required /></td>
         </tr>
         <tr>
+          <th>비밀번호 확인</th>
+          <td>
+            <input type="password" v-model="passwordCheck" required />
+            <p>{{ passwordMessage }}</p>
+          </td>
+        </tr>
+        <tr>
           <th>성명</th>
           <td><input type="text" v-model="tmpUser.name" required /></td>
         </tr>
@@ -76,10 +83,31 @@ export default {
   data() {
     return {
       tmpUser: {},
+      passwordCheck: "",
     };
   },
   computed: {
     ...mapState(["myUser"]),
+    passwordMessage() {
+      if (!this.passwordCheck) return "______";
+      if (this.user.pw === this.passwordCheck) {
+        console.log(this.user.pw.length);
+        if (4 <= this.user.pw.length && this.user.pw.length <= 20) {
+          return "비밀번호가 일치합니다.";
+        } else {
+          return "비밀번호 길이는 4 ~ 20자 이어야 합니다.";
+        }
+      } else {
+        return "비밀번호가 일치하지 않습니다.";
+      }
+    },
+    isPasswordSame() {
+      return (
+        this.user.pw === this.passwordCheck &&
+        4 <= this.user.pw.length &&
+        this.user.pw.length <= 20
+      );
+    },
   },
   created() {
     this.tmpUser = { ...this.myUser };

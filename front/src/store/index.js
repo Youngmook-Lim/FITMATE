@@ -5,6 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    LOGOUT_TIME: 300,
+    time: "",
+    timer: "",
+    min: "",
+    sec: "",
     API_URL: "http://localhost:9999/api",
     curUser: {},
     myUser: {},
@@ -24,6 +29,24 @@ export default new Vuex.Store({
   },
   getters: {},
   mutations: {
+    SET_MIN(state, payload) {
+      state.min = payload;
+    },
+    SET_SEC(state, payload) {
+      state.sec = payload;
+    },
+    DECREASE_TIME(state) {
+      state.time--;
+    },
+    SET_TIME(state, payload) {
+      state.time = payload;
+    },
+    SET_TIMER(state, payload) {
+      state.timer = payload;
+    },
+    RESET_TIMER(state) {
+      clearInterval(state.timer);
+    },
     SET_CUR_USER(state, payload) {
       state.curUser = payload;
     },

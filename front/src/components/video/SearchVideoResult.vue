@@ -21,15 +21,15 @@
 
       <!-- <input type="number" v-model="curPage" /> -->
       <div class="videoview">
-      <button @click="decreasePage">◀</button>
-      <span> {{ curPage }} </span>
-      <!-- <input v-model="curPage" /> -->
-      <button @click="increasePage">▶</button>
+        <button @click="decreasePage">◀</button>
+        <span> {{ curPage }} </span>
+        <!-- <input v-model="curPage" /> -->
+        <button @click="increasePage">▶</button>
       </div>
-        <div class="videoflexbox">
-          <div v-for="video in curVideos" :key="video.id" class="videodiv">
-            <search-video-result-row :video="video"></search-video-result-row>
-          </div>
+      <div class="videoflexbox">
+        <div v-for="video in curVideos" :key="video.id" class="videodiv">
+          <search-video-result-row :video="video"></search-video-result-row>
+        </div>
       </div>
     </div>
   </div>
@@ -59,9 +59,7 @@ export default {
   },
   methods: {
     videosExist() {
-      console.log(this.videos.length);
       const res = !(this.videos.length === 0);
-      console.log(res);
       return res;
     },
     increasePage() {
@@ -101,21 +99,21 @@ export default {
 </script>
 
 <style scoped>
-#sort{
+#sort {
   margin-bottom: 2%;
 }
-.videoview{
+.videoview {
   margin-bottom: 2%;
 }
-.videodiv{
+.videodiv {
   width: 450px;
   margin-bottom: 8px;
 }
 
-.videoflexbox{
+.videoflexbox {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-</style>>
-
+</style>
+>

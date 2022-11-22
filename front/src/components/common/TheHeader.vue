@@ -47,8 +47,32 @@
             </ul>
           </div>
         </div>
+        <div class="weatherMessage">
+          <div>
+            <span>{{ this.curDateAndTimeMessage }}</span>
+          </div>
+          <div class="tempAndWeather">
+            <span
+              ><strong>{{ this.temperature }}°C</strong>
+              &nbsp;&nbsp;|&nbsp;&nbsp;
+              <strong>{{ this.weatherMessage }}</strong></span
+            >
+          </div>
+        </div>
       </div>
       <div class="menu-right">
+        <div v-if="loaded" class="timer">
+          <div>
+            <span>자동로그아웃 : </span>
+            <span>{{ min }}:</span>
+            <span>{{ sec }}</span>
+          </div>
+          <div class="timer-button-container">
+            <button class="timer-button" @click.prevent="resetTimer">
+              세션갱신
+            </button>
+          </div>
+        </div>
         <span>Welcome {{ myUser.name }}!</span>
         <router-link class="router-link" :to="{ name: 'MessageReceived' }"
           >💌</router-link
@@ -63,7 +87,7 @@
           }"
           >🏋️‍♀️</router-link
         > -->
-        <button @click="logout">로그아웃</button>
+        <button @click.prevent="logout">로그아웃</button>
       </div>
     </header>
     <header id="header" class="alt">
@@ -82,16 +106,27 @@
 
 <script>
 import { mapState } from "vuex";
+import axios from "@/util/http-common.js";
 
 export default {
   name: "TheHeader",
   data() {
     return {
       showHeader: true,
+      weatherOption: "",
+      weatherMessage: "",
+      curDateAndTimeMessage: "",
+      temperature: "",
     };
   },
   props: {
     thisIsRegister: String,
+  },
+  computed: {
+    ...mapState(["myUser", "min", "sec", "time", "timer", "LOGOUT_TIME"]),
+    loaded() {
+      return this.min !== "";
+    },
   },
   methods: {
     logout() {
@@ -99,21 +134,181 @@ export default {
 
       // JWT 토큰 지우기
       sessionStorage.removeItem("access-token");
+
+      // 타이머 리셋
+      this.$store.commit("RESET_TIMER");
+
       this.$router.push({ name: "LoginView" });
     },
+    resetTimer() {
+      this.$store.commit("RESET_TIMER");
+      this.$store.commit("SET_TIME", this.LOGOUT_TIME);
+      const localTimer = setInterval(this.tick, 1000);
+      this.$store.commit("SET_TIMER", localTimer);
+      console.log("Timer started from TheHeader.vue");
+    },
+    tick() {
+      this.$store.commit(
+        "SET_MIN",
+        String(Math.trunc(this.time / 60)).padStart(2, 0)
+      );
+      this.$store.commit("SET_SEC", String(this.time % 60).padStart(2, 0));
+      console.log(this.time);
+
+      if (this.time === 0) {
+        alert("세션이 만료되어 로그아웃 되었습니다.");
+        this.$store.commit("RESET_TIMER");
+        this.$store.commit("CLEAR_ALL");
+
+        // JWT 토큰 지우기
+        sessionStorage.removeItem("access-token");
+        this.$router.push({ name: "LoginView" });
+      }
+
+      this.$store.commit("DECREASE_TIME");
+    },
   },
-  computed: {
-    ...mapState(["myUser"]),
-  },
+
   created() {
     if (this.thisIsRegister) {
       this.showHeader = false;
     }
+
+    const WEATHER_KEY = process.env.VUE_APP_WEATHER_API_KEY;
+    const now = new Date();
+
+    const dayMap = ["일", "월", "화", "수", "목", "금", "토"];
+
+    this.curDateAndTimeMessage += (now.getMonth() + 1).toString() + "월 ";
+    this.curDateAndTimeMessage += now.getDate().toString() + "일 ";
+    this.curDateAndTimeMessage += dayMap[now.getDay()] + "요일";
+
+    const curDate =
+      now.getFullYear().toString() +
+      (now.getMonth() + 1).toString().padStart(2, "0") +
+      now.getDate().toString().padStart(2, "0");
+
+    const curTime = (now.getHours() - 1).toString().padStart(2, "0") + "00";
+
+    new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          resolve(pos);
+        },
+        (err) => {
+          console.error(err.message);
+        }
+      );
+    }).then((res) => {
+      console.log(res.coords);
+      axios({
+        url: "weatherApi/",
+        method: "GET",
+        params: {
+          ServiceKey: WEATHER_KEY,
+          curDate,
+          curTime,
+          lat: Math.round(res.coords.latitude).toString(),
+          lon: Math.round(res.coords.longitude).toString(),
+        },
+      }).then((res) => {
+        const data = res.data.response.body.items.item;
+        // T1H: 기온, PTY: 강수형태, REH: 습도, WSD: 풍속, SKY: 하늘
+        const filteredData = data.filter(
+          (el) => el.fcstTime === data[0].fcstTime
+        );
+
+        console.log(filteredData);
+
+        this.temperature = parseInt(
+          filteredData.filter((el) => el.category === "T1H")[0].fcstValue
+        );
+
+        const isNight =
+          parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 18 ? true : false;
+
+        if (isNight) {
+          this.weatherOption = 4;
+        }
+
+        const precipitation = filteredData.filter(
+          (el) => el.category === "PTY"
+        )[0].fcstValue;
+        if (
+          precipitation === "1" ||
+          precipitation === "2" ||
+          precipitation === "4" ||
+          precipitation === "5" ||
+          precipitation === "6"
+        ) {
+          if (!isNight) {
+            this.weatherOption = 3;
+          }
+          this.weatherMessage = "비";
+        } else if (precipitation === "3" || precipitation === "7") {
+          if (!isNight) {
+            this.weatherOption = 2;
+          }
+          this.weatherMessage = "눈";
+        } else {
+          if (
+            filteredData.filter((el) => el.category === "SKY")[0].fcstValue ===
+            "1"
+          ) {
+            if (!isNight) {
+              this.weatherOption = 0;
+            }
+            this.weatherMessage = "맑음";
+          } else {
+            if (!isNight) {
+              this.weatherOption = 1;
+            }
+            this.weatherMessage = "흐림";
+          }
+        }
+        console.log(this.weatherOption);
+        console.log(this.weatherMessage);
+        console.log(this.curDateAndTimeMessage);
+      });
+    });
   },
 };
 </script>
 
 <style scoped>
+.timer {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-button {
+  padding: 0;
+  min-width: 75px;
+  height: 25px;
+  line-height: 27px;
+  font-size: 12px;
+}
+
+.weatherMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+
+.weatherMessage span {
+  margin: 0;
+  padding: 0;
+}
+
+.weatherMessage .tempAndWeather {
+  font-size: 15px;
+}
+
 /* 로고 */
 .logoclass {
   display: flex;
@@ -471,6 +666,7 @@ export default {
 
 .menu-right {
   display: flex;
+  align-items: center;
   gap: 16px;
 }
 
@@ -711,31 +907,31 @@ body {
   transform: rotate(-60deg);
 }
 .breezy li:nth-child(1) {
-  top: 10%;
+  top: 15%;
   left: 100%;
 }
 
 .breezy li:nth-child(2) {
-  top: 5%;
+  top: 15%;
   left: 110%;
   animation-delay: 0.3s;
 }
 
 .breezy li:nth-child(3) {
-  top: 4%;
+  top: 15%;
   left: 125%;
   animation-delay: 0.6s;
 }
 
 .breezy li:nth-child(4) {
   top: 15%;
-  left: 150%;
+  left: 135%;
   animation-delay: 1s;
 }
 
 .breezy li:nth-child(5) {
-  top: 10%;
-  left: 140%;
+  top: 15%;
+  left: 130%;
 }
 
 .night {
@@ -804,8 +1000,8 @@ body {
   left: 75%;
   width: 2px;
   height: 2px;
-  animation: meteor 1.5s infinite linear;
-  animation-delay: 0.6s;
+  animation: meteor 1.4s infinite linear;
+  animation-delay: 1s;
 }
 
 /* .night li:nth-child(4) {
@@ -813,14 +1009,15 @@ body {
   left: 50%;
 } */
 
-.night li:nth-child(2) {
+/* .night li:nth-child(2) {
   opacity: 0;
   top: 20%;
   left: 55%;
   width: 1px;
   height: 1px;
-  animation: meteor 1.5s infinite linear;
-}
+  animation: meteor 1s infinite linear;
+  animation-delay: 0.3s;
+} */
 
 @keyframes inex {
   50% {

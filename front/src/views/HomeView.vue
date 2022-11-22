@@ -41,6 +41,7 @@ export default {
     //   "access-token",
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJteU1lc3NhZ2UiOiJXVEZGRkZGIEJST09PT08ifQ.Tf3M9Y8v6vzhDENFgucVt4c9KN1GQn0avqBEpMR_FRQ"
     // );
+
     const token = sessionStorage.getItem("access-token");
     if (token) {
       const payload = this.parseJWT(token);
@@ -49,6 +50,7 @@ export default {
         .get(`userApi/detail`, { params: { id: payload.id } })
         .then((res) => this.$store.commit("SET_MY_USER", res.data))
         .then(() => (this.$store.state.loadedVideoSearch = true));
+      this.$emit("start-timer");
     }
     // else {
     // this.$router.push({ name: "LoginView" });
@@ -62,16 +64,17 @@ export default {
   margin: auto;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, border-top-left-radius 0.2s ease, border-top-right-radius 0.2s ease, padding 0.2s ease;
-    width: 64em;
-    padding: 4em 1em 1em 1em;
-    text-align: center;
-    display: block;
-    border: 1px solid white;
-    border-bottom-left-radius: 1em;
-    border-bottom-right-radius: 1em;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
+  transition: background-color 0.2s ease, border-top-left-radius 0.2s ease,
+    border-top-right-radius 0.2s ease, padding 0.2s ease;
+  width: 64em;
+  padding: 4em 1em 1em 1em;
+  text-align: center;
+  display: block;
+  border: 1px solid white;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
 }
 
 .navi {

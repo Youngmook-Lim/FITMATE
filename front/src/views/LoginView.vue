@@ -37,6 +37,7 @@
 
 <script>
 import axios from "@/util/http-common.js";
+import { mapState } from "vuex";
 
 export default {
   name: "LoginView",
@@ -46,7 +47,29 @@ export default {
       pw: "",
     };
   },
+  computed: {
+    ...mapState(["time", "timer"]),
+  },
   methods: {
+    // tick() {
+    //   this.$store.commit(
+    //     "SET_MIN",
+    //     String(Math.trunc(this.time / 60)).padStart(2, 0)
+    //   );
+    //   this.$store.commit("SET_SEC", String(this.time % 60).padStart(2, 0));
+    //   console.log(this.time);
+
+    //   if (this.time === 0) {
+    //     // alert("세션이 만료되어 로그아웃 되었습니다.");
+    //     this.resetTimer();
+    //     this.$store.commit("CLEAR_ALL");
+    //     // JWT 토큰 지우기
+    //     sessionStorage.removeItem("access-token");
+    //     this.$router.push({ name: "LoginView" });
+    //   }
+
+    //   this.$store.commit("DECREASE_TIME");
+    // },
     login() {
       axios
         .get(`userApi/login`, { params: { id: this.u_id, pw: this.pw } })
@@ -73,6 +96,13 @@ export default {
         .then((res) => {
           this.$store.commit("SET_MY_USER", res.data);
           // this.myUser = res.data;
+          // this.$emit("complete-login");
+
+          // 타이머 시작
+          // this.$store.commit("SET_TIME", 30);
+          // const localTimer = setInterval(this.tick, 1000);
+          // this.$store.commit("SET_TIMER", localTimer);
+
           this.$router.push({ name: "HomeView" });
         })
         .catch((err) => {

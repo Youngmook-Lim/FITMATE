@@ -49,6 +49,7 @@ export default {
         // this.nicknames = res.data;
         this.$store.commit("SET_NICKNAMES", res.data);
       });
+      this.$emit("start-timer");
     }
     // else {
     // this.$router.push({ name: "LoginView" });
