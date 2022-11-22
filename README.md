@@ -5,21 +5,22 @@
 1. Lim Young Mook
 
 - Leader
-- FrontEnd Main
--
+- ?
+- ?
 
 2. Kwon O Young
 
-- DB Design
-- BackEnd Main
--
+- ?
+- ?
+- ?
 
 3. Nam Ki Jeong
 
-- DB Design
-- FrontEnd Sub
-- Design
-- ***
+- ?
+- ?
+- ?
+
+---
 
 ## Why FitMate ?
 
@@ -30,7 +31,7 @@
 이 웹사이트를 통해 유저들이 사람들과 함께 운동하면서 몸과 마음의 건강을 모두 챙길 수 있길 바랍니다.
 
 > A sound mind in a sound body.
-> Juvenalis
+> \_Juvenalis
 
 ---
 
@@ -38,74 +39,115 @@
 
 Fit Mate uses a number of tech to work properly:
 
-- [Vue JS]
-- [Spring Boot]
-- [MySql]
-- [MyBatis]
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-000B1D.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
 ## Tool
 
 Fit Mate uses a number of collaborative tools:
 
-- [Notion]
-- [Trello]
-- [SSAFY Git]
+![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Github](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white)
+![Notion](https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+![Trello](https://img.shields.io/badge/trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 
 ## API
 
 Fit Mate uses a number of API for project:
 
-- YouTube Data API
-- Kakao MAP API
+![youtube](https://img.shields.io/badge/youtube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)
+![kakao](https://img.shields.io/badge/kakao-FFCD00?style=for-the-badge&logo=kakao&logoColor=white)
+
+- YouTube Data API v3
+  - YouTube 영상 검색
+- Kakao Map API
+  - 카카오맵 활용 및 마커
+- Kakao Local Rest API
+  - 주소 > 경도·위도 변환
+- Kakao 우편번호 서비스 API
+  - 회원가입 시 주소 입력
+- 공공데이터포털 기상청\_단기예보 API
+  - 현재시각 날씨 표시
 
 ---
 
 ## Features
 
-### < Basic Features >
+### User
 
-#### User
+1. 회원가입
 
-- 회원가입 (유효성 검사)
-- 로그인 / 로그아웃
-- 회원정보 수정
-- 회원 탈퇴
-- 팔로잉 / 팔로워
+- 아이디, 닉네임, 핸드폰 번호, 이메일 중복 검사
+- 비밀번호 두 번 입력으로 일치 확인
+- Kakao 우편번호 서비스 API 적용하여 정확한 주소 입력
 
-#### Video
+2. 회원정보 수정
 
-- 유튜브 영상 검색 (운동부위별 조건 검색 및 정렬 가능)
-- 영상 상세보기
-- 영상 `좋아요` 기능
-- 영상 댓글 작성, 수정, 삭제
+- 수정시 닉네임, 핸드폰 번호, 이메일 중복 검사
 
-### < Key Features >
+3. 회원 상세보기
 
-#### Mate
+4. 로그인
 
-- 설정 거리 내 유저 검색 가능
-- 해당 유저를 Kakao Map을 이용한 마커 표시
+- JWT를 이용한 로그인 처리
 
-#### Message
+5. 로그아웃
 
-- 유저간 메세지 송수신 가능
-- 특정 유저한테 송수신한 메세지 기록 열람 가능
+- 10분 타이머 설정하여 자동 로그아웃 처리
 
----
+6. 팔로잉 & 팔로워
 
-## Feelings
+- 유저간 팔로잉 & 팔로워
 
-Example)
-권오영 : 첫 프로젝트 너무 재미있었다.
+7. 회원탈퇴
+
+### Video
+
+1. YouTube 영상 검색
+
+- 10개의 카테고리를 선택하여 원하는 운동 부위의 YouTube 영상 검색
+- 전체 / 제목 / 채널명으로 검색
+- 제목 / 조회수 / 좋아요수 / 업로드일 기준 정렬하여 검색
+
+2. 영상 상세보기
+
+3. 영상 좋아요 기능
+
+4. 영상 댓글
+
+- 댓글 작성
+- 댓글 수정
+- 댓글 삭제
+
+### Mate
+
+1. 가까운 유저 검색 기능
+
+- Kakao Map API와 Kakao Local REST API 적용하여 Kakao Map에 반경 X km 떨어진 유저 마커
+- 반경 1 / 3 / 5 / 10 km를 클라이언트에서 설정하여 원하는 거리의 다양한 유저를 검색
+- 남성은 파란색 여성은 분홍색으로 성별 표시
+- 마커 클릭 시 해당 유저의 정보와 프로필 이동 처리
+
+### Message
+
+1. 메세지 송·수신
+
+- 받은 메세지, 보낸 메세지, 메세지 보내기
+- 받거나 보낸 모든 메세지 열람
+- 특정 유저를 검색하여 해당 유저에게 받거나 보낸 기록 열람
+- 메세지 보내기 창에서 유저 닉네임 입력 시 자동완성 기능
+- 유저의 프로필에서 메세지 보내기 버튼 클릭 시 닉네임창에 해당 유저의 닉네임 자동 입력
+
+### ETC
+
+1. Codepen 날씨 아이콘 오픈소스 활용
+2. HTML5UP 템플릿 오픈소스 활용
 
 ---
 
 ## Licence
 
-[spring boot]: https://spring.io/projects/spring-boot
-[vue js]: https://vuejs.org/
-[mysql]: https://www.mysql.com/
-[mybatis]: https://mybatis.org/mybatis-3/
-[notion]: https://www.notion.so/
-[trello]: https://trello.com/
-[ssafy git]: https://lab.ssafy.com/
+SSAFY
