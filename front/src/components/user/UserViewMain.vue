@@ -51,6 +51,19 @@
         <th>Following</th>
         <td>{{ curUserFollowing.length }}명</td>
       </tr>
+      <tr>
+        <th>좋아요한 비디오</th>
+        <td>
+          <img
+            v-for="v in curFavoriteVideos"
+            :key="v.v_id"
+            :src="`https://img.youtube.com/vi/${v.v_id}/0.jpg`"
+            width="100px"
+            style="display: inline-block; cursor: pointer"
+            @click="moveDetail(v.v_id)"
+          />
+        </td>
+      </tr>
     </table>
 
     <router-link
@@ -88,13 +101,12 @@ export default {
       "myUserFollowing",
       "curUserFollowers",
       "curUserFollowing",
-
-      // 아래것들 나중에 써야함
       "curFavoriteVideos",
     ]),
   },
   filters: {
     sliceAddress(address) {
+      if (!address) return;
       const splitAddress = address.split(" ");
       return splitAddress.slice(0, 3).join(" ");
     },
@@ -121,6 +133,12 @@ export default {
     },
   },
   methods: {
+    moveDetail(v_id) {
+      this.$router.push({
+        name: "VideoDetail",
+        params: { id: v_id },
+      });
+    },
     follow() {
       axios
         .post(`followApi/`, null, {

@@ -574,7 +574,21 @@ INSERT INTO user (u_id, pw, name, email, gender, phone_no, nickname, state_messa
     ("id49", "1234", "박보검", "wwww@naver.com", "M", "01011110049", "보검", "안녕하세요. 박보검입니다.", "img_2", "대전 유성구 갑동 388-75", "36.36146520736443", "127.29466113817709"),
 	("id50", "1234", "김태리", "xxxx@naver.com", "F", "01011110050", "태리", "안녕하세요. 김태리입니다.", "img_6", "대전 유성구 덕명동 산 10-11", "36.350169592804136", "127.306939796446");
 
-	
-
 SELECT *
 FROM user;
+
+INSERT INTO message(from_user, to_user, content)
+VALUES
+("id03", "id05", "오영아 안녕"),
+("id02", "id05", "오영 하이 ㅋㅋ"),
+("id01", "id05", "야 머하냐"),
+("id05", "id03", "누구세요"),
+("id05", "id02", "??왜"),
+("id05", "id03", "머여"),
+("id03", "id05", "ㅇㄱㄹ"),
+("id03", "id04", "뭐이자시가"),
+("id02", "id04", "허허"),
+("id05", "id01", "하이룽");
+
+SELECT * FROM message;
+select * from user;

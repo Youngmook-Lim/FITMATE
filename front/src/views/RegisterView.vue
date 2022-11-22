@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-header-vue></the-header-vue>
+    <the-header-vue thisIsRegister="true"></the-header-vue>
     <div class="registerform">
       <h2>회원가입</h2>
       <div class="profile-pic">
@@ -22,7 +22,8 @@
               <button
                 type="button"
                 @click="checkDuplicate"
-                :class="{ ok: isOk }" id = "Duplicate"
+                :class="{ ok: isOk }"
+                id="Duplicate"
               >
                 {{ duplicateMsg }}
               </button>
@@ -30,8 +31,23 @@
           </tr>
           <tr>
             <th>비밀번호</th>
-            <td><input type="text" v-model="user.pw" required /></td>
+            <td>
+              <input
+                type="password"
+                v-model="user.pw"
+                placeholder="비밀번호 길이: 4 ~ 20자"
+                required
+              />
+            </td>
           </tr>
+          <tr>
+            <th>비밀번호 확인</th>
+            <td>
+              <input type="password" v-model="passwordCheck" required />
+              <p>{{ passwordMessage }}</p>
+            </td>
+          </tr>
+          <tr></tr>
           <tr>
             <th>성명</th>
             <td><input type="text" v-model="user.name" required /></td>
@@ -176,6 +192,7 @@ export default {
       detailAddress: "",
       showModal: false,
       imgNum: "",
+      passwordCheck: "",
     };
   },
   methods: {
@@ -183,6 +200,11 @@ export default {
     registUser() {
       if (!this.isOk) {
         alert("아이디 중복확인을 완료해 주세요.");
+        return;
+      }
+
+      if (!this.isPasswordSame) {
+        alert("비밀번호가 일치하지 않습니다.");
         return;
       }
 
@@ -273,6 +295,26 @@ export default {
     duplicateMsg() {
       return this.isOk ? "중복확인 완료" : "중복확인";
     },
+    passwordMessage() {
+      if (!this.passwordCheck) return "______";
+      if (this.user.pw === this.passwordCheck) {
+        console.log(this.user.pw.length);
+        if (4 <= this.user.pw.length && this.user.pw.length <= 20) {
+          return "비밀번호가 일치합니다.";
+        } else {
+          return "비밀번호 길이는 4 ~ 20자 이어야 합니다.";
+        }
+      } else {
+        return "비밀번호가 일치하지 않습니다.";
+      }
+    },
+    isPasswordSame() {
+      return (
+        this.user.pw === this.passwordCheck &&
+        4 <= this.user.pw.length &&
+        this.user.pw.length <= 20
+      );
+    },
   },
 };
 </script>
@@ -330,7 +372,8 @@ table {
   padding: 0 20% 0 20%;
 }
 
-.registBtn, #Duplicate {
+.registBtn,
+#Duplicate {
   min-width: 0;
   appearance: none;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -360,5 +403,4 @@ table {
   justify-content: center;
   align-items: center;
 }
-
 </style>
