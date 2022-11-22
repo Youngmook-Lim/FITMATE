@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="commentdetail">
     <view-detail-content></view-detail-content>
     <view-detail-comments></view-detail-comments>
   </div>
@@ -48,4 +48,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.commentdetail {
+  width: 900px;
+  margin: auto;
+}
+</style>

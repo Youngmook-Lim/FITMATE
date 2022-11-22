@@ -1,24 +1,25 @@
 <template>
   <div class="comment">
-    <div class="profile-pic">
+    <div>
       <img
+        class="profile-pic"
         v-if="loadedVideoSearch"
         :src="require('../../assets/profileImgs/' + comment.img + '.png')"
         alt=""
       />
+      {{ comment.nickname }}
     </div>
     <div>
-      {{ comment.nickname }}
       <textarea
         cols="30"
         rows="3"
         v-model="tmpContent"
         :readonly="isReadonly"
       ></textarea>
-      <div>{{ comment.reg_date }}</div>
+      <div class="regdate">{{ comment.reg_date }}</div>
     </div>
     <div>
-      <div v-if="myUser.u_id === comment.u_id">
+      <div v-if="myUser.u_id === comment.u_id" class="btns">
         <button @click="updateComment">수정</button>
         <button @click="deleteComment">삭제</button>
       </div>
@@ -81,23 +82,24 @@ export default {
 
 <style scoped>
 textarea {
-  border: 2px solid red;
+  width: 600px;
+  height: 70px;
+  border: 0px;
 }
+
 textarea[readonly] {
-  border: 1px solid black;
 }
 
 .comment {
   display: flex;
   align-items: center;
+  margin-top: 2%;
 }
 
 .profile-pic {
-  border: 1px solid black;
-  width: 50px;
-  height: 50px;
-  /* margin: 0 auto; */
-  margin: 0;
+  width: 80px;
+  height: 80px;
+  margin: 0 20px;
   border-radius: 50%;
   overflow: hidden;
   display: inline-block;
@@ -106,5 +108,20 @@ textarea[readonly] {
 .profile-pic img {
   max-width: 100%;
   max-height: 100%;
+}
+
+button {
+  margin: 0px 20px;
+}
+
+.btns {
+  height: 100px;
+  margin-left: 2%;
+  width: 30px;
+}
+
+.regdate {
+  text-align: end;
+  font-size: x-large;
 }
 </style>

@@ -2,7 +2,6 @@
   <div>
     <header class="header" v-if="showHeader">
       <div class="homeAndWeather">
-        <router-link :to="{ name: 'HomeView' }">FITMATE</router-link>
         <div class="weather-info">
           <div class="weather hot">
             <span class="sun"></span>
@@ -95,7 +94,9 @@
         <p class="pin"></p>
         <p class="pulse"></p>
       </div>
-      <h1>Fit Mate</h1>
+
+      <router-link :to="{ name: 'HomeView' }"><h1>Fit Mate</h1></router-link>
+
       <p>
         Find your exercise mate!<br />
         Working out together makes you healthier.
@@ -153,7 +154,7 @@ export default {
         String(Math.trunc(this.time / 60)).padStart(2, 0)
       );
       this.$store.commit("SET_SEC", String(this.time % 60).padStart(2, 0));
-      console.log(this.time);
+      // console.log(this.time);
 
       if (this.time === 0) {
         alert("세션이 만료되어 로그아웃 되었습니다.");
@@ -196,81 +197,86 @@ export default {
           resolve(pos);
         },
         (err) => {
-          console.error(err.message);
+          console.error(err.message, "💥💥💥💥💥💥");
         }
       );
-    }).then((res) => {
-      console.log(res.coords);
-      axios({
-        url: "weatherApi/",
-        method: "GET",
-        params: {
-          ServiceKey: WEATHER_KEY,
-          curDate,
-          curTime,
-          lat: Math.round(res.coords.latitude).toString(),
-          lon: Math.round(res.coords.longitude).toString(),
-        },
-      }).then((res) => {
-        const data = res.data.response.body.items.item;
-        // T1H: 기온, PTY: 강수형태, SKY: 하늘
-        const filteredData = data.filter(
-          (el) => el.fcstTime === data[0].fcstTime
-        );
+    })
+      .then((res) => {
+        console.log(res.coords);
+        axios({
+          url: "weatherApi/",
+          method: "GET",
+          params: {
+            ServiceKey: WEATHER_KEY,
+            curDate,
+            curTime,
+            lat: Math.round(res.coords.latitude).toString(),
+            lon: Math.round(res.coords.longitude).toString(),
+          },
+        }).then((res) => {
+          console.log(res.data);
+          const data = res.data.response.body.items.item;
+          // T1H: 기온, PTY: 강수형태, SKY: 하늘
+          const filteredData = data.filter(
+            (el) => el.fcstTime === data[0].fcstTime
+          );
 
-        console.log(filteredData);
+          console.log(filteredData);
 
-        this.temperature = parseInt(
-          filteredData.filter((el) => el.category === "T1H")[0].fcstValue
-        );
+          this.temperature = parseInt(
+            filteredData.filter((el) => el.category === "T1H")[0].fcstValue
+          );
 
-        const isNight =
-          parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 18 ? true : false;
+          const isNight =
+            parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 18 ? true : false;
 
-        if (isNight) {
-          this.weatherOption = 4;
-        }
-
-        const precipitation = filteredData.filter(
-          (el) => el.category === "PTY"
-        )[0].fcstValue;
-        if (
-          precipitation === "1" ||
-          precipitation === "2" ||
-          precipitation === "4" ||
-          precipitation === "5" ||
-          precipitation === "6"
-        ) {
-          if (!isNight) {
-            this.weatherOption = 3;
+          if (isNight) {
+            this.weatherOption = 4;
           }
-          this.weatherMessage = "비";
-        } else if (precipitation === "3" || precipitation === "7") {
-          if (!isNight) {
-            this.weatherOption = 2;
-          }
-          this.weatherMessage = "눈";
-        } else {
+
+          const precipitation = filteredData.filter(
+            (el) => el.category === "PTY"
+          )[0].fcstValue;
           if (
-            filteredData.filter((el) => el.category === "SKY")[0].fcstValue ===
-            "1"
+            precipitation === "1" ||
+            precipitation === "2" ||
+            precipitation === "4" ||
+            precipitation === "5" ||
+            precipitation === "6"
           ) {
             if (!isNight) {
-              this.weatherOption = 0;
+              this.weatherOption = 3;
             }
-            this.weatherMessage = "맑음";
-          } else {
+            this.weatherMessage = "비";
+          } else if (precipitation === "3" || precipitation === "7") {
             if (!isNight) {
-              this.weatherOption = 1;
+              this.weatherOption = 2;
             }
-            this.weatherMessage = "흐림";
+            this.weatherMessage = "눈";
+          } else {
+            if (
+              filteredData.filter((el) => el.category === "SKY")[0]
+                .fcstValue === "1"
+            ) {
+              if (!isNight) {
+                this.weatherOption = 0;
+              }
+              this.weatherMessage = "맑음";
+            } else {
+              if (!isNight) {
+                this.weatherOption = 1;
+              }
+              this.weatherMessage = "흐림";
+            }
           }
-        }
-        console.log(this.weatherOption);
-        console.log(this.weatherMessage);
-        console.log(this.curDateAndTimeMessage);
+          console.log(this.weatherOption);
+          console.log(this.weatherMessage);
+          console.log(this.curDateAndTimeMessage);
+        });
+      })
+      .catch((err) => {
+        console.log(err, "💔💔💔💔💔");
       });
-    });
   },
 };
 </script>
@@ -279,7 +285,9 @@ export default {
 .timer {
   font-size: 13px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-direction: row-reverse;
+  gap: 12px;
   justify-content: center;
   align-items: center;
 }

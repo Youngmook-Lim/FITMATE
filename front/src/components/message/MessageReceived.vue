@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>받은편지함</h2>
+    <h1 class="receive">Received Message</h1>
     <input
       @keyup.enter="getSearchedUser"
       type="text"
@@ -101,4 +101,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+button {
+  margin-top: 5px;
+}
+
+.receive {
+  margin-top: 20px;
+  font-weight: 400;
+}
+</style>

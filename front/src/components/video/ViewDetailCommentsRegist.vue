@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <div class="profile-pic">
-      <img
-        v-if="loadedVideoSearch"
-        :src="require('../../assets/profileImgs/' + myUser.img + '.png')"
-        alt=""
-      />
-    </div>
+  <div class="commentflexbox">
+    <img
+      class="profile-pic"
+      v-if="loadedVideoSearch"
+      :src="require('../../assets/profileImgs/' + myUser.img + '.png')"
+      alt=""
+    />
     <textarea
       cols="30"
       rows="3"
@@ -14,7 +13,7 @@
       placeholder="내용을 입력하세요"
     >
     </textarea>
-    <button @click="registComment">등록</button>
+    <button class="btn" @click="registComment">등록</button>
   </div>
 </template>
 
@@ -68,17 +67,30 @@ export default {
 
 <style scoped>
 .profile-pic {
-  border: 1px solid black;
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  margin: 0 20px;
   border-radius: 50%;
   overflow: hidden;
   display: inline-block;
 }
-
 .profile-pic img {
   max-width: 100%;
   max-height: 100%;
+}
+.commentflexbox {
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  width: 600px;
+  height: 100px;
+}
+
+.btn {
+  height: 100px;
+  margin-left: 2%;
+  width: 30px;
 }
 </style>

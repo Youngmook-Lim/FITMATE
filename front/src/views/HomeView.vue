@@ -37,15 +37,9 @@ export default {
     },
   },
   created() {
-    // sessionStorage.setItem(
-    //   "access-token",
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJteU1lc3NhZ2UiOiJXVEZGRkZGIEJST09PT08ifQ.Tf3M9Y8v6vzhDENFgucVt4c9KN1GQn0avqBEpMR_FRQ"
-    // );
-
     const token = sessionStorage.getItem("access-token");
     if (token) {
       const payload = this.parseJWT(token);
-      // console.log(payload);
       axios
         .get(`userApi/detail`, { params: { id: payload.id } })
         .then((res) => this.$store.commit("SET_MY_USER", res.data))
@@ -61,11 +55,10 @@ export default {
 
 <style scoped>
 .innercontainer {
+  max-width: calc(100% - 4em);
   margin: auto;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, border-top-left-radius 0.2s ease,
-    border-top-right-radius 0.2s ease, padding 0.2s ease;
   width: 64em;
   padding: 4em 1em 1em 1em;
   text-align: center;

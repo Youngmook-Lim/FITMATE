@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>메세지 보내기</h2>
+    <h1>Send Message</h1>
     <div class="autosuggest-container">
       <span>To </span>
       <vue-autosuggest
@@ -144,6 +144,11 @@ export default {
 </script>
 
 <style>
+h1 {
+  font-weight: 400;
+  margin-top: 20px;
+}
+
 .autosuggest-container input {
   width: 260px;
   padding: 0.5rem;

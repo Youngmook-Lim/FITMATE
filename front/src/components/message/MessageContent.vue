@@ -1,6 +1,18 @@
 <template>
   <div @click="showModal = true" class="message-content">
-    <span>✉ </span>
+    <span
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        fill="currentColor"
+        class="bi bi-envelope-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"
+        /></svg
+    ></span>
     <span>{{ displayedMsg }}</span>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <span v-if="type === 'received'"
@@ -17,7 +29,9 @@
       <p slot="body">{{ msg.content }}</p>
 
       <div slot="footer">
-        <button @click.stop="goToProfile">프로필 보러가기</button>
+        <a @click.stop="goToProfile" id="toprofile" class="btn btn-secondary"
+          >프로필 보러가기</a
+        >
         <router-link
           v-if="type === 'received'"
           :to="{ name: 'MessageSend', params: { id: msg.from_user } }"
@@ -93,9 +107,27 @@ export default {
 </script>
 
 <style scoped>
+.modalheader {
+  color: black !important;
+}
+
+#toprofile {
+  color: black;
+}
+
+.modal {
+  color: black;
+}
+
+svg {
+  margin-right: 10px;
+}
 .message-content {
-  border: 1px solid black;
+  display: flex;
+  border: 1px;
   padding: 12px;
   cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

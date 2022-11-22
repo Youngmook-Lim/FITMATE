@@ -18,7 +18,7 @@ export default {
         String(Math.trunc(this.time / 60)).padStart(2, 0)
       );
       this.$store.commit("SET_SEC", String(this.time % 60).padStart(2, 0));
-      console.log(this.time);
+      // console.log(this.time);
 
       if (this.time === 0) {
         alert("세션이 만료되어 로그아웃 되었습니다.");

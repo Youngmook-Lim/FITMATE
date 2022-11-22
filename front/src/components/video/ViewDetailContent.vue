@@ -1,21 +1,32 @@
 <template>
-  <div class="container">
-    <h2 class="detailtitle">VIDEO DETAIL</h2>
-    <iframe
-      :src="`https://www.youtube.com/embed/${video.v_id}`"
-      frameborder="0"
-      width="800px"
-      height="500px"
-    ></iframe>
-    <p>제목 : {{ video.title }}</p>
-    <p>채널명 : {{ video.v_writer }}</p>
-    <p>등록일자 : {{ video.reg_date }}</p>
-    <p>카테고리 : {{ video.category }}</p>
-    <p>조회수 : {{ video.view_cnt }}</p>
-    <p>좋아요 : {{ videoFavoriteUsers.length }}</p>
+  <div>
+    <h1 class="detailtitle">DETAIL VIDEO</h1>
+    <div class="container">
+      <iframe
+        :src="`https://www.youtube.com/embed/${video.v_id}`"
+        frameborder="0"
+        width="800px"
+        height="450px"
+      ></iframe>
+      <div class="text">
+        <span class="title">{{ video.title }}</span>
+        <div class="binding">
+          <span class="category">{{ video.category }} 운동</span>
+          <span>{{ video.v_writer }}</span>
+        </div>
+        <div class="binding">
+          <span class="regdate">{{ video.reg_date }}</span>
+          <span>조회수 {{ video.view_cnt }}</span>
+        </div>
 
-    <button v-if="checkIfFavorite()" @click="unfavorite">💔</button>
-    <button v-else @click="favorite">❤</button>
+        <div class="like">
+          <p>좋아요 {{ videoFavoriteUsers.length }}</p>
+
+          <button v-if="checkIfFavorite()" @click="unfavorite">💔</button>
+          <button v-else @click="favorite">❤</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,7 +76,37 @@ export default {
 </script>
 
 <style scoped>
-.detailtitle{
-  margin-top: 2%;
+.detailtitle {
+  margin-top: 8%;
+  text-align: start;
+  margin-left: 5%;
+  font-weight: 500;
+  margin-bottom: 0%;
+}
+
+.container {
+  width: 900px;
+  margin: auto;
+}
+
+iframe {
+  margin: 0px 0px;
+}
+.binding {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.text {
+  text-align: start;
+  width: 800px;
+  margin: auto;
+}
+
+.like {
+  display: flex;
+  gap: 2%;
+  justify-content: end;
 }
 </style>

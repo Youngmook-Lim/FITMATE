@@ -28,8 +28,10 @@
           required
           placeholder="PW"
         /><br />
-        <input type="submit" value="로그인" />
-        <input type="button" @click="register" value="회원가입" />
+        <div class="loginFormButtons">
+          <input type="submit" value="로그인" />
+          <input type="button" @click="register" value="회원가입" />
+        </div>
       </form>
     </div>
   </div>
@@ -51,25 +53,6 @@ export default {
     ...mapState(["time", "timer"]),
   },
   methods: {
-    // tick() {
-    //   this.$store.commit(
-    //     "SET_MIN",
-    //     String(Math.trunc(this.time / 60)).padStart(2, 0)
-    //   );
-    //   this.$store.commit("SET_SEC", String(this.time % 60).padStart(2, 0));
-    //   console.log(this.time);
-
-    //   if (this.time === 0) {
-    //     // alert("세션이 만료되어 로그아웃 되었습니다.");
-    //     this.resetTimer();
-    //     this.$store.commit("CLEAR_ALL");
-    //     // JWT 토큰 지우기
-    //     sessionStorage.removeItem("access-token");
-    //     this.$router.push({ name: "LoginView" });
-    //   }
-
-    //   this.$store.commit("DECREASE_TIME");
-    // },
     login() {
       axios
         .get(`userApi/login`, { params: { id: this.u_id, pw: this.pw } })
@@ -122,6 +105,11 @@ export default {
 </script>
 
 <style scoped>
+.loginFormButtons {
+  display: flex;
+  gap: 16px;
+}
+
 #header {
   margin-top: 30px;
 }

@@ -89,13 +89,14 @@
                 pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
                 v-model="user.phone_no"
                 placeholder="예 : 010-123(4)-5678"
+                required
               />
             </td>
           </tr>
           <tr>
             <th>우편번호</th>
             <td>
-              <input type="text" v-model="zipcode" disabled />
+              <input type="text" v-model="zipcode" disabled required />
             </td>
             <td>
               <input type="button" value="우편번호 찾기" @click="kakaopost" />
@@ -104,7 +105,7 @@
           <tr>
             <th>주소</th>
             <td>
-              <input type="text" v-model="user.address" disabled />
+              <input type="text" v-model="user.address" disabled required />
             </td>
           </tr>
           <tr>
@@ -119,7 +120,7 @@
           </tr>
           <tr>
             <th>닉네임</th>
-            <td><input type="text" v-model="user.nickname" /></td>
+            <td><input type="text" v-model="user.nickname" required /></td>
           </tr>
           <tr>
             <th>상태메시지</th>
@@ -133,7 +134,7 @@
         </table>
         <div class="btns">
           <button class="registBtn">회원가입</button>
-          <input type="button" @click="toLogin" value="로그인" />
+          <input type="button" @click="toLogin" value="돌아가기" />
         </div>
       </form>
 
@@ -210,9 +211,13 @@ export default {
 
       this.user.phone_no = this.user.phone_no.split("-").join("");
       this.user.address += ` ${this.detailAddress}`;
+      if (this.user.img === "") {
+        this.user.img = 1;
+      }
 
       const KAKAO_KEY = process.env.VUE_APP_KAKAO_REST_API_KEY;
-
+      console.log(KAKAO_KEY);
+      console.log(this.user.address);
       axiosRaw({
         url: "https://dapi.kakao.com/v2/local/search/address",
         method: "GET",
@@ -252,6 +257,9 @@ export default {
                   break;
               }
             });
+        })
+        .catch((err) => {
+          console.log(err.message);
         });
     },
     checkDuplicate() {
