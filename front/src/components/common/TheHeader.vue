@@ -213,7 +213,7 @@ export default {
         },
       }).then((res) => {
         const data = res.data.response.body.items.item;
-        // T1H: 기온, PTY: 강수형태, REH: 습도, WSD: 풍속, SKY: 하늘
+        // T1H: 기온, PTY: 강수형태, SKY: 하늘
         const filteredData = data.filter(
           (el) => el.fcstTime === data[0].fcstTime
         );

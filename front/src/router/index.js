@@ -58,7 +58,7 @@ const routes = [
     path: "/home",
     name: "HomeView",
     component: HomeView,
-    redirect: "/home/videosearch/search",
+    redirect: "/home/mate",
     children: [
       {
         path: "mate",

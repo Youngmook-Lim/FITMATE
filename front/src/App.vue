@@ -43,7 +43,6 @@ export default {
   computed: {
     ...mapState(["min", "sec", "time", "timer", "LOGOUT_TIME"]),
   },
-  created() {},
 };
 </script>
 
