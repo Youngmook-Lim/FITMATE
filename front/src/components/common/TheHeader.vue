@@ -1,49 +1,51 @@
 <template>
   <div>
     <header class="header" v-if="showHeader">
-      <router-link :to="{ name: 'HomeView' }">FITMATE</router-link>
-      <div class="weather-info">
-        <div class="weather hot">
-          <span class="sun"></span>
-          <span class="sunx"></span>
-        </div>
-        <div class="weather cloudy">
-          <span class="cloud"></span>
-          <span class="cloudx"></span>
-        </div>
-        <div class="weather stormy">
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <span class="snowe"></span>
-          <span class="snowex"></span>
-          <span class="stick"></span>
-          <span class="stick2"></span>
-        </div>
-        <div class="weather breezy">
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <span class="cloudr"></span>
-        </div>
-        <div class="weather night">
-          <span class="moon"></span>
-          <span class="spot1"></span>
-          <span class="spot2"></span>
-          <ul>
-            <li></li>
-          </ul>
+      <div class="homeAndWeather">
+        <router-link :to="{ name: 'HomeView' }">FITMATE</router-link>
+        <div class="weather-info">
+          <div class="weather hot">
+            <span class="sun"></span>
+            <span class="sunx"></span>
+          </div>
+          <div class="weather cloudy">
+            <span class="cloud"></span>
+            <span class="cloudx"></span>
+          </div>
+          <div class="weather stormy">
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+            <span class="snowe"></span>
+            <span class="snowex"></span>
+            <span class="stick"></span>
+            <span class="stick2"></span>
+          </div>
+          <div class="weather breezy">
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+            <span class="cloudr"></span>
+          </div>
+          <div class="weather night">
+            <span class="moon"></span>
+            <span class="spot1"></span>
+            <span class="spot2"></span>
+            <ul>
+              <li></li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="menu-right">
@@ -459,6 +461,7 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 2%;
 }
 
@@ -471,6 +474,12 @@ export default {
   gap: 16px;
 }
 
+.homeAndWeather {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
 /* 날씨정보 */
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 body {
@@ -478,8 +487,8 @@ body {
 }
 
 .weather-info {
-  display: flex;
-  gap: 16px;
+  display: inline-flex;
+  gap: 20px;
 }
 
 .weather {
