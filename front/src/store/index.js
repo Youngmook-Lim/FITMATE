@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    LOGOUT_TIME: 300,
+    LOGOUT_TIME: 6000,
     time: "",
     timer: "",
     min: "",
@@ -26,6 +26,7 @@ export default new Vuex.Store({
     sentMsgs: [],
     nicknames: [],
     loadedVideoSearch: false,
+    loadedUserInfo: false,
   },
   getters: {},
   mutations: {
@@ -152,6 +153,13 @@ export default new Vuex.Store({
 
     SET_NICKNAMES(state, payload) {
       state.nicknames = payload;
+    },
+
+    SET_LOADED_VIDEO_SEARCH(state) {
+      state.loadedVideoSearch = true;
+    },
+    SET_LOADED_USER_INFO(state) {
+      state.loadedUserInfo = true;
     },
   },
   actions: {},

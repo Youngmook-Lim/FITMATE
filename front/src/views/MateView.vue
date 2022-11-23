@@ -1,9 +1,12 @@
 <template>
   <div>
     <div class="title">
-      <h2>FIND YOUR FITMATE</h2>
+      <div class="titleflex">
+        <h1 class="fitmatetitle">FIND YOUR FITMATE</h1>
+        <span>You can look up all users within the set distance.</span>
+      </div>
       <div>
-        <span>반경 : </span>
+        <span>조회할 거리를 설정해주세요</span>
         <select v-model="dist">
           <option value="1">1km</option>
           <option value="3">3km</option>
@@ -30,7 +33,7 @@
               />
             </clipPath>
           </defs>
-          <circle cx="-1793.9" cy="999.8" r="611.2" fill="#fca311" />
+          <circle cx="-1793.9" cy="999.8" r="611.2" fill="#957AC3" />
           <circle
             cx="-2238.4"
             cy="555.4"
@@ -41,13 +44,13 @@
           />
           <path
             class="logo"
-            fill="#fca311"
+            fill="#957AC3"
             d="M-1460.5 310.8l181 266.7 150-96.8-323-165.8 382 137 99-41zm334.3 175.2l-53.8 34.6 101 52.7z"
           />
         </svg>
         <div class="spinner-text">
-          <h2>근처 유저들을 조회하고 있어요</h2>
-          <h2>잠시만 기다려 주세요!</h2>
+          <h2>We are looking for nearby users.</h2>
+          <h2>Hold on a minute, please.</h2>
         </div>
       </div>
     </transition>
@@ -136,23 +139,28 @@ export default {
         const content = document.createElement("div");
         content.classList.add("label");
 
+        const img = document.createElement("img");
+        img.classList.add("profileimg");
+        img.src = `https://decsnota.sirv.com/${user.img}.png`;
+        content.appendChild(img);
+
         const info = document.createElement("p");
+        info.classList.add("nickname");
         info.textContent = `${user.nickname}`;
         content.appendChild(info);
 
         const distance = document.createElement("p");
-        distance.textContent = `나와의 거리: ${dist}km`;
+        distance.classList.add("infotext");
+        distance.textContent = `Distance ${dist}km`;
         content.appendChild(distance);
 
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "X";
-        closeBtn.onclick = () => {
-          customOverlay.setMap(null);
-        };
-        content.appendChild(closeBtn);
+        const buttons = document.createElement("div");
+        buttons.classList.add("buttonflex");
+        content.appendChild(buttons);
 
         const link = document.createElement("button");
-        link.textContent = "프로필 보러 가기";
+        link.textContent = "Profile";
+        link.classList.add("profilebtn");
         link.onclick = () => {
           this.$router.push({
             name: "UserViewMain",
@@ -161,8 +169,16 @@ export default {
             },
           });
         };
+        buttons.appendChild(link);
 
-        content.appendChild(link);
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "X";
+        closeBtn.classList.add("closeBtn");
+        closeBtn.onclick = () => {
+          customOverlay.setMap(null);
+        };
+        buttons.appendChild(closeBtn);
+
         // ":to",
         //   `{name: 'UserViewMain',
         //   params: {
@@ -289,18 +305,96 @@ export default {
 </script>
 
 <style>
+.titleflex {
+  text-align: start;
+}
+
+.infotext {
+  margin: 0;
+  font-size: 18px !important;
+  /* font-family: ; */
+}
+
+.nickname {
+  font-size: 20px !important;
+  color: rgb(87, 87, 87);
+  font-weight: 800;
+  margin: 0;
+}
+
+.fitmatetitle {
+  font-weight: 400;
+  margin: 20px auto;
+}
+
 #map {
-  width: 800px;
-  height: 400px;
-  margin: 0 auto;
+  width: 1200px;
+  height: 600px;
+  margin: 20px auto 30px auto;
+  max-width: inherit;
+  border-radius: 9px;
 }
 
 .title {
   display: flex;
-  width: 800px;
+  width: 1200px;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+  max-width: inherit;
+}
+
+.profileimg {
+  width: 80px;
+  border-radius: 50px;
+}
+
+.buttonflex {
+  display: flex;
+  gap: 2px;
+}
+
+.closeBtn {
+  background-color: rgb(182, 179, 179);
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 500;
+  /* line-height: 1.65; */
+  /* appearance: none; */
+  border-radius: 8px;
+  color: white;
+  outline: 0;
+  text-decoration: none;
+  width: 30px;
+  height: 2.75em;
+  margin-top: 2px;
+  max-width: inherit;
+}
+
+.profilebtn {
+  background-color: rgb(182, 179, 179);
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-weight: 500;
+  /* line-height: 1.65; */
+  /* appearance: none; */
+  border-radius: 8px;
+  color: white;
+  outline: 0;
+  text-decoration: none;
+  width: 70px;
+  height: 2.75em;
+  margin-top: 2px;
+  max-width: inherit;
+}
+
+.distance {
+  display: flex;
+}
+
+.distancetext {
+  width: 600px;
+  margin: auto;
+  max-width: inherit;
+  text-align: end;
 }
 
 .title select {
@@ -308,10 +402,10 @@ export default {
 }
 
 .label {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 8px 16px;
-  border: 1px solid black;
   border-radius: 9px;
+  color: rgb(65, 64, 64);
 }
 
 .v-enter-active,
@@ -325,8 +419,8 @@ export default {
 }
 
 .spinner-container {
-  position: fixed;
-  z-index: 9999;
+  position: absolute;
+  z-index: 9990;
   top: 0;
   left: 0;
   width: 100%;
@@ -337,10 +431,11 @@ export default {
   align-items: center;
   margin: 0;
   backdrop-filter: blur(10px);
+  border-radius: 1em;
 }
 
 .spinner-text {
-  position: fixed;
+  position: absolute;
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -355,11 +450,11 @@ export default {
 .spinner {
   z-index: 9999;
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40vh;
-  height: 40vh;
+  width: 30vh;
+  height: 30vh;
 }
 .spinner .map {
   animation: 1s map ease-in-out infinite;

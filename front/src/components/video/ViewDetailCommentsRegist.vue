@@ -7,6 +7,7 @@
       alt=""
     />
     <textarea
+      class="comment-text"
       cols="30"
       rows="3"
       v-model.trim="curComment"
@@ -83,14 +84,19 @@ export default {
   align-items: center;
 }
 
+.comment-text {
+  overflow: hidden;
+  resize: none;
+}
+
 textarea {
   width: 600px;
-  height: 100px;
+  height: 70px;
 }
 
 .btn {
-  height: 100px;
-  margin-left: 2%;
-  width: 30px;
+  height: 70px;
+  margin-left: 16px;
+  /* width: 30px; */
 }
 </style>

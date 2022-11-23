@@ -1,73 +1,5 @@
 <template>
   <div>
-    <!-- <div class="detailtitle">
-        <span v-if="curUser.u_id === myUser.u_id">마이 페이지</span>
-        <span v-else>유저 메인페이지</span>
-     </div>
-    <div class="profile-pic">
-      <img v-if="!curUser.img" />
-      <img
-        v-else
-        :src="require('../../assets/profileImgs/' + curUser.img + '.png')"
-        alt=""
-      />
-    </div>
-    <table>
-      <tr>
-        <th>아이디</th>
-        <td>{{ curUser.u_id }}</td>
-      </tr>
-      <tr>
-        <th>성명</th>
-        <td>{{ curUser.name }}</td>
-      </tr>
-      <tr>
-        <th>닉네임</th>
-        <td>{{ curUser.nickname }}</td>
-      </tr>
-      <tr>
-        <th>이메일</th>
-        <td>{{ curUser.email }}</td>
-      </tr>
-      <tr>
-        <th>성별</th>
-        <td>{{ curUser.gender }}</td>
-      </tr>
-      <tr>
-        <th>연락처</th>
-        <td>{{ curUser.phone_no | parsePhoneNo }}</td>
-      </tr>
-      <tr>
-        <th>위치</th>
-        <td>{{ curUser.address | sliceAddress }}</td>
-      </tr>
-      <tr>
-        <th>상태메시지</th>
-        <td>{{ curUser.state_message }}</td>
-      </tr>
-      <tr>
-        <th>Followers</th>
-        <td>{{ curUserFollowers.length }}명</td>
-      </tr>
-      <tr>
-        <th>Following</th>
-        <td>{{ curUserFollowing.length }}명</td>
-      </tr>
-      <tr>
-        <th>좋아요한 비디오</th>
-        <td>
-          <img
-            v-for="v in curFavoriteVideos"
-            :key="v.v_id"
-            :src="`https://img.youtube.com/vi/${v.v_id}/0.jpg`"
-            width="100px"
-            style="display: inline-block; cursor: pointer"
-            @click="moveDetail(v.v_id)"
-          />
-        </td>
-      </tr>
-    </table> -->
-
     <header>
       <div class="container">
         <div class="profile">
@@ -100,17 +32,17 @@
                     v-else-if="checkIfFollow()"
                     @click="unfollow"
                   >
-                    팔로우 취소
+                    Unfollow
                   </button>
                   <button class="btn profile-edit-btn" v-else @click="follow">
-                    팔로우
+                    Follow
                   </button>
                   <button
                     class="btn profile-edit-btn"
                     v-if="curUser.u_id === myUser.u_id"
                     @click="deleteUser"
                   >
-                    Delete Account
+                    Delete account
                   </button>
                   <router-link
                     class="btn profile-edit-btn"
@@ -120,7 +52,7 @@
                       params: { id: curUser.u_id ? curUser.u_id : 0 },
                     }"
                   >
-                    메시지 보내기
+                    Send message
                   </router-link>
                 </span>
               </li>
@@ -130,13 +62,13 @@
               <li>
                 <span class="profile-stat-count">{{ curUser.gender }}</span>
               </li>
-              <li>
+              <li class="follower-following-btn" @click="showFollowers">
                 <span class="profile-stat-count">{{
                   curUserFollowers.length
                 }}</span>
                 follower
               </li>
-              <li>
+              <li class="follower-following-btn" @click="showFollowing">
                 <span class="profile-stat-count">{{
                   curUserFollowing.length
                 }}</span>
@@ -204,15 +136,51 @@
       </div>
       <!-- End of container -->
     </main>
+    <user-view-modal v-if="showModal" @close="showModal = false">
+      <h3 v-if="followerOrFollowing === 0" slot="header">Followers</h3>
+      <h3 v-else slot="header">Following</h3>
+
+      <div v-if="followerOrFollowing === 0" slot="body" class="user-container">
+        <user-view-modal-row
+          v-for="f in curUserFollowers"
+          :key="f.u_id"
+          :user="f"
+          @close-modal="goToProfile(f.u_id)"
+        ></user-view-modal-row>
+      </div>
+      <div v-else slot="body" class="user-container">
+        <user-view-modal-row
+          v-for="f in curUserFollowing"
+          :key="f.u_id"
+          :user="f"
+          @close-modal="goToProfile(f.u_id)"
+        ></user-view-modal-row>
+      </div>
+
+      <!-- <button slot="footer">등록</button> -->
+    </user-view-modal>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import axios from "@/util/http-common.js";
+import UserViewModal from "./UserViewModal.vue";
+import UserViewModalRow from "./UserViewModalRow.vue";
 
 export default {
   name: "UserViewMain",
+  components: {
+    UserViewModal,
+    UserViewModalRow,
+  },
+  data() {
+    return {
+      showModal: false,
+      // Follower = 0, Following = 1
+      followerOrFollowing: 0,
+    };
+  },
   computed: {
     ...mapState([
       "curUser",
@@ -252,6 +220,25 @@ export default {
     },
   },
   methods: {
+    goToProfile(u_id) {
+      this.showModal = false;
+      this.$router.push({
+        name: "UserViewMain",
+        params: {
+          id: u_id ? u_id : 0,
+        },
+      });
+    },
+    showFollowers() {
+      if (this.curUserFollowers.length === 0) return;
+      this.followerOrFollowing = 0;
+      this.showModal = true;
+    },
+    showFollowing() {
+      if (this.curUserFollowing.length === 0) return;
+      this.followerOrFollowing = 1;
+      this.showModal = true;
+    },
     moveDetail(v_id) {
       this.$router.push({
         name: "VideoDetail",
@@ -440,7 +427,7 @@ img {
   font-size: 1.6rem;
   line-height: 1.5;
   margin-right: 4rem;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .profile-stats li:last-of-type {
@@ -451,6 +438,10 @@ img {
 .profile-stat-count,
 .profile-edit-btn {
   font-weight: 300;
+}
+
+.follower-following-btn {
+  cursor: pointer;
 }
 
 /* Gallery Section */
@@ -484,6 +475,7 @@ img {
 
 .gallery-item-info {
   display: none;
+  border-radius: 20px;
 }
 
 .gallery-item-info li {
@@ -493,7 +485,18 @@ img {
 }
 
 .gallery-item-likes {
-  margin-right: 2.2rem;
+  position: absolute;
+  top: 50%;
+  left: 34%;
+  transform: translateY(-50%);
+  /* margin-right: 2.2rem; */
+}
+
+.gallery-item-comments {
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  transform: translateY(-50%);
 }
 
 .gallery-item-type {

@@ -45,6 +45,20 @@
               <li></li>
             </ul>
           </div>
+          <div class="weather-pointer" ref="pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              class="bi bi-caret-up-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+              />
+            </svg>
+          </div>
         </div>
         <div class="weatherMessage">
           <div>
@@ -273,6 +287,10 @@ export default {
           console.log(this.weatherMessage);
           console.log(this.curDateAndTimeMessage);
         });
+      })
+      .then(() => {
+        // this.weatherOption = 4;
+        this.$refs.pointer.style.left = `${12 + this.weatherOption * 70}px`;
       })
       .catch((err) => {
         console.log(err, "💔💔💔💔💔");
@@ -693,6 +711,14 @@ body {
 .weather-info {
   display: inline-flex;
   gap: 20px;
+  position: relative;
+}
+
+.weather-pointer {
+  position: absolute;
+  top: 48px;
+  left: 5px;
+  z-index: 9999;
 }
 
 .weather {
@@ -714,6 +740,7 @@ body {
   );
   box-shadow: 1px 1px 30px rgba(255, 111, 0, 1);
 }
+
 .sun {
   position: absolute;
   top: -10%;

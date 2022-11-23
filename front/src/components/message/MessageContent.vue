@@ -14,7 +14,7 @@
         /></svg
     ></span>
     <span>{{ displayedMsg }}</span>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>&nbsp;</span>
     <span v-if="type === 'received'"
       >From : {{ getKeyByValue(nicknames, msg.from_user) }}</span
     >
@@ -28,21 +28,26 @@
       </h3>
       <p slot="body">{{ msg.content }}</p>
 
-      <div slot="footer">
-        <a @click.stop="goToProfile" id="toprofile" class="btn btn-secondary"
-          >프로필 보러가기</a
+      <div slot="footer" class="profileAndMessage">
+        <a
+          @click.stop="goToProfile"
+          id="toprofile"
+          class="btn btn-secondary go-to-profile"
+          >To Profile</a
         >
         <router-link
           v-if="type === 'received'"
           :to="{ name: 'MessageSend', params: { id: msg.from_user } }"
+          class="send-message"
         >
-          메시지 보내기
+          Send Message
         </router-link>
         <router-link
           v-else
           :to="{ name: 'MessageSend', params: { id: msg.to_user } }"
+          class="send-message"
         >
-          메시지 보내기
+          Send Message
         </router-link>
       </div>
     </message-modal>
@@ -111,9 +116,9 @@ export default {
   color: black !important;
 }
 
-#toprofile {
+/* #toprofile {
   color: black;
-}
+} */
 
 .modal {
   color: black;

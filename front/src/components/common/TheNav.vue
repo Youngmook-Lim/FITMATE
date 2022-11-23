@@ -27,6 +27,7 @@ export default {
 
 <style scoped>
 nav {
+  /* z-index: 9999; */
   display: flex;
   justify-content: space-around;
 }

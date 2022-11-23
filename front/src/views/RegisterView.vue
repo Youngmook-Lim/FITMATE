@@ -139,22 +139,22 @@
       </form>
 
       <register-view-modal v-if="showModal" @close="showModal = false">
-        <h3 slot="header">마음에 드는 프로필 사진을 등록하세요</h3>
-        <div slot="body">
+        <h3 slot="header">Select your profile image</h3>
+        <div slot="body" class="photo-container">
           <img
             v-for="n in 10"
             :key="n"
             :src="require('../assets/profileImgs/img_' + n + '.png')"
             alt="Profile pic options"
-            width="50px"
-            height="50px"
+            width="60px"
+            height="60px"
             @click="
               imgNum = n;
               showModal = false;
             "
           />
         </div>
-        <button slot="footer" @click.stop="setImage">등록</button>
+        <!-- <button slot="footer">등록</button> -->
       </register-view-modal>
     </div>
   </div>
@@ -197,7 +197,6 @@ export default {
     };
   },
   methods: {
-    setImage() {},
     registUser() {
       if (!this.isOk) {
         alert("아이디 중복확인을 완료해 주세요.");

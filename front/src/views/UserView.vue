@@ -75,7 +75,8 @@ export default {
               .then((res) =>
                 this.$store.commit("SET_CUR_FAVORITE_VIDEOS", res.data)
               );
-          });
+          })
+          .then(() => this.$store.commit("SET_LOADED_USER_INFO"));
       }
     },
   },

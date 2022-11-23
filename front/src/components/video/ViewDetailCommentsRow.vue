@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div>
+    <div class="profile-pic-container">
       <img
         class="profile-pic"
         v-if="loadedVideoSearch"
@@ -11,6 +11,7 @@
     </div>
     <div>
       <textarea
+        class="comment-text"
         cols="30"
         rows="3"
         v-model="tmpContent"
@@ -40,7 +41,6 @@ export default {
     return {
       tmpContent: "",
       isReadonly: true,
-      isLoaded: false,
       img: "",
     };
   },
@@ -92,8 +92,18 @@ textarea[readonly] {
 
 .comment {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   margin-top: 2%;
+}
+
+.comment-text {
+  overflow: hidden;
+  resize: none;
+}
+
+.profile-pic-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .profile-pic {
@@ -111,17 +121,24 @@ textarea[readonly] {
 }
 
 button {
-  margin: 0px 20px;
+  margin-left: 16px;
+
+  /* margin: 0px 20px; */
 }
 
 .btns {
   height: 100px;
-  margin-left: 2%;
-  width: 30px;
+  /* margin-left: 2%;
+  width: 30px; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 8px;
 }
 
 .regdate {
   text-align: end;
-  font-size: x-large;
+  /* font-size: x-large; */
 }
 </style>

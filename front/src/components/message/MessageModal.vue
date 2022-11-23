@@ -2,7 +2,7 @@
   <transition>
     <div class="modal-mask">
       <div class="modal-wrapper" @click.stop="$emit('close')">
-        <div class="modal-container" @click.stop="">
+        <div class="modal-container modal-container-message" @click.stop="">
           <div class="modal-header">
             <slot name="header">default header</slot>
           </div>
@@ -11,9 +11,12 @@
             <slot name="body">default body</slot>
           </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer modal-footer-message">
             <slot name="footer">default footer </slot>
-            <button class="modal-default-button" @click.stop="$emit('close')">
+            <button
+              class="modal-default-button modal-default-button-message"
+              @click.stop="$emit('close')"
+            >
               X
             </button>
           </div>
@@ -40,6 +43,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
+  cursor: default;
 }
 
 .modal-wrapper {
@@ -48,7 +52,7 @@ export default {
 }
 
 .modal-container {
-  width: 500px;
+  width: 400px !important;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -56,6 +60,12 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-container-message {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-header h3 {
@@ -68,8 +78,16 @@ export default {
   color: black;
 }
 
-.modal-default-button {
+.modal-footer .modal-default-button {
   float: right;
+}
+
+.modal-default-button-message {
+  min-width: 35px !important;
+}
+
+.modal-footer-message {
+  margin-top: auto;
 }
 
 /*
@@ -93,5 +111,50 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.go-to-profile {
+  text-decoration: none !important;
+  border: 1px solid rgb(87, 87, 87);
+  border-radius: 9px;
+  min-width: 90px;
+  height: 30px;
+  display: inline-block;
+  color: rgb(87, 87, 87);
+  font-size: 16px;
+  transition: ease 0.5s;
+  cursor: pointer;
+}
+
+.go-to-profile:hover {
+  color: rgb(87, 87, 87);
+  border-bottom-color: rgb(87, 87, 87);
+  background-color: rgba(0, 0, 0, 0.068);
+}
+
+.send-message {
+  text-decoration: none !important;
+  border: 1px solid rgb(87, 87, 87);
+  border-radius: 9px;
+  min-width: 125px;
+  height: 30px;
+  display: inline-block;
+  color: rgb(87, 87, 87);
+  font-size: 16px;
+  transition: ease 0.5s;
+}
+.send-message:hover {
+  color: rgb(87, 87, 87);
+  border-bottom-color: rgb(87, 87, 87);
+  background-color: rgba(0, 0, 0, 0.068);
+}
+
+.profileAndMessage {
+  display: flex;
+  gap: 12px;
+}
+
+.profileAndMessage button {
+  cursor: pointer;
 }
 </style>

@@ -43,7 +43,7 @@ export default {
       axios
         .get(`userApi/detail`, { params: { id: payload.id } })
         .then((res) => this.$store.commit("SET_MY_USER", res.data))
-        .then(() => (this.$store.state.loadedVideoSearch = true));
+        .then(() => this.$store.commit("SET_LOADED_VIDEO_SEARCH"));
       this.$emit("start-timer");
     }
     // else {

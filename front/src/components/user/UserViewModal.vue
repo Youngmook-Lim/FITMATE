@@ -2,7 +2,7 @@
   <transition>
     <div class="modal-mask">
       <div class="modal-wrapper" @click.stop="$emit('close')">
-        <div class="modal-container" @click.stop="">
+        <div class="modal-container-follow" @click.stop="">
           <div class="modal-header">
             <slot name="header">default header</slot>
           </div>
@@ -47,8 +47,8 @@ export default {
   vertical-align: middle;
 }
 
-.modal-container {
-  width: 400px !important;
+.modal-container-follow {
+  width: 600px !important;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -113,13 +113,13 @@ export default {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modal-enter .modal-container-follow,
+.modal-leave-active .modal-container-follow {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 
-.photo-container {
+/* .user-container {
   margin: 0 auto;
 
   display: grid;
@@ -130,8 +130,8 @@ export default {
   gap: 10px;
 }
 
-.photo-container img {
+.user-container img {
   border-radius: 9px;
   cursor: pointer;
-}
+} */
 </style>
