@@ -304,7 +304,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #dist-option {
   padding-left: 12px;
 }

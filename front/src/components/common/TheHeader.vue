@@ -45,7 +45,7 @@
               <li></li>
             </ul>
           </div>
-          <div class="weather-pointer" ref="pointer">
+          <div v-if="isWeatherLoaded" class="weather-pointer" ref="pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -90,8 +90,8 @@
         <router-link class="router-link" :to="{ name: 'MessageReceived' }"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="22"
+            height="22"
             fill="currentColor"
             class="bi bi-envelope-fill"
             viewBox="0 0 16 16"
@@ -142,6 +142,7 @@ export default {
       weatherMessage: "",
       curDateAndTimeMessage: "",
       temperature: "",
+      isWeatherLoaded: false,
     };
   },
   props: {
@@ -237,70 +238,70 @@ export default {
             lat: Math.round(res.coords.latitude).toString(),
             lon: Math.round(res.coords.longitude).toString(),
           },
-        }).then((res) => {
-          console.log(res.data);
-          const data = res.data.response.body.items.item;
-          // T1H: 기온, PTY: 강수형태, SKY: 하늘
-          const filteredData = data.filter(
-            (el) => el.fcstTime === data[0].fcstTime
-          );
+        })
+          .then((res) => {
+            console.log(res.data);
+            const data = res.data.response.body.items.item;
+            // T1H: 기온, PTY: 강수형태, SKY: 하늘
+            const filteredData = data.filter(
+              (el) => el.fcstTime === data[0].fcstTime
+            );
 
-          console.log(filteredData);
+            console.log(filteredData);
 
-          this.temperature = parseInt(
-            filteredData.filter((el) => el.category === "T1H")[0].fcstValue
-          );
+            this.temperature = parseInt(
+              filteredData.filter((el) => el.category === "T1H")[0].fcstValue
+            );
 
-          const isNight =
-            parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 18 ? true : false;
+            const isNight =
+              parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 18
+                ? true
+                : false;
 
-          if (isNight) {
-            this.weatherOption = 4;
-          }
-
-          const precipitation = filteredData.filter(
-            (el) => el.category === "PTY"
-          )[0].fcstValue;
-          if (
-            precipitation === "1" ||
-            precipitation === "2" ||
-            precipitation === "4" ||
-            precipitation === "5" ||
-            precipitation === "6"
-          ) {
-            if (!isNight) {
-              this.weatherOption = 3;
+            if (isNight) {
+              this.weatherOption = 4;
             }
-            this.weatherMessage = "비";
-          } else if (precipitation === "3" || precipitation === "7") {
-            if (!isNight) {
-              this.weatherOption = 2;
-            }
-            this.weatherMessage = "눈";
-          } else {
+
+            const precipitation = filteredData.filter(
+              (el) => el.category === "PTY"
+            )[0].fcstValue;
             if (
-              filteredData.filter((el) => el.category === "SKY")[0]
-                .fcstValue === "1"
+              precipitation === "1" ||
+              precipitation === "2" ||
+              precipitation === "4" ||
+              precipitation === "5" ||
+              precipitation === "6"
             ) {
               if (!isNight) {
-                this.weatherOption = 0;
+                this.weatherOption = 3;
               }
-              this.weatherMessage = "맑음";
-            } else {
+              this.weatherMessage = "비";
+            } else if (precipitation === "3" || precipitation === "7") {
               if (!isNight) {
-                this.weatherOption = 1;
+                this.weatherOption = 2;
               }
-              this.weatherMessage = "흐림";
+              this.weatherMessage = "눈";
+            } else {
+              if (
+                filteredData.filter((el) => el.category === "SKY")[0]
+                  .fcstValue === "1"
+              ) {
+                if (!isNight) {
+                  this.weatherOption = 0;
+                }
+                this.weatherMessage = "맑음";
+              } else {
+                if (!isNight) {
+                  this.weatherOption = 1;
+                }
+                this.weatherMessage = "흐림";
+              }
             }
-          }
-          console.log(this.weatherOption);
-          console.log(this.weatherMessage);
-          console.log(this.curDateAndTimeMessage);
-        });
-      })
-      .then(() => {
-        // this.weatherOption = 4;
-        this.$refs.pointer.style.left = `${12 + this.weatherOption * 70}px`;
+            this.isWeatherLoaded = true;
+          })
+          .then(() => {
+            this.$refs.pointer.style.left = `${12 + this.weatherOption * 70}px`;
+          });
       })
       .catch((err) => {
         console.log(err, "💔💔💔💔💔");
@@ -707,7 +708,7 @@ export default {
 .menu-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .homeAndWeather {
@@ -732,7 +733,7 @@ body {
   position: absolute;
   top: 48px;
   left: 5px;
-  z-index: 9999;
+  z-index: 9990;
 }
 
 .weather {
