@@ -50,7 +50,7 @@
         </svg>
         <div class="spinner-text">
           <h2>We are looking for nearby users.</h2>
-          <h2>Hold on a minute, please.</h2>
+          <h2>Please hold on while we find your mate!</h2>
         </div>
       </div>
     </transition>
@@ -97,6 +97,21 @@ export default {
       };
 
       this.map = new kakao.maps.Map(container, options);
+
+      // 반경 xKm 원 그리기
+      const circle = new kakao.maps.Circle({
+        center: myPosition,
+        radius: this.dist * 1000,
+        strokeWeight: 1,
+        // strokeColor: "#ff6b6b",
+        strokeColor: "#9775fa",
+        strokeOpacity: 1,
+        strokeStyle: "solid",
+        // fillColor: "#ffa8a8",
+        fillColor: "#d0bfff",
+        fillOpacity: 0.7,
+      });
+      circle.setMap(this.map);
 
       for (const jsonUser in this.nearbyUsers) {
         const dist = this.nearbyUsers[jsonUser].toFixed(1);
@@ -208,13 +223,12 @@ export default {
       this.setMapUi();
     },
     setMapUi() {
-      // 지도 유형 (지도, 위성)
-      const mapTypeControl = new kakao.maps.MapTypeControl();
-      this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
       // 지도 줌
       const zoomControl = new kakao.maps.ZoomControl();
       this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+      // 지도 유형 (지도, 위성)
+      // const mapTypeControl = new kakao.maps.MapTypeControl();
+      // this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
     },
     getNearbyUsers() {
       const token = sessionStorage.getItem("access-token");
@@ -304,7 +318,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #dist-option {
   padding-left: 12px;
 }

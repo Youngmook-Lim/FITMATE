@@ -69,7 +69,7 @@
                 <span class="profile-stat-count">{{
                   curUserFollowers.length
                 }}</span>
-                follower
+                followers
               </li>
               <li class="follower-following-btn" @click="showFollowing">
                 <span class="profile-stat-count">{{
@@ -104,12 +104,18 @@
     <main>
       <hr />
       <h1 class="videotext">{{ curUser.nickname }}'s VIDEO</h1>
-      <div class="container">
+      <div v-if="videosExist()" class="container">
+        <div class="videoview">
+          <button @click="decreasePage">◀</button>
+          <span> {{ curPage }} </span>
+          <!-- <input v-model="curPage" /> -->
+          <button @click="increasePage">▶</button>
+        </div>
         <div class="gallery">
           <div
             class="gallery-item"
             tabindex="0"
-            v-for="v in curFavoriteVideos"
+            v-for="v in curVideos"
             :key="v.v_id"
             @click="moveDetail(v.v_id)"
           >
@@ -134,6 +140,7 @@
         </div>
         <!-- End of gallery -->
       </div>
+      <div class="no-video-message" v-else>No liked videos.</div>
       <!-- End of container -->
     </main>
     <user-view-modal v-if="showModal" @close="showModal = false">
@@ -179,6 +186,9 @@ export default {
       showModal: false,
       // Follower = 0, Following = 1
       followerOrFollowing: 0,
+      curPage: 1,
+      curVideos: [],
+      PAGE_SIZE: 6,
     };
   },
   computed: {
@@ -190,6 +200,26 @@ export default {
       "curUserFollowing",
       "curFavoriteVideos",
     ]),
+    maxPage() {
+      return (
+        Math.floor((this.curFavoriteVideos.length - 1) / this.PAGE_SIZE) + 1
+      );
+    },
+  },
+  watch: {
+    curPage(newVal) {
+      this.curVideos = this.curFavoriteVideos.slice(
+        (newVal - 1) * this.PAGE_SIZE,
+        newVal * this.PAGE_SIZE
+      );
+    },
+    curFavoriteVideos() {
+      this.curPage = 1;
+      this.curVideos = this.curFavoriteVideos.slice(
+        (this.curPage - 1) * this.PAGE_SIZE,
+        this.curPage * this.PAGE_SIZE
+      );
+    },
   },
   filters: {
     sliceAddress(address) {
@@ -220,6 +250,18 @@ export default {
     },
   },
   methods: {
+    videosExist() {
+      const res = !(this.curFavoriteVideos.length === 0);
+      return res;
+    },
+    increasePage() {
+      if (this.curPage === this.maxPage) return;
+      this.curPage++;
+    },
+    decreasePage() {
+      if (this.curPage === 1) return;
+      this.curPage--;
+    },
     goToProfile(u_id) {
       this.showModal = false;
       this.$router.push({
@@ -282,10 +324,29 @@ export default {
         .then(() => this.$router.push("/"));
     },
   },
+  created() {
+    this.curVideos = this.curFavoriteVideos.slice(
+      (this.curPage - 1) * this.PAGE_SIZE,
+      this.curPage * this.PAGE_SIZE
+    );
+  },
 };
 </script>
 
 <style scoped>
+button {
+  margin: auto 15px;
+  width: 80px !important;
+}
+.videoview {
+  margin-bottom: 2%;
+}
+
+.no-video-message {
+  font-size: 20px;
+  margin-bottom: 2%;
+}
+
 .user-info {
   /* display: flex; */
   min-width: 400px;

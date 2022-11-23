@@ -6,8 +6,8 @@
         <h2>Find Your Exercise Mate From This Site</h2>
         <p>
           Exercising with other people makes you happier. <br />
-          This sense of happiness increases our life expectancy. <br />Meet your
-          friend right now and be happy.
+          Not only that, it also boosts our life expectancy. <br />Meet your Fit
+          Mate and find your happiness today!
         </p>
       </section>
       <section>

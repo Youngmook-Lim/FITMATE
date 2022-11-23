@@ -9,14 +9,14 @@
       />
     </div>
     <span class="user-nickname">{{ user.nickname }}</span>
-    <span class="state-message">{{ user.state_message }} </span>
+    <span class="state-message">{{ displayedMsg }} </span>
     <button class="go-to-profile-btn" @click="closeModal">Profile</button>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-// import axios from "@/util/http-common.js";
+const MAX_DISPLAY_LENGTH = 15;
 
 export default {
   name: "ViewDetailCommentsRow",
@@ -24,10 +24,7 @@ export default {
     user: Object,
   },
   data() {
-    return {
-      tmpContent: "",
-      img: "",
-    };
+    return {};
   },
   methods: {
     closeModal() {
@@ -36,6 +33,14 @@ export default {
   },
   computed: {
     ...mapState(["myUser", "loadedUserInfo"]),
+    displayedMsg() {
+      let dispMsg = this.user.state_message;
+      const len = dispMsg.length;
+      if (len > MAX_DISPLAY_LENGTH) {
+        dispMsg = dispMsg.slice(0, MAX_DISPLAY_LENGTH) + "...";
+      }
+      return dispMsg;
+    },
   },
 };
 </script>

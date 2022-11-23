@@ -119,7 +119,9 @@
         <p class="pulse"></p>
       </div>
 
-      <router-link :to="{ name: 'HomeView' }"><h1>Fit Mate</h1></router-link>
+      <router-link class="to-home" :to="{ name: 'HomeView' }"
+        ><h1>Fit Mate</h1></router-link
+      >
 
       <p>
         Find your exercise mate!<br />
@@ -311,6 +313,11 @@ export default {
 </script>
 
 <style scoped>
+.to-home {
+  display: inline-block;
+  border-bottom: none;
+}
+
 .router-link {
   color: white;
 }

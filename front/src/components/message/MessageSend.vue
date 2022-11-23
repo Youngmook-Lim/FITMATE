@@ -27,7 +27,7 @@
         </div>
       </vue-autosuggest>
     </div>
-    <div>
+    <div class="message-content-container">
       <!-- <label for="msg-content">Content</label> -->
       <h2 class="contentext">Content</h2>
       <textarea
@@ -159,7 +159,7 @@ h1 {
 }
 
 .contentext {
-  margin-top: 10px;
+  margin: 15px 0 10px 0;
 }
 
 .autosuggest-container input {
@@ -205,5 +205,16 @@ h1 {
 
 .autosuggest__results-item--highlighted {
   background-color: rgba(51, 217, 178, 0.2);
+}
+
+.message-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#msg-content {
+  width: 98%;
+  resize: none;
 }
 </style>

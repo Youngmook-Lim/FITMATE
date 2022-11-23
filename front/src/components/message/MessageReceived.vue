@@ -102,12 +102,13 @@ export default {
 </script>
 
 <style scoped>
-button {
-  margin-top: 5px;
+.receive {
+  font-weight: 400;
+  margin-top: 20px;
 }
 
-.receive {
-  margin-top: 20px;
-  font-weight: 400;
+button {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

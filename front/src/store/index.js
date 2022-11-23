@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    LOGOUT_TIME: 6000,
+    LOGOUT_TIME: 1800,
     time: "",
     timer: "",
     min: "",

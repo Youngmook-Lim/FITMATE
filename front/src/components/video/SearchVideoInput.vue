@@ -22,7 +22,7 @@
       <input type="checkbox" id="팔뚝" value="팔뚝" v-model="category" />
       <label for="팔뚝">팔뚝</label>
       <br />
-      <select v-model="range"  class="searchinput">
+      <select v-model="range" class="searchinput">
         <option>전체</option>
         <option>제목</option>
         <option>채널명</option>
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style scoped>
-.searchbtn{
+.searchbtn {
   min-width: 0;
   appearance: none;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;

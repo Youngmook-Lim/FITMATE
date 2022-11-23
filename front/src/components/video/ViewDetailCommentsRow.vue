@@ -87,9 +87,6 @@ textarea {
   border: 0px;
 }
 
-textarea[readonly] {
-}
-
 .comment {
   display: flex;
   /* align-items: center; */
