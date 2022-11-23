@@ -118,7 +118,7 @@ textarea {
 }
 
 button {
-  margin-left: 16px;
+  margin-left: 0.6rem;
 
   /* margin: 0px 20px; */
 }
@@ -131,7 +131,7 @@ button {
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .regdate {

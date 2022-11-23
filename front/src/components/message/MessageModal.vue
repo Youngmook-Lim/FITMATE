@@ -74,8 +74,9 @@ export default {
 }
 
 .modal-body {
-  margin: 20px 0;
-  color: black;
+  margin: auto;
+  font-weight: 600;
+  color: rgb(92, 90, 90);
 }
 
 .modal-footer .modal-default-button {

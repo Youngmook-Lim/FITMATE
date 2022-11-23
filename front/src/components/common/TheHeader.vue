@@ -86,7 +86,7 @@
             </button>
           </div>
         </div>
-        <span>Welcome {{ myUser.name }}!</span>
+        <span>Welcome {{ myUser.nickname }}!</span>
         <router-link class="router-link" :to="{ name: 'MessageReceived' }"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
@@ -256,7 +256,8 @@ export default {
             );
 
             const isNight =
-              parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 18
+              parseInt(filteredData[0].fcstTime.slice(0, 2)) >= 19 ||
+              parseInt(filteredData[0].fcstTime.slice(0, 2)) < 6
                 ? true
                 : false;
 
@@ -300,6 +301,7 @@ export default {
               }
             }
             this.isWeatherLoaded = true;
+            console.log(this.weatherOption);
           })
           .then(() => {
             this.$refs.pointer.style.left = `${12 + this.weatherOption * 70}px`;

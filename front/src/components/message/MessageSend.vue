@@ -154,7 +154,7 @@ h1 {
 }
 
 .sendbtn {
-  margin: 10px;
+  margin-top: 20px;
   width: 5rem;
 }
 

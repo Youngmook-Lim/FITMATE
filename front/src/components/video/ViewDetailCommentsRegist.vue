@@ -82,6 +82,7 @@ export default {
 .commentflexbox {
   display: flex;
   align-items: center;
+  margin-bottom: 0.7rem;
 }
 
 .comment-text {
@@ -96,7 +97,7 @@ textarea {
 
 .btn {
   height: 70px;
-  margin-left: 16px;
+  margin-left: 0.5rem;
   /* width: 30px; */
 }
 </style>

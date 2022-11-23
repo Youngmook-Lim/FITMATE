@@ -1,15 +1,7 @@
 <template>
   <div>
     <div v-if="videosExist()">
-      <label for="sort">Sort</label>
-
-      <select id="sort" v-model="sortCriteria">
-        <option disabled>----</option>
-        <option>제목</option>
-        <option>조회수</option>
-        <option>등록일</option>
-        <option>좋아요수</option>
-      </select>
+      <hr />
 
       <!-- <div>
       <button @click="sortCriteria = '제목'">제목</button>
@@ -21,10 +13,22 @@
 
       <!-- <input type="number" v-model="curPage" /> -->
       <div class="videoview">
-        <button @click="decreasePage">◀</button>
-        <span> {{ curPage }} </span>
-        <!-- <input v-model="curPage" /> -->
-        <button @click="increasePage">▶</button>
+        <div class="button-flexbox">
+          <button @click="decreasePage">◀</button>
+          <span class="page-num"> {{ curPage }} </span>
+          <!-- <input v-model="curPage" /> -->
+          <button @click="increasePage">▶</button>
+        </div>
+        <div class="select-box">
+          <label for="sort">Sort</label>
+          <select id="sort" v-model="sortCriteria">
+            <option disabled>----</option>
+            <option>제목</option>
+            <option>조회수</option>
+            <option>등록일</option>
+            <option>좋아요수</option>
+          </select>
+        </div>
       </div>
       <div class="videoflexbox">
         <div v-for="video in curVideos" :key="video.id" class="videodiv">
@@ -99,16 +103,43 @@ export default {
 </script>
 
 <style scoped>
+label {
+  font-size: 2rem;
+  margin-top: 1.6rem;
+}
+
 button {
   margin: auto 15px;
   width: 80px !important;
+  height: 3.5em;
+}
+
+.button-flexbox {
+  display: flex;
+}
+
+.select-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 2rem;
+}
+
+.page-num {
+  font-size: 2rem;
 }
 
 #sort {
   margin-bottom: 2%;
+  width: 10rem;
 }
 .videoview {
-  margin-bottom: 2%;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  width: 50rem;
+  justify-content: center;
+  gap: 5rem;
 }
 .videodiv {
   width: 450px;

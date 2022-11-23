@@ -22,12 +22,14 @@
       <input type="checkbox" id="팔뚝" value="팔뚝" v-model="category" />
       <label for="팔뚝">팔뚝</label>
       <br />
-      <select v-model="range" class="searchinput">
-        <option>전체</option>
-        <option>제목</option>
-        <option>채널명</option>
-      </select>
-      <input type="text" v-model="keyword" />
+      <div class="search">
+        <select v-model="range" class="searchinput">
+          <option>전체</option>
+          <option>제목</option>
+          <option>채널명</option>
+        </select>
+        <input type="text" v-model="keyword" />
+      </div>
       <button class="searchbtn">검색</button>
       <input type="button" @click="clearVideos" value="CLEAR" />
     </form>
@@ -73,6 +75,16 @@ export default {
 </script>
 
 <style scoped>
+.search {
+  display: flex;
+  margin: auto 6rem;
+}
+
+.searchinput {
+  width: 15rem;
+  margin-right: 0.5rem;
+}
+
 .searchbtn {
   min-width: 0;
   appearance: none;

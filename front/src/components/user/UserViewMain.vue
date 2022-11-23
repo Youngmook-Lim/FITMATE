@@ -15,9 +15,61 @@
           <div class="profile-stats">
             <ul>
               <li>
-                <span class="profile-user-name">{{ curUser.nickname }}</span>
+                <span class="profile-user-name"
+                  >{{ curUser.nickname }} &nbsp;</span
+                >
+                <span class="user-gender" v-if="curUser.gender === 'F'">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="currentColor"
+                    class="bi bi-gender-female"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"
+                    />
+                  </svg>
+                </span>
+                <span class="user-gender" v-if="curUser.gender === 'M'">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="currentColor"
+                    class="bi bi-gender-male"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"
+                    /></svg
+                ></span>
               </li>
             </ul>
+            <ul></ul>
+            <ul class="user-info">
+              <li>
+                <span>{{ curUser.email }} </span>
+              </li>
+            </ul>
+            <ul>
+              <li class="follower-following-btn" @click="showFollowers">
+                <span class="profile-stat-count">{{
+                  curUserFollowers.length
+                }}</span>
+                followers
+              </li>
+              <li class="follower-following-btn" @click="showFollowing">
+                <span class="profile-stat-count">{{
+                  curUserFollowing.length
+                }}</span>
+                following
+              </li>
+            </ul>
+
             <ul>
               <li class="profileinfobox">
                 <span>
@@ -58,37 +110,16 @@
               </li>
             </ul>
             <hr />
-            <ul class="user-info">
-              <li>
-                <span class="profile-stat-count">{{ curUser.gender }}</span>
-              </li>
-              <li>
-                <span class="profile-stat-count">{{ curUser.email }} </span>
-              </li>
-              <li class="follower-following-btn" @click="showFollowers">
-                <span class="profile-stat-count">{{
-                  curUserFollowers.length
-                }}</span>
-                followers
-              </li>
-              <li class="follower-following-btn" @click="showFollowing">
-                <span class="profile-stat-count">{{
-                  curUserFollowing.length
-                }}</span>
-                following
-              </li>
-            </ul>
+
             <div class="message">
               <ul>
                 <li>
-                  <span class="profile-stat-count">{{
-                    curUser.state_message
-                  }}</span>
+                  <span class="message">{{ curUser.state_message }}</span>
                 </li>
               </ul>
               <ul>
                 <li>
-                  <span class="profile-stat-count">{{
+                  <span class="message">{{
                     curUser.address | sliceAddress
                   }}</span>
                 </li>
@@ -102,7 +133,7 @@
     </header>
 
     <main>
-      <hr />
+      <hr class="videoline" />
       <h1 class="videotext">{{ curUser.nickname }}'s VIDEO</h1>
       <div v-if="videosExist()" class="container">
         <div class="videoview">
@@ -347,6 +378,11 @@ button {
   margin-bottom: 2%;
 }
 
+.user-title {
+  font-weight: 400;
+  margin: 2rem auto;
+  opacity: 60%;
+}
 .user-info {
   /* display: flex; */
   min-width: 400px;
@@ -358,7 +394,7 @@ button {
 
 .usermain {
   max-width: inherit;
-  padding-left: 65px;
+  padding-left: 4.5rem;
 }
 
 h1 {
@@ -382,12 +418,18 @@ table {
 }
 
 .message {
-  font-size: 3px;
+  font-size: 1.3rem;
 }
 
 .videotext {
   font-weight: 400;
-  opacity: 50%;
+  font-size: 2.5rem;
+  opacity: 60%;
+  margin: 2rem;
+}
+
+.videoline {
+  margin: 0 1.8rem;
 }
 
 /* 프로필 */
@@ -484,8 +526,7 @@ img {
 }
 
 .profile-user-name {
-  display: inline-block;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 400;
 }
 
@@ -618,6 +659,7 @@ img {
     display: flex;
     flex-wrap: wrap;
     padding: 4rem 0;
+    margin: auto;
   }
 
   .profile::after {
@@ -677,9 +719,6 @@ img {
   .profile-stats ul {
     display: flex;
     text-align: center;
-    padding: 1.2rem 0;
-    border-top: 0.1rem solid #dadada;
-    border-bottom: 0.1rem solid #dadada;
   }
 
   .profile-stats li {

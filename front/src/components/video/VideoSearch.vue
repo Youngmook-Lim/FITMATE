@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="video">VIDEO SEARCH</h2>
+    <h1 class="video">VIDEO SEARCH</h1>
     <search-video-input></search-video-input>
     <search-video-result></search-video-result>
   </div>
@@ -18,7 +18,9 @@ export default {
 </script>
 
 <style scoped>
-.video{
-  margin-top: 20px;
+.video {
+  font-weight: 400;
+  margin: 2rem auto;
+  opacity: 60%;
 }
 </style>
