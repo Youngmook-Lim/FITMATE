@@ -2,7 +2,6 @@ package com.ssafy.finalPjt.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private JwtUtil jwtUtil;
-	
+
 	// 자동완성용 유저들 닉네임과 아이디 갖고오기
 	@GetMapping("/getNicknames")
 	public ResponseEntity<HashMap<String, String>> getNicknames() {
@@ -102,6 +101,7 @@ public class UserRestController {
 	// 수정
 	@PutMapping("/update")
 	public ResponseEntity<String> userUpdate(User user) {
+		System.out.println(user);
 		userService.modifyUser(user);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}

@@ -71,12 +71,8 @@ export default {
   color: rgb(87, 87, 87);
 }
 
-.modal-default-button {
-  float: right;
-}
-
 .modal-footer button {
-  color: rgb(87, 87, 87) !important;
+  color: rgb(87, 87, 87);
   border: 1px solid rgb(87, 87, 87);
   min-width: 65px;
   height: 30px;
@@ -94,6 +90,15 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 24px;
+}
+
+.modal-default-button {
+  float: right;
+  font-weight: 600;
+  background-color: rgb(182, 179, 179);
+  border: none !important;
+  box-shadow: none;
+  color: white !important;
 }
 
 /*

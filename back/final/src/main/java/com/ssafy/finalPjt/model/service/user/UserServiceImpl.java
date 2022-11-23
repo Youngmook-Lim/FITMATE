@@ -3,7 +3,6 @@ package com.ssafy.finalPjt.model.service.user;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +66,8 @@ public class UserServiceImpl implements UserService {
 		orginUser.setPhone_no(user.getPhone_no());
 		orginUser.setNickname(user.getNickname());
 		orginUser.setGender(user.getGender());
+		orginUser.setState_message(user.getState_message());
+
 		return userDao.updateUser(orginUser) == 1;
 	}
 
@@ -104,7 +105,7 @@ public class UserServiceImpl implements UserService {
 		double myY = Double.parseDouble(myUser.getY());
 
 		List<User> userList = (ArrayList<User>) userDao.findAllUser();
-		
+
 		for (int i = 0; i < userList.size(); i++) {
 			// 거리계산 후 맵에 집어넣어버리기
 			User user = userList.get(i);

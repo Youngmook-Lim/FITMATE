@@ -16,15 +16,15 @@
     <span>{{ displayedMsg }}</span>
     <span>&nbsp;</span>
     <span v-if="type === 'received'"
-      >From : {{ getKeyByValue(nicknames, msg.from_user) }}</span
+      >From {{ getKeyByValue(nicknames, msg.from_user) }}</span
     >
-    <span v-else>To : {{ getKeyByValue(nicknames, msg.to_user) }}</span>
+    <span v-else>To {{ getKeyByValue(nicknames, msg.to_user) }}</span>
     <message-modal v-if="showModal" @close="showModal = false">
       <h3 v-if="type === 'received'" slot="header">
-        From : {{ getKeyByValue(nicknames, msg.from_user) }}
+        From {{ getKeyByValue(nicknames, msg.from_user) }}
       </h3>
       <h3 v-else slot="header">
-        To : {{ getKeyByValue(nicknames, msg.to_user) }}
+        To {{ getKeyByValue(nicknames, msg.to_user) }}
       </h3>
       <p slot="body">{{ msg.content }}</p>
 
@@ -33,7 +33,7 @@
           @click.stop="goToProfile"
           id="toprofile"
           class="btn btn-secondary go-to-profile"
-          >To Profile</a
+          >Profile</a
         >
         <router-link
           v-if="type === 'received'"

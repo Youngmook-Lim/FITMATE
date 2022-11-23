@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="usermain">
     <header>
       <div class="container">
         <div class="profile">
@@ -18,9 +18,9 @@
                 <span class="profile-user-name">{{ curUser.nickname }}</span>
               </li>
             </ul>
-            <ul class="nickname">
-              <li>
-                <span class="profile-stat-count">
+            <ul>
+              <li class="profileinfobox">
+                <span>
                   <router-link
                     class="btn profile-edit-btn"
                     v-if="curUser.u_id === myUser.u_id"
@@ -58,9 +58,12 @@
               </li>
             </ul>
             <hr />
-            <ul>
+            <ul class="user-info">
               <li>
                 <span class="profile-stat-count">{{ curUser.gender }}</span>
+              </li>
+              <li>
+                <span class="profile-stat-count">{{ curUser.email }} </span>
               </li>
               <li class="follower-following-btn" @click="showFollowers">
                 <span class="profile-stat-count">{{
@@ -85,9 +88,6 @@
               </ul>
               <ul>
                 <li>
-                  <span class="profile-stat-count">{{ curUser.email }}</span>
-                </li>
-                <li>
                   <span class="profile-stat-count">{{
                     curUser.address | sliceAddress
                   }}</span>
@@ -103,7 +103,7 @@
 
     <main>
       <hr />
-      <h1>{{ curUser.nickname }}'s VIDEO</h1>
+      <h1 class="videotext">{{ curUser.nickname }}'s VIDEO</h1>
       <div class="container">
         <div class="gallery">
           <div
@@ -286,8 +286,28 @@ export default {
 </script>
 
 <style scoped>
+.user-info {
+  /* display: flex; */
+  min-width: 400px;
+}
+
+.user-info li {
+  margin-left: 50px !important;
+}
+
+.usermain {
+  max-width: inherit;
+  padding-left: 65px;
+}
+
 h1 {
   font-weight: 300;
+}
+
+.nickname {
+  display: flex;
+  max-width: inherit;
+  justify-content: end;
 }
 
 button {
@@ -302,6 +322,11 @@ table {
 
 .message {
   font-size: 3px;
+}
+
+.videotext {
+  font-weight: 400;
+  opacity: 50%;
 }
 
 /* 프로필 */
@@ -363,6 +388,7 @@ img {
 
 .profile {
   padding: 2rem 0;
+  max-width: inherit;
 }
 
 .profile::after {
@@ -398,17 +424,18 @@ img {
 
 .profile-user-name {
   display: inline-block;
-  font-size: 3.2rem;
-  font-weight: 300;
+  font-size: 4rem;
+  font-weight: 400;
 }
 
 .profile-edit-btn {
-  font-size: 1.4rem;
-  line-height: 1.8;
+  font-size: 1.6rem;
+  line-height: 2;
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.3rem;
-  padding: 0 2.4rem;
-  margin-left: 2rem;
+  padding: 0.5rem 2.6rem;
+  margin: 0.9rem;
+  color: #fff;
 }
 
 .profile-settings-btn {
@@ -426,7 +453,7 @@ img {
   display: inline-block;
   font-size: 1.6rem;
   line-height: 1.5;
-  margin-right: 4rem;
+  margin-left: 4rem;
   /* cursor: pointer; */
 }
 
@@ -437,7 +464,8 @@ img {
 .profile-real-name,
 .profile-stat-count,
 .profile-edit-btn {
-  font-weight: 300;
+  font-weight: 500;
+  margin: 5px;
 }
 
 .follower-following-btn {
@@ -449,6 +477,7 @@ img {
 .gallery {
   display: flex;
   flex-wrap: wrap;
+  justify-items: center;
   margin: -1rem -1rem;
   padding-bottom: 3rem;
 }
@@ -459,6 +488,8 @@ img {
   margin: 1rem;
   color: #fff;
   cursor: pointer;
+  max-width: 700px;
+  margin: auto;
 }
 
 .gallery-item:hover .gallery-item-info,
@@ -552,7 +583,7 @@ img {
   }
 
   .profile-user-name {
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
 
   .profile-edit-btn {

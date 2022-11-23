@@ -82,10 +82,12 @@ export default {
 
 .state-message {
   width: 200px;
+  font-size: 16px;
   text-align: left;
 }
 
 .user-nickname {
   font-weight: 700;
+  font-size: 16px;
 }
 </style>

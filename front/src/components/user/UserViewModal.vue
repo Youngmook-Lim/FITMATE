@@ -76,7 +76,7 @@ export default {
 }
 
 .modal-footer button {
-  color: rgb(87, 87, 87) !important;
+  color: rgb(87, 87, 87);
   border: 1px solid rgb(87, 87, 87);
   min-width: 65px;
   height: 30px;

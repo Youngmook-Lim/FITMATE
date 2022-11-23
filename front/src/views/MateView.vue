@@ -7,7 +7,7 @@
       </div>
       <div>
         <span>조회할 거리를 설정해주세요</span>
-        <select v-model="dist">
+        <select id="dist-option" v-model="dist">
           <option value="1">1km</option>
           <option value="3">3km</option>
           <option value="5">5km</option>
@@ -305,6 +305,10 @@ export default {
 </script>
 
 <style>
+#dist-option {
+  padding-left: 12px;
+}
+
 .titleflex {
   text-align: start;
 }
@@ -368,6 +372,12 @@ export default {
   height: 2.75em;
   margin-top: 2px;
   max-width: inherit;
+  box-shadow: none;
+  font-weight: 600;
+}
+.closeBtn:hover {
+  border-bottom-color: rgb(87, 87, 87);
+  background-color: rgba(0, 0, 0, 0.068);
 }
 
 .profilebtn {
@@ -384,6 +394,12 @@ export default {
   height: 2.75em;
   margin-top: 2px;
   max-width: inherit;
+  box-shadow: none;
+  font-weight: 600;
+}
+.profilebtn:hover {
+  border-bottom-color: rgb(87, 87, 87);
+  background-color: rgba(0, 0, 0, 0.068);
 }
 
 .distance {
@@ -419,7 +435,7 @@ export default {
 }
 
 .spinner-container {
-  position: absolute;
+  position: fixed;
   z-index: 9990;
   top: 0;
   left: 0;
@@ -431,11 +447,11 @@ export default {
   align-items: center;
   margin: 0;
   backdrop-filter: blur(10px);
-  border-radius: 1em;
+  /* border-radius: 1em; */
 }
 
 .spinner-text {
-  position: absolute;
+  position: fixed;
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);

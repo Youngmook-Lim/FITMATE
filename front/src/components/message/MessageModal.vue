@@ -83,7 +83,14 @@ export default {
 }
 
 .modal-default-button-message {
-  min-width: 35px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  font-weight: 600;
+  border: none !important;
+  background-color: rgb(182, 179, 179);
+  color: white !important;
+
+  box-shadow: none;
 }
 
 .modal-footer-message {
@@ -115,36 +122,46 @@ export default {
 
 .go-to-profile {
   text-decoration: none !important;
-  border: 1px solid rgb(87, 87, 87);
+  /* border: 1px solid rgb(87, 87, 87); */
   border-radius: 9px;
   min-width: 90px;
-  height: 30px;
+  height: 40px;
   display: inline-block;
-  color: rgb(87, 87, 87);
-  font-size: 16px;
+  color: white;
+
+  font-size: 15px;
   transition: ease 0.5s;
   cursor: pointer;
+  line-height: 2.4;
+  font-weight: 600;
+  background-color: rgb(182, 179, 179);
+  border-bottom: none;
 }
 
 .go-to-profile:hover {
-  color: rgb(87, 87, 87);
+  /* color: rgb(87, 87, 87); */
   border-bottom-color: rgb(87, 87, 87);
   background-color: rgba(0, 0, 0, 0.068);
 }
 
 .send-message {
   text-decoration: none !important;
-  border: 1px solid rgb(87, 87, 87);
+  /* border: 1px solid rgb(87, 87, 87); */
   border-radius: 9px;
   min-width: 125px;
-  height: 30px;
+  height: 40px;
   display: inline-block;
-  color: rgb(87, 87, 87);
-  font-size: 16px;
+  color: white;
+
+  font-size: 15px;
   transition: ease 0.5s;
+  line-height: 2.4;
+  font-weight: 600;
+  background-color: rgb(182, 179, 179);
+  border-bottom: none;
 }
 .send-message:hover {
-  color: rgb(87, 87, 87);
+  /* color: rgb(87, 87, 87); */
   border-bottom-color: rgb(87, 87, 87);
   background-color: rgba(0, 0, 0, 0.068);
 }

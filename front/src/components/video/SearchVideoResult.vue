@@ -99,6 +99,11 @@ export default {
 </script>
 
 <style scoped>
+button {
+  margin: auto 15px;
+  width: 80px !important;
+}
+
 #sort {
   margin-bottom: 2%;
 }

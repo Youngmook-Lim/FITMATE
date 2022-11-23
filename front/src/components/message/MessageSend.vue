@@ -2,7 +2,7 @@
   <div>
     <h1>Send Message</h1>
     <div class="autosuggest-container">
-      <span>To </span>
+      <h2 class="to">To</h2>
       <vue-autosuggest
         id="search-user"
         v-model="query"
@@ -29,15 +29,15 @@
     </div>
     <div>
       <!-- <label for="msg-content">Content</label> -->
-      <p>Content</p>
+      <h2 class="contentext">Content</h2>
       <textarea
         v-model="message.content"
         id="msg-content"
-        cols="50"
-        rows="20"
+        cols="40"
+        rows="10"
       ></textarea>
     </div>
-    <button @click="sendMessage">SEND</button>
+    <button class="sendbtn" @click="sendMessage">SEND</button>
   </div>
 </template>
 
@@ -147,6 +147,19 @@ export default {
 h1 {
   font-weight: 400;
   margin-top: 20px;
+}
+
+.to {
+  padding-top: 12px;
+}
+
+.sendbtn {
+  margin: 10px;
+  width: 5rem;
+}
+
+.contentext {
+  margin-top: 10px;
 }
 
 .autosuggest-container input {

@@ -128,6 +128,7 @@ export default {
     this.tmpUser = { ...this.myUser };
     this.tmpUser.phone_no = this.parsePhoneNo(this.tmpUser.phone_no);
     this.tmpUser.pw = "";
+    console.log(this.tmpUser);
   },
   watch: {
     myUser(newVal) {
@@ -139,7 +140,7 @@ export default {
   },
   methods: {
     updateUser() {
-      console.log(this.tmpUser);
+      // console.log(this.tmpUser, "FEWFawefwfwaffw");
       this.tmpUser.phone_no = this.tmpUser.phone_no.split("-").join("");
       axios
         .put(`userApi/update`, null, { params: this.tmpUser })
@@ -180,6 +181,7 @@ export default {
 .editinformation {
   width: 900px;
   margin: auto;
+  max-width: inherit;
 }
 
 h1 {

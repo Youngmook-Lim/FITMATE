@@ -32,7 +32,7 @@
           <dt>Phone</dt>
           <dd>(010) 0123-4567 x 8910</dd>
           <dt>Email</dt>
-          <dd><a href="#">information@fitmate.com</a></dd>
+          <dd>information@fitmate.com</dd>
         </dl>
         <!-- <ul class="icons">
 								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
