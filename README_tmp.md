@@ -1,5 +1,5 @@
 <p align="middle" >
-  <img width="200px;" src="https://decsnota.sirv.com/FITMATE_LOGO.png?raw=true"/>
+  <img width="200px;" src="https://decsnota.sirv.com/FITMATE_LOGO.png"/>
 </p>
 <h1 align="middle">Fit Mate</h1>
 
