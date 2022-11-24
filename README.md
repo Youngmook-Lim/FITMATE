@@ -129,7 +129,7 @@ Fit Mate uses a number of API for project:
 
 #### 1. Codepen 날씨 아이콘 오픈소스 활용
 
-#### 2. HTML5UP 템플릿 오픈소스 활용
+#### 2. HTML5UP 템플릿 오픈소스 활용<br><br>
 
 ## Licence 🔑
 
