@@ -1,24 +1,31 @@
 # FIT MATE
 
+22.11.21 ~ 22.11.30
+
 ## Team
 
 1. Lim Young Mook
 
-- Leader
-- ?
-- ?
+- 팀장
+- DB 설계
+- FrontEnd 메인
+- BackEnd 서브
+- API 선정 및 적용
 
 2. Kwon O Young
 
-- ?
-- ?
-- ?
+- DB 설계
+- FrontEnd 서브
+- BackEnd 메인
+- README 작성
 
 3. Nam Ki Jeong
 
-- ?
-- ?
-- ?
+- 아이디어 도출 및 기획
+- DB 설계
+- FrontEnd 서브
+- FrontEnd 디자인 설계 및 구현
+- 각종 오픈소스 적용
 
 ---
 
@@ -150,4 +157,4 @@ Fit Mate uses a number of API for project:
 
 ## Licence
 
-SSAFY
+SSAFY 8th

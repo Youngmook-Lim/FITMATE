@@ -1393,3 +1393,4 @@ Caused by: java.io.FileNotFoundException: C:\Users\Youngmook Lim\Desktop\SSAFY-1
 2022-11-24 09:52:06,758 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-11-24 09:52:06,758 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-11-24 09:52:06,758 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\multicampus\Desktop\SSAFY-1st-final-project-group1\back\final\src\test\resources
+2022-11-24 15:13:07,582 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

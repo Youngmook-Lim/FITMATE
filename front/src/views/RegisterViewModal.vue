@@ -70,7 +70,7 @@ export default {
 }
 
 .modal-body {
-  margin: 20px auto;
+  /* margin: 20px auto; */
   color: rgb(87, 87, 87);
 }
 
