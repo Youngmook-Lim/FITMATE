@@ -80,17 +80,17 @@ public class UserServiceImpl implements UserService {
 	public String checkJoin(User user) {
 		if (0 != userDao.chkEmail(user.getEmail())) {
 			System.out.println("중복 메일");
-			return "중복 이메일";
+			return "dup_email";
 		}
 
 		if (0 != userDao.chkNickname(user.getNickname())) {
 			System.out.println("중복 닉네임");
-			return "중복 닉네임";
+			return "dup_nickname";
 		}
 
 		if (0 != userDao.chkPhoneNo(user.getPhone_no())) {
 			System.out.println("중복 번호");
-			return "중복 전화번호";
+			return "dup_phone";
 		}
 
 		return "성공";

@@ -72,9 +72,19 @@ export default new Vuex.Store({
       state.myUserFollowing.push(state.curUser);
     },
 
+    ADD_CUR_USER_FOLLOWER(state) {
+      state.curUserFollowers.push(state.myUser);
+    },
+
     DELETE_FOLLOWER(state) {
       state.myUserFollowing = state.myUserFollowing.filter(
         (f) => f.u_id !== state.curUser.u_id
+      );
+    },
+
+    DELETE_CUR_USER_FOLLOWER(state) {
+      state.curUserFollowers = state.curUserFollowers.filter(
+        (f) => f.u_id !== state.myUser.u_id
       );
     },
 

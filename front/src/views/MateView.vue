@@ -102,9 +102,9 @@ export default {
       const circle = new kakao.maps.Circle({
         center: myPosition,
         radius: this.dist * 1000,
-        strokeWeight: 1,
+        strokeWeight: 0,
         // strokeColor: "#ff6b6b",
-        strokeColor: "#9775fa",
+        // strokeColor: "#9775fa",
         strokeOpacity: 1,
         strokeStyle: "solid",
         // fillColor: "#ffa8a8",

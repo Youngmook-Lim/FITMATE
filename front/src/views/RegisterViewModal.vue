@@ -13,7 +13,10 @@
 
           <div class="modal-footer">
             <!-- <slot name="footer">default footer </slot> -->
-            <button class="modal-default-button" @click.stop="$emit('close')">
+            <button
+              class="modal-default-button register-modal-return-btn"
+              @click.stop="$emit('close')"
+            >
               Return
             </button>
           </div>
@@ -138,5 +141,9 @@ export default {
 .photo-container img {
   border-radius: 9px;
   cursor: pointer;
+}
+
+.register-modal-return-btn {
+  margin-top: 20px;
 }
 </style>

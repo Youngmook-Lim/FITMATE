@@ -74,9 +74,14 @@ export default {
 }
 
 .modal-body {
-  margin: auto;
   font-weight: 600;
   color: rgb(92, 90, 90);
+  text-align: left;
+  font-size: 16px;
+}
+
+.message-content-body {
+  margin: 15px auto 0 23px;
 }
 
 .modal-footer .modal-default-button {
@@ -90,8 +95,8 @@ export default {
   border: none !important;
   background-color: rgb(182, 179, 179);
   color: white !important;
-
   box-shadow: none;
+  margin-top: 20px;
 }
 
 .modal-footer-message {
@@ -174,5 +179,9 @@ export default {
 
 .profileAndMessage button {
   cursor: pointer;
+}
+
+.profileAndMessage a {
+  line-height: 2.5;
 }
 </style>

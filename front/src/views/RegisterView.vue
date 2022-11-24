@@ -3,12 +3,13 @@
     <the-header-vue thisIsRegister="true"></the-header-vue>
     <div class="registerform">
       <h2>회원가입</h2>
-      <div class="profile-pic">
+      <div class="profile-pic" ref="profilePic">
         <img v-if="!imgNum" />
         <img
           v-else
           :src="require('../assets/profileImgs/img_' + imgNum + '.png')"
-          alt=""
+          alt="Profile Image"
+          class="selected-profile-pic"
         />
       </div>
       <button class="photobtn" @click="showModal = true">사진 등록</button>
@@ -105,7 +106,7 @@
           <tr>
             <th>주소</th>
             <td>
-              <input type="text" v-model="user.address" disabled required />
+              <input type="text" v-model="broadAddress" disabled required />
             </td>
           </tr>
           <tr>
@@ -190,6 +191,7 @@ export default {
       },
       isOk: false,
       zipcode: "",
+      broadAddress: "",
       detailAddress: "",
       showModal: false,
       imgNum: "",
@@ -197,6 +199,27 @@ export default {
     };
   },
   methods: {
+    parsePhoneNo(phone_no) {
+      if (!phone_no) {
+        return;
+      } else if (phone_no.length == 10) {
+        return (
+          phone_no.substring(0, 3) +
+          "-" +
+          phone_no.substring(3, 6) +
+          "-" +
+          phone_no.substring(6)
+        );
+      } else if (phone_no.length == 11) {
+        return (
+          phone_no.substring(0, 3) +
+          "-" +
+          phone_no.substring(3, 7) +
+          "-" +
+          phone_no.substring(7)
+        );
+      }
+    },
     registUser() {
       if (!this.isOk) {
         alert("아이디 중복확인을 완료해 주세요.");
@@ -209,7 +232,7 @@ export default {
       }
 
       this.user.phone_no = this.user.phone_no.split("-").join("");
-      this.user.address += ` ${this.detailAddress}`;
+      this.user.address = `${this.broadAddress} ${this.detailAddress}`;
       if (this.user.img === "") {
         this.user.img = 1;
       }
@@ -221,7 +244,7 @@ export default {
         url: "https://dapi.kakao.com/v2/local/search/address",
         method: "GET",
         params: {
-          query: this.user.address,
+          query: this.broadAddress,
         },
         headers: {
           Authorization: `KakaoAK ${KAKAO_KEY}`,
@@ -255,10 +278,12 @@ export default {
                   alert("이미 등록된 전화번호 입니다.");
                   break;
               }
+              this.user.phone_no = this.parsePhoneNo(this.user.phone_no);
             });
         })
         .catch((err) => {
           console.log(err.message);
+          this.user.phone_no = this.parsePhoneNo(this.user.phone_no);
         });
     },
     checkDuplicate() {
@@ -288,7 +313,7 @@ export default {
       new window.daum.Postcode({
         oncomplete: (data) => {
           this.zipcode = data.zonecode;
-          this.user.address = data.address;
+          this.broadAddress = data.address;
         },
       }).open();
     },
@@ -323,12 +348,24 @@ export default {
       );
     },
   },
+  watch: {
+    imgNum() {
+      if (this.imgNum) {
+        console.log(this.$refs.profilePic);
+        this.$refs.profilePic.style.border = "none";
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.selected-profile-pic {
+  border: none;
+}
+
 .ok {
-  background-color: rgb(231, 201, 119);
+  background-color: rgba(175, 182, 245, 0.507);
 }
 
 table {

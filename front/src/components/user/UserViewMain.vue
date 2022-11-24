@@ -326,7 +326,10 @@ export default {
             to_user: this.curUser.u_id,
           },
         })
-        .then(() => this.$store.commit("ADD_FOLLOWER"));
+        .then(() => {
+          this.$store.commit("ADD_FOLLOWER");
+          this.$store.commit("ADD_CUR_USER_FOLLOWER");
+        });
     },
     unfollow() {
       axios
@@ -336,7 +339,10 @@ export default {
             to_user: this.curUser.u_id,
           },
         })
-        .then(() => this.$store.commit("DELETE_FOLLOWER"));
+        .then(() => {
+          this.$store.commit("DELETE_FOLLOWER");
+          this.$store.commit("DELETE_CUR_USER_FOLLOWER");
+        });
     },
     checkIfFollow() {
       for (let f of this.myUserFollowing) {

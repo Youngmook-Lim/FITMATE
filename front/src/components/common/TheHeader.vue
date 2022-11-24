@@ -200,6 +200,7 @@ export default {
   created() {
     if (this.thisIsRegister) {
       this.showHeader = false;
+      return;
     }
 
     const WEATHER_KEY = process.env.VUE_APP_WEATHER_API_KEY;

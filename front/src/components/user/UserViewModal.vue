@@ -69,6 +69,7 @@ export default {
 .modal-body {
   margin: 20px auto;
   color: rgb(87, 87, 87);
+  overflow: auto;
 }
 
 .modal-default-button {

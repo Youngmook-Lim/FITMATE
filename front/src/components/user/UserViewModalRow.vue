@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from "vuex";
-const MAX_DISPLAY_LENGTH = 15;
+const MAX_DISPLAY_LENGTH = 20;
 
 export default {
   name: "ViewDetailCommentsRow",

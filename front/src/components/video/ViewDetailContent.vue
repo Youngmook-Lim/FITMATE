@@ -9,7 +9,9 @@
         height="450px"
       ></iframe>
       <div class="text">
-        <span class="title">{{ video.title }}</span>
+        <span class="video-detail-title">{{ video.title }}</span>
+        <br />
+        <br />
         <div class="binding">
           <span class="category">{{ video.category }} 운동</span>
           <span>{{ video.v_writer }}</span>
@@ -115,7 +117,7 @@ svg {
 }
 
 .container {
-  width: 900px;
+  width: 800px;
   margin: auto;
 }
 
@@ -130,7 +132,7 @@ iframe {
 
 .text {
   text-align: start;
-  width: 800px;
+  /* width: 800px; */
   margin: auto;
 }
 
@@ -138,5 +140,9 @@ iframe {
   display: flex;
   gap: 2%;
   justify-content: end;
+}
+
+.video-detail-title {
+  width: 800px;
 }
 </style>

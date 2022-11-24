@@ -161,20 +161,41 @@ h1 {
 .contentext {
   margin: 15px 0 10px 0;
 }
+.autosuggest-container {
+  position: relative;
+}
 
 .autosuggest-container input {
   width: 260px;
   padding: 0.5rem;
+  font-weight: 600;
+}
+
+.autosuggest-container input::-webkit-input-placeholder {
+  font-weight: 400;
+  color: #afb2b3;
+}
+.autosuggest-container input::-moz-placeholder {
+  font-weight: 400;
+  color: #afb2b3;
+}
+.autosuggest-container input::-ms-input-placeholder {
+  font-weight: 400;
+  color: #afb2b3;
 }
 
 .autosuggest-container ul {
-  width: 100%;
+  position: absolute;
+  width: 93%;
   color: rgba(30, 39, 46, 1);
   list-style: none;
   margin: 0;
   padding: 0.5rem 0 0.5rem 0;
-  border: 1px solid black;
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-radius: 0 0 9px 9px;
+  color: white;
+  backdrop-filter: blur(10px);
+  font-weight: 600;
 }
 
 .autosuggest-container li {
