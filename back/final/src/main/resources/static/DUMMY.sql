@@ -592,3 +592,6 @@ VALUES
 
 SELECT * FROM message;
 select * from user;
+DELETE FROM user 
+WHERE u_id = "ㅁㄴㅇㄹ";
+
