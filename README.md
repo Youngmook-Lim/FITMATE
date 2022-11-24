@@ -18,12 +18,10 @@
 
 ## Team 👩‍👦‍👦
 
-| [임영묵](https://github.com/Youngmook-Lim) | [권오영](https://github.com/kwnoyng) | [남기정](https://github.com/NAM-Kijung) |
-| :----------------------------------------: | :----------------------------------: | :-------------------------------------: |
-
-| <img src="https://decsnota.sirv.com/profile-pic-character_LimYoungMook.jpg?v=4" width=200px alt="임영묵" >
-| <img src="https://decsnota.sirv.com/profile-pic-character_KwonOYoung.jpg?v=4" width=200px alt="권오영"> | <img src="https://decsnota.sirv.com/profile-pic-character_NamKiJung.jpg?v=4" width=200px alt="남기정"> |
-| 팀장<br> DB설계<br> FrontEnd 메인 <br> BackEnd 서브 <br> API 선정 및 적용 | DB 설계<br> FrontEnd 서브<br> BackEnd 메인 <br> README 작성 <br> | 아이디어 도출 및 기획<br> DB 설계<br> FrontEnd 서브 <br> FrontEnd 디자인 설계 및 구현 <br> 각종 오픈소스 적용 |
+|                                 [임영묵](https://github.com/Youngmook-Lim)                                 |                                  [권오영](https://github.com/kwnoyng)                                   |                                    [남기정](https://github.com/NAM-Kijung)                                    |
+| :--------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
+| <img src="https://decsnota.sirv.com/profile-pic-character_LimYoungMook.jpg?v=4" width=200px alt="임영묵" > | <img src="https://decsnota.sirv.com/profile-pic-character_KwonOYoung.jpg?v=4" width=200px alt="권오영"> |    <img src="https://decsnota.sirv.com/profile-pic-character_NamKiJung.jpg?v=4" width=200px alt="남기정">     |
+|                 팀장<br> DB설계<br> FrontEnd 메인 <br> BackEnd 서브 <br> API 선정 및 적용                  |                    DB 설계<br> FrontEnd 서브<br> BackEnd 메인 <br> README 작성 <br>                     | 아이디어 도출 및 기획<br> DB 설계<br> FrontEnd 서브 <br> FrontEnd 디자인 설계 및 구현 <br> 각종 오픈소스 적용 |
 
 ---
 
