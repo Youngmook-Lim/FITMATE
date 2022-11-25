@@ -40,6 +40,10 @@ Fit Mate uses a number of collaborative tools:
 ![Notion](https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white)
 ![Trello](https://img.shields.io/badge/trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 
+### Project Notion link
+
+https://befitting-sunspot-2c7.notion.site/SSAFY-FINAL-PROJECT-af4af351d04844b49f5ebb92c0e1a791
+
 ## API 🤖
 
 Fit Mate uses a number of API for project:
