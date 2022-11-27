@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createUser" parameterType="User">
 		INSERT INTO user
 		VALUES
-		(#{u_id}, #{pw}, #{name},#{email},#{gender},#{phone_no},
-		#{nickname})
+		(#{u_id}, #{pw}, #{name}, #{email}, #{gender}, #{phone_no}, 
+		#{nickname}, #{state_message}, #{img}, #{address}, #{x}, #{y})
 	</insert>
 
 	<select id="findUser" parameterType="String" resultType="User">
@@ -32,7 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		email=#{email},
 		phone_no=#{phone_no},
 		nickname=#{nickname},
-		gender=#{gender}
+		gender=#{gender},
+		state_message = #{state_message},
+		img = #{img},
+		address = #{address},
+		x = #{x},
+		y = #{y}
 		WHERE
 		u_id=#{u_id}
 
@@ -57,6 +62,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="chkNickname" resultType="Integer" parameterType="String">
 		SELECT count(*) FROM user
 		WHERE nickname = #{nickname}
+	</select>
+	
+	<select id="findAllUser" resultType="User">
+		SELECT *
+		FROM user
+	</select>
+	
+	<select id="getNicknames" resultType="User">
+		SELECT nickname, u_id
+		FROM user
 	</select>
 
 </mapper>
