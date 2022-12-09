@@ -156,4 +156,16 @@ COMMENT = '메세지 테이블';
 
 ALTER TABLE message MODIFY COLUMN `content` VARCHAR(1000) NOT NULL COMMENT '메세지 내용';
 
+ALTER TABLE message DROP FOREIGN KEY `FK_message_from_user_user_u_id`;
+ALTER TABLE message DROP FOREIGN KEY `FK_message_to_user_user_u_id`;
+
+ALTER TABLE message MODIFY COLUMN `from_user` VARCHAR(45) DEFAULT 'NONE' COMMENT '보내는 사람' ;
+ALTER TABLE message MODIFY COLUMN `to_user` VARCHAR(45) DEFAULT 'NONE' COMMENT '받는 사람' ;
+
+ALTER TABLE message ADD CONSTRAINT `FK_message_from_user_user_u_id`
+    FOREIGN KEY (`from_user`)
+    REFERENCES `fitmate_db`.`user` (`u_id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
 SELECT * FROM message;
