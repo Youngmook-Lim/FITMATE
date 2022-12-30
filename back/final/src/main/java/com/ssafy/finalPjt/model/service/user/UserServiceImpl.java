@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public boolean registUser(User user) {
@@ -30,9 +33,11 @@ public class UserServiceImpl implements UserService {
 		// sha512 암호화
 
 		// -------
-		System.out.println(id);
+//		System.out.println(id);
+		logger.trace("TRACE LEVEL TEST" + id);
 		User found_user = userDao.findUser(id);
-		System.out.println(found_user);
+//		System.out.println(found_user);
+		logger.debug("DEBUG LEVEL TEST" + found_user.toString());
 
 		if (found_user == null)
 			return "fail";

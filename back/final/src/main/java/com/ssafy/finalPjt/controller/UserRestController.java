@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ public class UserRestController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 	private static final String WRONG = "wrong";
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private UserService userService;
@@ -58,7 +61,8 @@ public class UserRestController {
 		HashMap<String, Object> result = new HashMap<>();
 		HttpStatus status = null;
 		// id, pw 유효성 처리?
-		System.out.println(id + " " + pw);
+//		System.out.println(id + " " + pw);
+		logger.warn("WARN LEVEL TEST" + id + " " + pw);
 		String ans = userService.loginUser(id, pw); // 성공, 실패, 불일치
 
 		try {
@@ -77,7 +81,8 @@ public class UserRestController {
 			result.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-		System.out.println(result);
+//		System.out.println(result);
+		logger.error("ERROR LEVEL TEST" + result.toString());
 		return new ResponseEntity<Map<String, Object>>(result, status);
 
 	}
@@ -85,7 +90,8 @@ public class UserRestController {
 	// 회원정보 상세
 	@GetMapping("/detail")
 	public ResponseEntity<User> userDetail(String id) {
-		System.out.println(id + " 이건 아이디");
+//		System.out.println(id + " 이건 아이디");
+		logger.info("INFO LEVEL TEST" + id + "이건 아이디");
 		userService.datailUser(id);
 		User user = userService.datailUser(id);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
