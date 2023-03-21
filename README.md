@@ -40,10 +40,6 @@ Fit Mate uses a number of collaborative tools:
 ![Notion](https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white)
 ![Trello](https://img.shields.io/badge/trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 
-## Project Notion
-
-[Notion 링크](https://befitting-sunspot-2c7.notion.site/SSAFY-FINAL-PROJECT-af4af351d04844b49f5ebb92c0e1a791)
-
 ## API 🤖
 
 Fit Mate uses a number of API for project:
@@ -138,6 +134,10 @@ Fit Mate uses a number of API for project:
 #### 1. Codepen 날씨 아이콘 오픈소스 활용
 
 #### 2. HTML5UP 템플릿 오픈소스 활용<br><br>
+
+## Notion 📕
+
+[Notion 링크](https://befitting-sunspot-2c7.notion.site/SSAFY-FINAL-PROJECT-af4af351d04844b49f5ebb92c0e1a791)
 
 ## Licence 🔑
 
