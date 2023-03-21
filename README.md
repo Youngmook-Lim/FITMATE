@@ -40,9 +40,9 @@ Fit Mate uses a number of collaborative tools:
 ![Notion](https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white)
 ![Trello](https://img.shields.io/badge/trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 
-### Project Notion link
+## Project Notion
 
-https://befitting-sunspot-2c7.notion.site/SSAFY-FINAL-PROJECT-af4af351d04844b49f5ebb92c0e1a791
+[Notion 링크](https://befitting-sunspot-2c7.notion.site/SSAFY-FINAL-PROJECT-af4af351d04844b49f5ebb92c0e1a791)
 
 ## API 🤖
 
@@ -61,6 +61,10 @@ Fit Mate uses a number of API for project:
   - 회원가입 시 주소 입력
 - 공공데이터포털 기상청\_단기예보 API
   - 현재시각 날씨 표시
+
+## Video 🎥
+
+[YouTube 링크](https://www.youtube.com/watch?v=un9uYIf1LYI)
 
 ## Features 🧰
 
